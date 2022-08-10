@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <body class="dashboard dashboard_1">
    <div class="full_container">
