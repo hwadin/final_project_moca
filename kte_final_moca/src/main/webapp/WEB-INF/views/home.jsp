@@ -154,7 +154,7 @@
                </div>
                <!-- end topbar -->
                <!-- dashboard inner -->
-               
+               <h1><a href="listPage">카페 게시판</a></h1>
                <!-- end dashboard inner -->
             </div>
          </div>
