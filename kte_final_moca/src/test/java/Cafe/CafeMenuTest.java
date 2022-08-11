@@ -4,47 +4,47 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.extern.slf4j.Slf4j;
-import net.koreate.moca.cafe.dao.CafeDAO;
-import net.koreate.moca.cafe.service.CafeService;
-import net.koreate.moca.cafe.vo.CafeVO;
+import net.koreate.moca.cafe.dao.CafeMenuDAO;
+import net.koreate.moca.cafe.service.CafeMenuService;
+import net.koreate.moca.cafe.vo.CafeMenuVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:context/root-context.xml",
-		"classpath:context/appServlet/servlet-context.xml"})
-//@Transactional  트랜잭셔널 사용?
+"classpath:context/appServlet/servlet-context.xml"})
 @Slf4j
-public class CafeTest {
+
+public class CafeMenuTest {
 
 	@Autowired
-	CafeService cs;
+	CafeMenuService cms;
 	
-	@Autowired 
-	CafeDAO dao;
+	@Autowired
+	CafeMenuDAO dao;
 	
 	@Test
-	public void cafeTest() throws Exception {
-		CafeVO vo = new CafeVO();
-		vo.setName("진카페");
-		vo.setAddr("부산");
-		vo.setAddr_detail("부산 해운대구");
-		vo.setOwner_no(1);
+	public void cafeMenuTest() throws Exception{
 		
-
+		CafeMenuVO vo = new CafeMenuVO();
+		vo.setCafe_no(1);
+		vo.setName("아메리카노");
+		vo.setPrice("5000");
+		vo.setDiscount("4000");
+		vo.setPhoto_url("");
+		
 		int a = dao.regist(vo);
 		log.info("regist = {}", a);
 		Assert.assertEquals(a, 1);
 		
-		CafeVO readVo = dao.read(vo.getOwner_no());
+		CafeMenuVO readVo = dao.read(vo.getCafe_no());
 		log.info("readVo = {}", readVo);
-		Assert.assertEquals(readVo.getOwner_no(), vo.getOwner_no());
+		Assert.assertEquals(readVo.getCafe_no(), vo.getCafe_no());
 		
-		readVo.setAddr("부산");
-		readVo.setAddr_detail("부산 금정구");
+		readVo.setName("앗메리카노");
+		readVo.setPrice("4500");
 		int c = dao.update(readVo);
 		log.info("update = {}", c);
 		Assert.assertEquals(c, 1);
