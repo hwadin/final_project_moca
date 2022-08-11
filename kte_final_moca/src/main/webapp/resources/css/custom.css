@@ -1,0 +1,18 @@
+/* .container{
+    width : 960px;
+} */
+
+@font-face {
+    font-family: 'SLEIGothicTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SLEIGothicTTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'SLEIGothicTTF';
+}
+
+.d-none-custom{
+    display : none;
+}
