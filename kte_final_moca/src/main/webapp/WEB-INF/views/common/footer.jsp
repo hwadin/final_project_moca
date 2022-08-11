@@ -27,6 +27,23 @@ $(function(){
 		}
 	});
 });
+
+// 각 헤더 버튼 클릭시 화면 이동 스크립트
+// btnHeader.jsp 와 sidebar.jsp의 각 버튼에 data-location 속성에 각 메인 화면 경로 넣으면 됨
+const contextPath = '${pageContext.request.contextPath}';
+$("#btnHeader .btn").each(function(){
+	$(this).on("click", function(){
+		let loc = $(this).attr("data-location");
+		location.href = contextPath + loc;
+	});
+});
+// 사이드바 버튼 클릭시 화면 이동 스크립트
+$("#sidebar .btn").each(function(){
+	$(this).on("click", function(){
+		let loc = $(this).attr("data-location");
+		location.href = contextPath + loc;
+	});
+});
 </script>
 
 </body>
