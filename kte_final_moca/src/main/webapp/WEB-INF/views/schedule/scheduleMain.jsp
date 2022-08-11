@@ -13,16 +13,130 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          timeZone : 'local',
+          customButtons: {
+        	    myCustomButton: {
+        	      text: 'custom!',
+        	      click: function() {
+        	        alert('clicked the custom button!');
+        	      }
+        	    }
+       	  },
+       	  headerToolbar: {
+       	    left: 'dayGridMonth,dayGridWeek,listDay',
+       	    center: 'title',
+       	    right: 'today prev,next'
+       	  },
+       	  locale : 'ko',
+       	  themeSystem : 'bootstrap5',
+	      dateClick: function(info) {
+// 	       	    alert('Clicked on: ' + info.dateStr);
+// 	       	    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+// 	       	    alert('Current view: ' + info.view.type);
+	       	    // change the day's background color just for fun
+	       	    console.log(info.dateStr);
+	       	    $("#myPop #start_date").val(info.dateStr).attr("readonly", "readonly");
+	       	 	$("#myPop #end_date").val(info.dateStr);
+	       	    pop(info.jsEvent.pageX, info.jsEvent.pageY, $("#myPop"));
+// 	       	    info.dayEl.style.backgroundColor = 'red';
+	       	  },
+	      googleCalendarApiKey: 'AIzaSyAGPf1yW8M9XzGKy_llS0jrWKVoVvMYdsg',
+	      eventSources: [
+	    		{
+		          googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+		          color : '#ed6f63',
+		          textColor : '#2D2926'
+		       	},
+		       	{
+		       		events:	function(info, successCallback, failureCallback){
+			       		$.get("${pageContext.request.contextPath}/schedule/api/scheduleList",{member_no:1}, function(data){
+			       			successCallback(data);
+			       		});
+			       	}
+		       	}
+        	],
+	      eventClick: function(info) {
+	            info.jsEvent.preventDefault(); // don't let the browser navigate
+	        }
+       	  
+       	  
         });
+        var now = new Date();
+        console.log(now);
+        console.log(calendar.formatIso(now));
         calendar.render();
+  
       });
 
     </script>
 <section class="bg-light">
 	<div class="container pt-3">
 		<div class="row">
-			<div class="col-2"></div>
+			<div class="col-2">
+			<!-- 팝업 -->
+            <div id="myPop" class="d-none-custom border border-secondary border-3 rounded bg-light position-absolute p-3">
+              <div class="text-end row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                <p class="text-center h5 border-bottom border-dark pb-3">새 일정</p>
+              </div>
+                <div class="col-2"><button class="close-pop btn btn-outline-danger strong border-2"><i class="bi bi-x-lg"></i></button></div>
+              </div>
+                
+   
+              <div class="row pt-3">
+                <div class="col-2">
+                  <p class="h5">제목</p>
+                </div>
+                <div class="col-10">
+                  <input type="text" id="title" class="form-control w-100">
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-2">
+                  <p class="h5">상세</p>
+                </div>
+                <div class="col-10">
+                  <input type="text" id="detail" class="form-control w-100">
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-2">
+                  <p class="h5">시작</p>
+                </div>
+                <div class="col-5">
+                  <input type="date" id="start_date" class="form-control w-100">
+                </div>
+                <div class="col-5">
+                  <input type="time" id="start_time" class="form-control w-100" value="00:00">
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-2">
+                  <p class="h5">끝</p>
+                </div>
+                <div class="col-5">
+                  <input type="date" id="end_date" class="form-control w-100">
+                </div>
+                <div class="col-5">
+                  <input type="time" id="end_time" class="form-control w-100" value="23:59">
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-6">
+                  <label><input type="checkbox" id="allDay" class="align-middle form-check-input"> <span class="align-middle">하루 종일</span></label>
+                </div>
+                <div class="text-end col-3">
+                  <button type="button" class="w-100 btn btn-success">등록</button>
+                </div>
+                <div class="text-end col-3">
+                  <button type="button" class="close-pop w-100 btn btn-danger">닫기</button>
+                </div>
+              </div>
+            </div>
+            <!-- 팝업 끝 -->
+			</div>
 			<div class="col-8">
 				<div class="row mt-5 mb-4">
 					<div class="col mt-5">
@@ -59,5 +173,36 @@
 	</div>
 <!-- end of container -->
 </section>
+<script>
+function pop(x, y, myPop){
+	myPop.removeAttr("style");
+	y -= myPop.height();
+	let popW = myPop.width();
+	if(x + popW >= $(window).width()){
+		myPop.offset({top: y, left : x-popW});
+	} else {
+	  myPop.offset({top: y, left: x});
+	}
+	myPop.stop().fadeIn();
+}
+
+$("#allDay").change(function(){
+	if(this.checked){
+		$("#end_date").attr("disabled", "disabled");
+		$("#end_date").val($("#start_date").val());
+		$("#end_time").attr("disabled", "disabled");
+		$("#end_time").val("23:59");
+	} else{
+		$("#end_date").removeAttr("disabled");
+		$("#end_time").removeAttr("disabled");
+	}
+});
+
+$(".close-pop").click(function(){
+	$("#myPop").stop().fadeOut(function(){
+		$("#myPop").offset({top:0, left:0});
+	});
+});
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </html>

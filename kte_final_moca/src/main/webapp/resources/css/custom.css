@@ -16,3 +16,12 @@ body{
 .d-none-custom{
     display : none;
 }
+
+.fc-day-sun{
+	background-color : #fce9e8;
+}
+
+#myPop{
+	z-index:1000;
+	min-width : 407px;
+}

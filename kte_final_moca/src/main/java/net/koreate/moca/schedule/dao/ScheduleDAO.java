@@ -14,7 +14,7 @@ public interface ScheduleDAO {
 	@Insert("INSERT INTO tbl_member_schedule(member_no, date, start_time, end_time, title, detail) VALUES(#{member_no}, #{date}, #{start_time}, #{end_time}, #{title}, #{detail})")
 	void regist(ScheduleVO vo) throws Exception;
 
-	@Select("SELECT * FROM tbl_member_schedule WHERE member_no = #{member_no} AND date BETWEEN last_day(#{date} - interval 1 month) AND last_day(#{date})")
+	@Select("SELECT * FROM tbl_member_schedule WHERE member_no = #{member_no}")
 	List<ScheduleVO> monthScheduleList(ScheduleVO vo) throws Exception;
 
 	@Select("SELECT * FROM tbl_member_schedule WHERE member_no = #{member_no} AND year(date) = year(#{date}) AND month(date) = month(#{date})")
