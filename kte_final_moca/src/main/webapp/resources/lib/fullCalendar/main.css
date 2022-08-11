@@ -878,7 +878,7 @@ A HORIZONTAL event
 }
 /* --- the rectangle ("block") style of event --- */
 .fc-daygrid-block-event .fc-event-time {
-    font-weight: bold;
+/*     font-weight: bold; */
   }
 .fc-daygrid-block-event .fc-event-time,
   .fc-daygrid-block-event .fc-event-title {
