@@ -23,6 +23,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public void memberUpdate(MemberVO vo) throws Exception{
+		dao.memberUpdate(vo);
+	}
+	@Override
 	public MemberVO searchId(String id) throws Exception{
 		return dao.searchId(id);
 	}
