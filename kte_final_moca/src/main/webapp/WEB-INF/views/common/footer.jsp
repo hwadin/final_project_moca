@@ -1,3 +1,8 @@
+<footer>
+	<div class="d-flex bg-light h-100">
+	
+	</div>
+</footer>
 <script>
 // 버튼 헤더 페이드 스크립트
 $(function(){
