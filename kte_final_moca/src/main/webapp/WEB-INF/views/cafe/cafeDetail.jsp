@@ -63,18 +63,20 @@
 							<div class="col-sm-4">
 							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300" class="img-thumbnail" />
 								<span class="menu">아메리카노</span>
-								<span class="price">5,000원</span>
+								<span class="price"><del>5,000원</del></span>
 								<span class="pricediscount" style="color:red;">4,000원</span>
 							</div>
 							<div class="col-sm-4">
 							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300" class="img-thumbnail" />
 								<span class="menu">카페 라떼</span>
-								<span class="price">5,500원</span>
+								<span class="price"><del>5,500원</del></span>
+								<span class="pricediscount" style="color:red;">5,000원</span>
 							</div>
 							<div class="col-sm-4">
 							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300" class="img-thumbnail" />
 								<span class="menu">바닐라 라떼</span>
-								<span class="price">6,000원</span>
+								<span class="price"><del>6,000원</del></span>
+								<span class="pricediscount" style="color:red;">5,500원</span>
 							</div>
 					</div>
 					<div class="row mt-5">
