@@ -25,3 +25,7 @@ body{
 	z-index:1000;
 	min-width : 407px;
 }
+
+.fc-event{
+	cursor : pointer;
+}

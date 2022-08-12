@@ -4,7 +4,12 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +33,51 @@ public class ScheduleRestController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+	@GetMapping("scheduleById")
+	public ResponseEntity<ScheduleVO> scheduleById(ScheduleVO vo) {
+		ScheduleVO s = null;
+		try {
+			s = ss.read(vo.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(s, HttpStatus.OK);
+	}
+
+	@DeleteMapping("{id}")
+	public ResponseEntity<String> delete(@PathVariable("id") int id) {
+		try {
+			ss.delete(id);
+			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("FAILED", HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@PostMapping("/")
+	public ResponseEntity<ScheduleVO> regist(ScheduleVO vo) {
+		try {
+			ss.regist(vo);
+			return new ResponseEntity<>(vo, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@Transactional
+	@PatchMapping("/")
+	public ResponseEntity<ScheduleVO> update(ScheduleVO vo) {
+		try {
+			ss.update(vo);
+			return new ResponseEntity<>(ss.read(vo.getId()), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(vo, HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }
