@@ -49,6 +49,15 @@ $("#sidebar .btn").each(function(){
 		location.href = contextPath + loc;
 	});
 });
+
+$(window).on('load',function(){
+	console.log($("section").height());
+	console.log($(window).height());
+	if($("section").height() < $(window).height()){
+		console.log("aa");
+		$("section").css("height", $(window).height()-$("footer").height());
+	}
+});
 </script>
 
 </body>
