@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html lang='ko'>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
@@ -27,9 +28,12 @@
 				</div>
 				
 <!-- 			여기서부터 본문 영역 -->
+<!-- 			row클래스로 하나의 행을 생성 -->
 
-<div class="row">	
-	<div class="col text-end">
+				<div class="row">
+<!-- 				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
+<!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
+						<div class="col text-end">
 		<a href="${pageContext.request.contextPath}">메인으로</a>
 						<select id="pageNumSelect" 
 										name="perPageNum">
@@ -38,35 +42,14 @@
 									<option value="15">15개씩 보기</option>
 									<option value="20">20개씩 보기</option>
 								</select>
-								
-	</div>
-</div>
-
-<section>
-	<div>
-		<div>
-			<div>
-				<div>
-					<div>
-						<a href="${pageContext.request.contextPath}">메인으로</a>
-						<select id="pageNumSelect" 
-										name="perPageNum">
-									<option value="${pm.cri.perPageNum}">${pm.cri.perPageNum}개씩 보기</option>
-									<option value="10">10개씩 보기</option>
-									<option value="15">15개씩 보기</option>
-									<option value="20">20개씩 보기</option>
-								</select>
-						<%--  <a href="<c:url value='/'/>">HOME</a> --%>
-					</div>
 				</div>
-				<div class="box-body">
-					<!-- 게시글 목록 출력 -->
-					
-					<table>
+				</div>
+					<div class="row">
+								<table class="table">
 						<tr>
 							<td>번호</td>
-							<td>카테고리</td>
 							<td>제목</td>
+							<td>카테고리</td>
 							<td>작성자</td>
 							<td>등록시간</td>
 							<td>조회수</td>
@@ -103,36 +86,37 @@
 							</c:otherwise>
 						</c:choose>
 					</table>
-				</div>
-				<div class="box-footer">
+					</div>
+				
+				<div class="row">
 					<!-- 페이징 블럭 출력 -->
-					<div>
-						<ul>
+					<div class="col">
+						<ul class="pagination justify-content-center">
 							<c:if test="${pm.first}">
-								<li>
-									<a href="listPage${pm.makeQuery(1)}">&laquo;&laquo;</a>
+								<li class="page-item">
+									<a class="page-link" href="listPage${pm.makeQuery(1)}">&laquo;&laquo;</a>
 								</li>
 							</c:if>
 							<c:if test="${pm.prev}">
-								<li>
-									<a href="listPage${pm.makeQuery(pm.startPage-1)}">&laquo;</a>
+								<li class="page-item">
+									<a class="page-link" href="listPage${pm.makeQuery(pm.startPage-1)}">&laquo;</a>
 								</li>
 							</c:if>
 							<c:forEach var="i" begin="${pm.startPage}" 
 											   end="${pm.endPage}">
-								<li ${pm.cri.page == i ? 'class=active' : ''}>
-									<a href="listPage${pm.makeQuery(i)}">${i}</a>
+								<li ${pm.cri.page == i ? 'class="page-item active"' : ''} class="page-item">
+									<a class="page-link" href="listPage${pm.makeQuery(i)}">${i}</a>
 									<%-- <a href="listPage?page=${i}&perPageNum=${pm.cri.perPageNum}&searchType=${pm.cri.searchType}...">${i}</a> --%>
 								</li>
 							</c:forEach>
 							<c:if test="${pm.next}">
-								<li>
-									<a href="listPage${pm.makeQuery(pm.endPage+1)}">&raquo;</a>
+								<li class="page-item">
+									<a class="page-link" href="listPage${pm.makeQuery(pm.endPage+1)}">&raquo;</a>
 								</li>
 							</c:if>
 							<c:if test="${pm.last}">
-								<li>
-									<a href="listPage${pm.makeQuery(pm.maxPage)}">&raquo;&raquo;</a>
+								<li class="page-item">
+									<a class="page-link" href="listPage${pm.makeQuery(pm.maxPage)}">&raquo;&raquo;</a>
 								</li>
 							</c:if>
 						</ul>
@@ -155,58 +139,33 @@
 									<option ${pm.cri.searchType == 'tcw' ? 'selected' : ''} value="tcw">제목 &amp; 내용 &amp; 작성자</option>
 								</select>
 									<input type="text" name="keyword" value="${pm.cri.keyword}"/>
-									<input type="submit" value="SEARCH"/>
-									<input id="newBtn" type="button" value="NEW"/>
-							</div>
-							<div>
-								<%-- <select id="pageNumSelect" 
-										name="perPageNum">
-									<option value="${pm.cri.perPageNum}">${pm.cri.perPageNum}개씩 보기</option>
-									<option value="10">10개씩 보기</option>
-									<option value="15">15개씩 보기</option>
-									<option value="20">20개씩 보기</option>
-								</select> --%>
+									<input type="submit" value="검색"/>
+									<input id="newBtn" type="button" value="글쓰기"/>
 							</div>
 						</form>
 					</div>
 				</div>
-		<%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
-			</div>
-		</div>
-	</div>
-</section>
-
-<div class="row mt-5">
-					<div class="col">
-						<hr />
-<!-- 					페이지 소제목 부분(작성) -->
-						<p class="lead"><i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i> 리뷰</p>
 					</div>
 				</div>
-
-<!-- 			row클래스로 하나의 행을 생성 -->
-
-				<!-- <div class="row">
-				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음
-				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함)
-					<div class="col-6">
-						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
-						<span>설명</span>
-					</div>
-					<div class="col-6">
-						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
-						<span>설명</span>
-					</div>
-				</div> -->
+				
 <!--			여기 위까지 본문 영역 -->
 			</div>
 			<div class="col-2">
 <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			</div>
-		</div>
-	</div>
-<!-- end of container -->
+			<div class="row">
+	<div class="col-2"></div>
+					<div class="col-8">
+						<hr />
+<!-- 					페이지 소제목 부분(작성) -->
+						<p class="lead"><i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i> 리뷰</p>
+					</div>
+				</div>
+					<div class="col-2"></div>
 </section>
+		</div>
+<!-- end of container -->
+
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <script>
 	var result = '${result}';
