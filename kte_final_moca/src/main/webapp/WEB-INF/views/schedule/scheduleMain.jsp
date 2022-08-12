@@ -74,6 +74,8 @@
 	            $.get("${path}/schedule/api/scheduleById",{id:info.event.id}, function(data){
 		       	 	if(data.allDay){
 		       	 		$("#myPop #allDay").prop("checked", true);
+		       	 	} else {
+		       	 		$("#myPop #allDay").prop("checked", false);
 		       	 	}
 		       	 	$("#myPop #sDeleteBtn").removeClass("d-none-custom");
 		       	 	$("#myPop").attr("data-method", "PATCH");
