@@ -4,6 +4,34 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang='ko'>
+<style>
+.star-ratings {
+  color: #aaa9a9; 
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: #2b2a29;
+}
+ 
+.star-ratings-fill {
+  color: #fff58c;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: gold;
+}
+ 
+.star-ratings-base {
+  z-index: 0;
+  padding: 0;
+}
+</style>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <section class="bg-light">
@@ -81,6 +109,34 @@
 					</div>
 					<div class="row mt-5">
 						<strong class="titDep5" style="font-size: 2rem;"><i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i> 리뷰 </strong>
+						<div class="star-ratings">
+							<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
+								<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+							</div>
+							<div class="star-ratings-base space-x-2 text-lg">
+								<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+							</div>
+						</div>
+					
+					
+					<div class="star-rating">
+					  <input type="radio" id="5-stars" name="rating" value="5" />
+					  <label for="5-stars" class="star">&#9733;</label>
+					  <input type="radio" id="4-stars" name="rating" value="4" />
+					  <label for="4-stars" class="star">&#9733;</label>
+					  <input type="radio" id="3-stars" name="rating" value="3" />
+					  <label for="3-stars" class="star">&#9733;</label>
+					  <input type="radio" id="2-stars" name="rating" value="2" />
+					  <label for="2-stars" class="star">&#9733;</label>
+					  <input type="radio" id="1-star" name="rating" value="1" />
+					  <label for="1-star" class="star">&#9733;</label>
+					</div>
+					
+					
+					
+					
+					
+					
 					</div>
 <!--			여기 위까지 본문 영역 -->
 				</div>
