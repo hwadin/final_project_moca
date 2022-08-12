@@ -25,7 +25,7 @@
             </button>
           </div>
           <div class="col position-relative">
-            <button type="button" id="cafeBtn" data-location="" class="w-100 d-block btn btn-lg mx-auto">
+            <button type="button" id="cafeBtn" data-location="/cafe/cafeMain" class="w-100 d-block btn btn-lg mx-auto">
               <i class="text-dark bi bi-cup-straw  display-3"></i>
               <p class="d-none-custom position-absolute translate-middle start-50 top-50 text-dark text-primary h5 border-bottom border-dark border-5">CAFE</p>
             </button>

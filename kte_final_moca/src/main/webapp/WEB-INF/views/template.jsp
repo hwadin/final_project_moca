@@ -17,6 +17,7 @@
 						<p class="text-center lead">카페를 찾아보자</p>
 					</div>
 				</div>
+				
 <%@ include file="/WEB-INF/views/common/btnHeader.jsp" %>
 				<div class="row mt-5">
 					<div class="col">
@@ -25,7 +26,6 @@
 						<p class="lead"><i class="bi bi-chat-right-heart"></i> 카페 목록</p>
 					</div>
 				</div>
-				
 <!-- 			여기서부터 본문 영역 -->
 <!-- 			row클래스로 하나의 행을 생성 -->
 				<div class="row">
