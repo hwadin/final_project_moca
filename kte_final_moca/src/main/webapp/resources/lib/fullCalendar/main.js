@@ -1785,7 +1785,7 @@ var FullCalendar = (function (exports) {
         timeZoneParam: 'timeZone',
         timeZone: 'local',
         locales: [],
-        locale: 'ko',
+        locale: '',
         themeSystem: 'standard',
         dragRevertDuration: 500,
         dragScroll: true,

@@ -3,8 +3,10 @@ package net.koreate.moca.member.vo;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode()
 public class MemberVO {
 
 	private int no;
@@ -16,4 +18,5 @@ public class MemberVO {
 	private String addr;
 	private Date regdate;
 	private Date updatedate;
+	boolean IsOwner;
 }
