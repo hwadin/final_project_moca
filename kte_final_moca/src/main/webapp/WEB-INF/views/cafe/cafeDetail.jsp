@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <style>
+
 .star-ratings {
   color: #aaa9a9; 
   position: relative;
@@ -31,6 +32,35 @@
   z-index: 0;
   padding: 0;
 }
+.star-rating {
+  border:solid 1px #ccc;
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  padding:0 .2em;
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
+
 </style>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -60,6 +90,7 @@
 				<div class="row mt-2">
 <!-- 				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
+					
 					<div class="col-6">
 						<img src="https://static-file.jejupass.com/download/120160?width=400&amp;height=400" class="img-thumbnail" />
 					</div>
@@ -79,14 +110,41 @@
 						</span>
 					</div>
 				</div>
+			<!-- 탭 메뉴 -->
+			<div class= "row mt-5">
+				<ul class="nav nav-tabs justify-content-center nav-pills nav-justified" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="userinfo-tab" data-bs-toggle="tab"
+							data-bs-target="#userinfo" type="button" role="tab" aria-controls="userinfo"
+							aria-selected="true">위치</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="myreview-tab" data-bs-toggle="tab"
+							data-bs-target="#myreview" type="button" role="tab"
+							aria-controls="myreview" aria-selected="false">메뉴</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="wishlist-tab" data-bs-toggle="tab"
+							data-bs-target="#wishlist" type="button" role="tab"
+							aria-controls="wishlist" aria-selected="false">리뷰</button>
+					</li>
+				</ul>
+			</div>	
+				<!-- 내용 -->
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="userinfo" role="tabpanel"
+						aria-labelledby="userinfo-tab">
 				<div class="row mt-5">
 					<div class="col-12">
 						<strong class="titDep5" style="font-size: 2rem;"><i class="bi bi-flag-fill" style="font-size: 2rem; color: darkgreen;"></i> 위치 </strong>
 						<div id="map" class="row" style="height:500px">
 					</div> 
 					</div>
-				</div>
-					<div class="row mt-5">
+				</div>		
+					</div>
+					<div class="tab-pane fade" id="myreview" role="tabpanel"
+						aria-labelledby="myreview-tab">
+						<div class="row mt-5">
 						<strong class="titDep5" style="font-size: 2rem;"><i class="bi bi-cart-plus-fill" style="font-size: 2rem; color: crimson;"></i> 메뉴 </strong>
 							<div class="col-sm-4">
 							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300" class="img-thumbnail" />
@@ -107,7 +165,10 @@
 								<span class="pricediscount" style="color:red;">5,500원</span>
 							</div>
 					</div>
-					<div class="row mt-5">
+					</div>
+					<div class="tab-pane fade" id="wishlist" role="tabpanel"
+						aria-labelledby="wishlist-tab">
+										<div class="row mt-5">
 						<strong class="titDep5" style="font-size: 2rem;"><i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i> 리뷰 </strong>
 						<div class="star-ratings">
 							<div class="star-ratings-fill space-x-2 text-lg" style="{ width: ratingToPercent + '%' }">
@@ -131,13 +192,18 @@
 					  <input type="radio" id="1-star" name="rating" value="1" />
 					  <label for="1-star" class="star">&#9733;</label>
 					</div>
-					
-					
-					
-					
-					
-					
+				</div>	
+						
 					</div>
+				</div>
+							
+				
+				
+				
+				
+	
+
+
 <!--			여기 위까지 본문 영역 -->
 				</div>
 			<div class="col-2">
