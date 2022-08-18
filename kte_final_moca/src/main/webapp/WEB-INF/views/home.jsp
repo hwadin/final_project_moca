@@ -15,15 +15,17 @@
 						    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
 						    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
 						  </div>
+						  
 						  <div class="carousel-inner position-relative">
 						    <div class="carousel-item active">
 						    	<div class="position-absolute w-100 h-100 bg-dark carousel-wrap"></div>
-						      <img src="${path}/resources/images/carousel1.png" class="d-block w-100" alt="...">
+						      <img src="${path}/resources/images/cafeimage.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block">
 						        <h5>일정을 관리하세요!</h5>
 						        <p>일정을 등록하고 모임에 초대한 친구와 겹쳐볼 수 있습니다.</p>
 						      </div>
 						    </div>
+						    
 						    <div class="carousel-item">
 						   	 <div class="position-absolute w-100 h-100 bg-dark carousel-wrap"></div>	
 						      <img src="${path}/resources/images/carousel2.png" class="d-block w-100" alt="...">
@@ -41,6 +43,7 @@
 						      </div>
 						    </div>
 						  </div>
+						  
 						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						    <span class="visually-hidden">Previous</span>
@@ -59,3 +62,4 @@
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </html>
+
