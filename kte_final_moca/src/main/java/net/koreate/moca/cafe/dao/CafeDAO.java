@@ -1,5 +1,7 @@
 package net.koreate.moca.cafe.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,7 +17,12 @@ public interface CafeDAO {
 	
 	@Insert("INSERT INTO tbl_cafe(name,addr,addr_detail) VALUES(#{name}, #{addr}, #{addr_detail})")
 	void origin_regist(CafeVO vo) throws Exception;
-
+	
+	@Select("SELECT C.name, C.addr_detail FROM "
+			+ " tbl_cafe AS C INNER JOIN tbl_cafe_schedule AS S "
+			 + " WHERE S.dayofweek = #{dayofweek}")
+	List<CafeVO> cafeList(CafeVO vo) throws Exception;
+	
 	@Select("SELECT * FROM tbl_cafe WHERE owner_no = #{owner_no}")
 	CafeVO read(int owner_no) throws Exception;
 	

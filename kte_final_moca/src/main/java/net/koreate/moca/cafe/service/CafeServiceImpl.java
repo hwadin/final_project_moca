@@ -1,5 +1,7 @@
 package net.koreate.moca.cafe.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,11 @@ public class CafeServiceImpl implements CafeService {
 	public void delete(int no) throws Exception {
 		dao.delete(no);
 		
+	}
+
+	@Override
+	public List<CafeVO> cafeList(CafeVO vo) throws Exception {
+		return dao.cafeList(vo);
 	}
 
 }
