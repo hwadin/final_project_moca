@@ -1,3 +1,8 @@
+<footer>
+	<div class="d-flex bg-light h-100">
+	
+	</div>
+</footer>
 <script>
 // 버튼 헤더 페이드 스크립트
 $(function(){
@@ -43,6 +48,15 @@ $("#sidebar .btn").each(function(){
 		let loc = $(this).attr("data-location");
 		location.href = contextPath + loc;
 	});
+});
+
+$(window).on('load',function(){
+	console.log($("section").height());
+	console.log($(window).height());
+	if($("section").height() < $(window).height()){
+		console.log("aa");
+		$("section").css("height", $(window).height()-$("footer").height());
+	}
 });
 </script>
 

@@ -29,3 +29,19 @@ body{
 .fc-event{
 	cursor : pointer;
 }
+
+footer {
+	height : 100px;
+}
+
+.carousel-wrap {
+	opacity : 0.3;
+}
+
+#carousel-cont img{
+	height: 850px;
+}
+#carousel-cont{
+	width : 100%;
+	
+}
