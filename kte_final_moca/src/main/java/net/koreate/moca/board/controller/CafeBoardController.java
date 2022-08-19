@@ -27,7 +27,7 @@ public class CafeBoardController {
 		PageMaker pm = cs.getPageMaker(cri);
 		model.addAttribute("list",list);
 		model.addAttribute("pm",pm);
-		return "/board/listPages";
+		return "/board/listPage";
 	}
 	
 	// 게시글 작성 페이지

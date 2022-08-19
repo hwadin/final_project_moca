@@ -21,7 +21,7 @@ public class CafeBoardQueryProvider {
 	
 	private void getSearchWhere(SearchCriteria cri,SQL sql) {
 		String titleQuery ="title LIKE CONCAT('%','"+cri.getKeyword()+"','%')";
-		String contentQuery ="content LIKE CONCAT('%',#{keyword},'%')";
+		String categoryQuery ="category LIKE CONCAT('%',#{keyword},'%')";
 		String writerQuery ="U.uname LIKE CONCAT('%',#{keyword},'%')";
 		
 		if(cri.getSearchType() != null 
@@ -29,11 +29,11 @@ public class CafeBoardQueryProvider {
 			   !cri.getSearchType().trim().equals("") 
 			    && 
 			   !cri.getSearchType().trim().equals("n")) {
+				if(cri.getSearchType().contains("c")) {
+					sql.OR().WHERE(categoryQuery);
+				}
 				if(cri.getSearchType().contains("t")) {
 					sql.OR().WHERE(titleQuery);
-				}
-				if(cri.getSearchType().contains("c")) {
-					sql.OR().WHERE(contentQuery);
 				}
 				if(cri.getSearchType().contains("w")) {
 					sql.OR().WHERE(writerQuery);
