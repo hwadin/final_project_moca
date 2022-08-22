@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
     <meta charset="UTF-8"/>
     <title></title>
@@ -15,7 +16,9 @@
 
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-latest.min.js" ></script>
-
+    
+    <!-- validation -->
+   	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script>
 
     </script>
@@ -48,14 +51,20 @@
                   <!-- alert badge -->
                   <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
                     <span class="visually-hidden">New alerts</span>
-                  </span>
                 </button>
                 <button class=" btn btn-secondary rounded-circle me-2"><i class="bi bi-person-fill "></i></button>
-                <a href="" class="small "><strong>Login First</strong></a>
+                <c:choose>
+                	<c:when test="${!empty sessionScope.memberInfo}">
+                	<label>${memberInfo.id}</label>
+                	</c:when>
+            		<c:otherwise>
+            			<a href="member/logIn" class="small "><strong>Login First</strong></a>
+                		
+            		</c:otherwise>
+            	</c:choose>
               </div>
               <!-- end of nav bar content -->
               </div>
-            </div>
           </nav>
           <!-- end of Navigation Bar -->
     </header>
