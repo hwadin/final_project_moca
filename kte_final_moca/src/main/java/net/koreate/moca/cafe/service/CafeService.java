@@ -2,6 +2,7 @@ package net.koreate.moca.cafe.service;
 
 import java.util.List;
 
+import net.koreate.common.utils.Criteria;
 import net.koreate.moca.cafe.vo.CafeVO;
 
 public interface CafeService {
@@ -21,6 +22,8 @@ public interface CafeService {
 	// 카페 정보 삭제(카페 번호로 조회)
 	void delete(int no) throws Exception; 
 	
+	// 페이징 처리된 카페 리스트
+	List<CafeVO> cafeListPage(int no, Criteria cri) throws Exception;
 	
 	
 }

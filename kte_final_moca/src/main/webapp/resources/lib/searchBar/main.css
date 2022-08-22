@@ -276,6 +276,7 @@ a:active {
 
 @media (max-width: 767px) {
   .p-b-120 {
+  
     padding-bottom: 250px;
   }
 }
@@ -322,6 +323,7 @@ a:active {
    #BUTTON
    ========================================================================== */
 .btn-submit {
+  width: 250px;
   display: inline-block;
   line-height: 90px;
   font-family: inherit;
@@ -821,6 +823,7 @@ input[type=number]::-webkit-outer-spin-button {
    #CARD
    ========================================================================== */
 .card-7 {
+  text-align: center;		
   background: transparent;
   position: relative;
   border:none;
