@@ -56,7 +56,7 @@
 		       	},
 		       	{
 		       		events:	function(info, successCallback, failureCallback){
-			       		$.get("${path}/schedule/api/scheduleList",{member_no:1}, function(data){
+			       		$.get("${path}/schedule/api/scheduleList",{member_no:${sessionScope.memberInfo.no}}, function(data){
 			       			successCallback(data);
 			       		});
 			       	}
@@ -269,7 +269,7 @@ $("#sRegistBtn").click(function(){
 			url : "${path}/schedule/api/",
 			method : "POST",
 			data : {
-				member_no : 2,
+				member_no : ${sessionScope.memberInfo.no},
 				title : title,
 				detail : detail,
 				start : start,
