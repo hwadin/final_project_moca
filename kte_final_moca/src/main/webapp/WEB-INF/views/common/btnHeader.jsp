@@ -13,7 +13,7 @@
             </button>
           </div>
           <div class="col position-relative">
-            <button type="button" id="inviteBtn" data-location="" class="w-100 d-block btn btn-lg mx-auto">
+            <button type="button" id="inviteBtn" data-location="/invitation/invitationMain" class="w-100 d-block btn btn-lg mx-auto">
               <i class="text-success bi bi-people  display-3"></i>
               <p class="d-none-custom position-absolute translate-middle start-50 top-50 text-success text-primary h5 border-bottom border-success border-5">INVITATION</p>
             </button>

@@ -269,7 +269,7 @@ $("#sRegistBtn").click(function(){
 			url : "${path}/schedule/api/",
 			method : "POST",
 			data : {
-				member_no : 1,
+				member_no : 2,
 				title : title,
 				detail : detail,
 				start : start,
