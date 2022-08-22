@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import net.koreate.common.utils.Criteria;
 import net.koreate.moca.cafe.dao.CafeDAO;
 import net.koreate.moca.cafe.vo.CafeVO;
 
@@ -39,6 +40,12 @@ public class CafeServiceImpl implements CafeService {
 	@Override
 	public List<CafeVO> cafeList(CafeVO vo) throws Exception {
 		return dao.cafeList(vo);
+	}
+
+	@Override
+	public List<CafeVO> cafeListPage(int no, Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+
 import net.koreate.moca.cafe.service.CafeMenuService;
 import net.koreate.moca.cafe.service.CafeService;
 import net.koreate.moca.cafe.vo.CafeMenuVO;
@@ -55,7 +56,5 @@ public class CafeRestController {
 		}
 		return new ResponseEntity<>(c,HttpStatus.OK);
 	} 
-	
-	
-	
+		
 }
