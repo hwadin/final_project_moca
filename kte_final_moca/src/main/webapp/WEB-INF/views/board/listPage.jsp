@@ -185,8 +185,16 @@ ul, ul li {
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
 				</div>
 				<form id="searchForm">
+				<input type="hidden" value="${cafe_no}" name="cafe_no">
 						<div class="col text-end">
-							<a href="${pageContext.request.contextPath}">메인으로</a>
+							<a href="${pageContext.request.contextPath}">메인으로</a> <br/>
+									<select id="pageNumSelect" 
+										name="perPageNum">
+									<option value="${pm.cri.perPageNum}">${pm.cri.perPageNum}개씩 보기</option>
+									<option value="10">10개씩 보기</option>
+									<option value="15">15개씩 보기</option>
+									<option value="20">20개씩 보기</option>
+									</select>
 				</div>
 							<!-- grid 12개로 나눔 -->
 								<div class="col-8 form-control text-end" style="border:0;">
@@ -201,13 +209,6 @@ ul, ul li {
 									<option ${pm.cri.searchType == 'ctw' ? 'selected' : ''} value="ctw">카테고리 &amp; 제목 &amp; 작성자</option>
 								</select>
 									<input type="text" name="keyword" value="${pm.cri.keyword}"/>
-									<select id="pageNumSelect" 
-										name="perPageNum">
-									<option value="${pm.cri.perPageNum}">${pm.cri.perPageNum}개씩 보기</option>
-									<option value="10">10개씩 보기</option>
-									<option value="15">15개씩 보기</option>
-									<option value="20">20개씩 보기</option>
-									</select>
 									<input class="btn btn-warning"  type="submit" value="검색"/>
 									<input class="btn btn-primary"  id="newBtn" type="button" value="글쓰기"/>
 								</div>
@@ -535,9 +536,6 @@ ul, ul li {
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <script>
-	$("")
-
-
 	var result = '${result}';
 	if(result != ''){
 		alert(result);
@@ -549,9 +547,13 @@ ul, ul li {
 	});
 	
 	$("#newBtn").click(function(){
+		location.href="register";		
+	});
+	
+	/* $("#newBtn").click(function(){
 		$.ajax({
 			type : "POST",
-			url : "newBtn",
+			url : "register",
 			dataType : "text",
 			data : {
 				commentAuth : auth,
@@ -562,6 +564,6 @@ ul, ul li {
 				listPage(page);
 			}
 		});
-	});
+	}); */
 </script>
 </html>
