@@ -3,12 +3,12 @@ package net.koreate.moca.board.service;
 import java.util.List;
 
 import net.koreate.common.utils.PageMaker;
-import net.koreate.common.utils.SearchCriteria;
 import net.koreate.moca.board.vo.CafeBoardVO;
+import net.koreate.moca.common.utils.CafeSearchCriteria;
 
 public interface CafeBoardService {
 	
-	public void register(CafeBoardVO vo);
+	public String register(CafeBoardVO vo);
 	
 	public CafeBoardVO read(int no);
 	
@@ -20,7 +20,7 @@ public interface CafeBoardService {
 	
 	public void remove(int no);
 	
-	public List<CafeBoardVO> listReply(SearchCriteria scri);
+	public List<CafeBoardVO> listReply(CafeSearchCriteria csri);
 	
-	public PageMaker getPageMaker(SearchCriteria scri);
+	public PageMaker getPageMaker(CafeSearchCriteria csri);
 }

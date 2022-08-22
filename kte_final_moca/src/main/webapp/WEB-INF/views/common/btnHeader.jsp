@@ -1,7 +1,7 @@
     <!-- 본문 버튼 헤더 시작 -->
         <div class="row" id="btnHeader">
           <div class="col position-relative" >
-            <button type="button" id="noticeBtn" data-location="/board/listPage" class="w-100 btn d-block btn-lg mx-auto">
+            <button type="button" id="noticeBtn" data-location="/board/listPage?cafe_no=2" class="w-100 btn d-block btn-lg mx-auto">
               <i class="text-danger bi bi-info display-3"></i>
               <p class="d-none-custom position-absolute translate-middle start-50 top-50 text-center text-danger h5 border-bottom border-danger border-5">NOTICE</p>
             </button>

@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import net.koreate.common.utils.PageMaker;
-import net.koreate.common.utils.SearchCriteria;
 import net.koreate.common.utils.SearchPageMaker;
 import net.koreate.moca.board.dao.CafeBoardDAO;
 import net.koreate.moca.board.vo.CafeBoardVO;
+import net.koreate.moca.common.utils.CafeSearchCriteria;
 
 @Service
 @RequiredArgsConstructor
@@ -20,8 +20,13 @@ public class CafeBoardServiceImpl implements CafeBoardService {
 	
 	@Transactional
 	@Override
-	public void register(CafeBoardVO vo) {
-		dao.regist(vo);
+	public String register(CafeBoardVO vo) {
+		int result = dao.regist(vo);
+		String msg = "작성 성공!";
+		if(result == 0) {
+			msg = "작성 실패!";
+		}
+		return msg;
 	}
 
 	@Override
@@ -54,16 +59,33 @@ public class CafeBoardServiceImpl implements CafeBoardService {
 	}
 	
 	@Override
-	public List<CafeBoardVO> listReply(SearchCriteria scri) {
-		List<CafeBoardVO> list = dao.listReply(scri);
+	public List<CafeBoardVO> listReply(CafeSearchCriteria csri) {
+		List<CafeBoardVO> list = dao.listReply(csri);
 		return list;
 	}
-
+	
+	// < > 특수문자 치환
+		public String replaceScript(String text) {
+			// < == &lt;
+			// > == &gt;
+			text = text.replaceAll("<", "&lt");
+			text = text.replaceAll(">", "&gt");
+			return text;
+		}
+		
+		// 삽입 또는 수정될 객체 정보에서 특수문자 치환
+		public CafeBoardVO replace(CafeBoardVO vo) {
+			vo.setTitle(replaceScript(vo.getTitle()));
+			vo.setWriter(replaceScript(vo.getWriter()));
+			vo.setContent(replaceScript(vo.getContent()));
+			return vo;
+		}
+		
 	@Override
-	public PageMaker getPageMaker(SearchCriteria scri) {
-		int totalCount = dao.listCount(scri);
+	public PageMaker getPageMaker(CafeSearchCriteria csri) {
+		int totalCount = dao.listCount(csri);
 		PageMaker pm = new SearchPageMaker();
-		pm.setCri(scri);
+		pm.setCri(csri);
 		pm.setDisplayPageNum(10);
 		pm.setTotalCount(totalCount);
 		return pm;
