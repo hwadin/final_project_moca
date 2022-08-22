@@ -29,7 +29,7 @@
         <nav class="navbar  fixed-top navbar-expand-md navbar-light bg-light">
             <div class="container-fluid ps-5 pe-5">
               <!-- Brand Name(navbar-brand) -->
-              <a class="navbar-brand" href="#"><p class="h3"> MoCa</p> </a>
+              <a class="navbar-brand" href="${path}"><p class="h3"> MoCa</p> </a>
 
               <!-- start of nav bar content -->
               <div class="collapse navbar-collapse">

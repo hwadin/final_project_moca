@@ -25,3 +25,23 @@ body{
 	z-index:1000;
 	min-width : 407px;
 }
+
+.fc-event{
+	cursor : pointer;
+}
+
+footer {
+	height : 100px;
+}
+
+.carousel-wrap {
+	opacity : 0.3;
+}
+
+#carousel-cont img{
+	height: 850px;
+}
+#carousel-cont{
+	width : 100%;
+	
+}

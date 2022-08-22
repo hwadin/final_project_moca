@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang='ko'>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
@@ -17,6 +18,7 @@
 						<p class="text-center lead">카페를 찾아보자</p>
 					</div>
 				</div>
+				
 <%@ include file="/WEB-INF/views/common/btnHeader.jsp" %>
 				<div class="row mt-5">
 					<div class="col">
@@ -25,7 +27,6 @@
 						<p class="lead"><i class="bi bi-chat-right-heart"></i> 카페 목록</p>
 					</div>
 				</div>
-				
 <!-- 			여기서부터 본문 영역 -->
 <!-- 			row클래스로 하나의 행을 생성 -->
 				<div class="row">
