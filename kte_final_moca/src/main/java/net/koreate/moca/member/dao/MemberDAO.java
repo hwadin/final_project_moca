@@ -13,7 +13,7 @@ public interface MemberDAO {
 	MemberVO logIn(MemberVO vo) throws Exception;
 
 	// 회원가입
-	@Insert("INSERT INTO tbl_member(id,pw,name,age,gender,addr) VALUES(#{id},#{pw},#{name},#{age},#{gender},#{addr})")
+	@Insert("INSERT INTO tbl_member(profile_url,id,pw,name,age,gender,post,addr,addr_detail) VALUES(#{profile_url},#{id},#{pw},#{name},#{age},#{gender},#{post},#{addr},#{addr_detail})")
 	void signUp(MemberVO vo)throws Exception;
 	
 	// 회원정보 수정 비밀번호,이름, 나이, 주소

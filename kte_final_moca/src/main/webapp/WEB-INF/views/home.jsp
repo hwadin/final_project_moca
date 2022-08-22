@@ -58,6 +58,29 @@
 				<%@ include file="/WEB-INF/views/common/btnHeader.jsp" %>
 				
 
+<!-- 			여기서부터 본문 영역 -->
+<!-- 			row클래스로 하나의 행을 생성 -->
+				<div class="row">
+<!-- 				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
+<!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
+					<div class="col-6">
+						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
+						<span>설명</span>
+						<h1>${memberInfo.id}</h1>
+					</div>
+					<div class="col-6">
+						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
+						<span>설명</span>
+					</div>
+				</div>
+<!--			여기 위까지 본문 영역 -->
+			</div>
+			<div class="col-2">
+<%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
+			</div>
+		</div>
+	</div>
+
 <!-- end of container -->
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
