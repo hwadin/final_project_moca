@@ -46,14 +46,14 @@ public class CafeRestController {
 	}
 	
 	@GetMapping("cafeDetail")
-	public ResponseEntity<CafeVO> cafeDetail(CafeVO vo){
-		CafeVO c = null;
+	public ResponseEntity<CafeVO> cafeDetail(int no){
+		CafeVO cafevo = null;
 		try {
-			c = cs.read(vo.getNo());
+			cafevo = cs.read(no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(c,HttpStatus.OK);
+		return new ResponseEntity<>(cafevo,HttpStatus.OK);
 	} 
 	
 

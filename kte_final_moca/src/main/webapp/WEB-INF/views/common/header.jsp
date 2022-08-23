@@ -58,7 +58,7 @@
                 	<label>${memberInfo.id}</label>
                 	</c:when>
             		<c:otherwise>
-            			<a href="member/logIn" class="small "><strong>Login First</strong></a>
+            			<a href="${pageContext.request.contextPath}/member/logIn" class="small "><strong>Login First</strong></a>
                 		
             		</c:otherwise>
             	</c:choose>
