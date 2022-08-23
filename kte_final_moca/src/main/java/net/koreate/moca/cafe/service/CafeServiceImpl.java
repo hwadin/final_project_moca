@@ -21,8 +21,8 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	@Override
-	public CafeVO read(int owner_no) throws Exception {
-		return dao.read(owner_no);
+	public CafeVO read(int no) throws Exception {
+		return dao.read(no);
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class CafeServiceImpl implements CafeService {
 	}
 
 	@Override
-	public List<CafeVO> cafeList(CafeVO vo) throws Exception {
-		return dao.cafeList(vo);
+	public List<CafeVO> cafeList(int index) throws Exception {
+		return dao.cafeList(index);
 	}
 
 	@Override

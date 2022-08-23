@@ -11,10 +11,16 @@
 	<meta name="author" content="colorlib.com">
 	<meta name="keywords" content="Colrolib Templates">
 
+	<!-- Icons font CSS-->
+    <link href="${path}/resources/lib/searchBar/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="${path}/resources/lib/searchBar/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+		
 	<!-- Vendor CSS-->
 	<link href="${path}/resources/lib/searchBar/vendor/select2/select2.min.css" rel="stylesheet" />
-	<link href="${path}/resources/lib/searchBar/vendor/datepicker/daterangepicker.css" rel="stylesheet"/>
 	<link href="${path}/resources/lib/searchBar/vendor/datepicker/timepicker.css" rel="stylesheet"/>
+	<link href="${path}/resources/lib/searchBar/vendor/datepicker/daterangepicker.css" rel="stylesheet"/>
 
 	<!-- Main CSS-->
 	<link href="${path}/resources/lib/searchBar/main.css" rel="stylesheet" />
@@ -34,6 +40,7 @@
 					</div>
 				</div>
 <%@ include file="/WEB-INF/views/common/btnHeader.jsp" %>
+
 <div class="row mt-5">
 	<div class="col">
 		<hr/>	
@@ -47,12 +54,16 @@
                             <input class="input--style-1" type="text" placeholder="구를 입력하세요" name="going">
                         </div>
                         <div class="input--group input--medium">
-                            <label class="label">DATE</label>
-                            <input class="input--style-1" type="text" name="checkin" placeholder=" mm/dd/yyyy " id="input-start">
+                            <label class="label">START DATE</label>
+                            <input class="input--style-1" type="text" name="startdate" placeholder="mm/dd/yyyy" id="input-start">
+                        </div>
+                        <div class="input--group input--medium">
+                            <label class="label">END DATE</label>
+                            <input class="input--style-1" type="text" name="enddate" placeholder="mm/dd/yyyy" id="input-end">
                         </div>
                         <div class="input--group input--medium">
                             <label class="label">TIME</label>
-                            <input class="input--style-1" type="text" name="checkout" placeholder="    HH:mm   " id="input-end">
+                            <input class="input--style-1" type="text" name="time"  placeholder="   hh:mm  " id="input--time" style="width:130px">
                         </div>
                         <button class="btn-submit" type="submit">Search</button>
                     </form>
@@ -73,119 +84,7 @@
 			<div id="cafelist" class="row mt-2">
 <!-- 				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
-<%-- 					<div class="col-6">
-					<a href="${path}/cafe/cafeDetail" style="text-decoration:none">
-						<img id="cafe_logo1" src="https://static-file.jejupass.com/download/120160?width=500&amp;height=500"
-						 class="img-responsive img-thumbnail" />
-						<strong class="titDep5" style="font-size: 2rem; color: cadetblue;">투썸</strong>
-					</a>
-						<div class="conUtil">
-							<span class="likeNum" title="좋아요 갯수">
-								<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">23</i>
-							</span>
-							<span class="icoScore" title="평균 평점">
-								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8<i title="리뷰 갯수">(367)</i>
-							</span>
-							<span title="위치 정보">해운대구</span>
-						</div>
-							<p class="txt">해운대 해안도로의 오션뷰 카페. 테라스에서는 드넓은 정원과 바다 풍경이 펼쳐지고,
-											 안에는 편안한 소파와 빈백 좌석들이 마련되어 있어요.
-											 다양하고 맛있는 디저트가 있지만 커피와 함께하면 더욱 맛있는 커피콩빵은 이집만의 매력!
-						  	</p>
-							<p class="tagWrap">
-								<span class="tag">#디저트카페</span>
-								<span class="tag">#해운대카페</span>
-								<span class="tag">#해운대오션뷰</span>
-							</p>
-						<span class="flagWrap">
-							<span class="flag col24">기본음료_아메리카노</span>
-							<span class="flag col04">음료 변경 가능_2천원 할인</span>
-						</span>
-					</div> --%>
-<%-- 					
-					<div class="col-6">
-					<a href="${path}/cafe/cafeDetail" style="text-decoration:none">
-						<img id="cafe_logo" src="https://static-file.jejupass.com/download/120073?width=500&amp;height=500" class="img-thumbnail" />
-						<strong class="titDep5" style="font-size: 2rem; color: cadetblue;">투썸</strong>
-					</a>
-						<div class="conUtil">
-							<span class="likeNum" title="좋아요 갯수">
-								<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">23</i>
-							</span>
-							<span class="icoScore" title="평균 평점">
-								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8<i title="리뷰 갯수">(367)</i>
-							</span>
-							<span title="위치 정보">해운대구</span>
-						</div>
-						<p class="txt">해운대 해안도로의 오션뷰 카페. 테라스에서는 드넓은 정원과 바다 풍경이 펼쳐지고,
-						 안에는 편안한 소파와 빈백 좌석들이 마련되어 있어요. 다양하고 맛있는 디저트가 있지만 커피와 함께하면 더욱 맛있는 커피콩빵은 이집만의 매력!
-						 </p>
-						<p class="tagWrap">
-							<span class="tag">#디저트카페</span>
-							<span class="tag">#해운대카페</span>
-							<span class="tag">#해운대오션뷰</span> 
-						</p>
-						<span class="flagWrap">
-							<span class="flag col24">기본음료_아메리카노</span>
-							<span class="flag col04">음료 변경 가능_2천원 할인</span>
-						</span>
-					</div>
-				</div>
-				
-				<div class="row mt-4">
-					<div class="col-6">
-					<a href="${path}/cafe/cafeDetail" style="text-decoration:none">
-						<img id="cafe_logo" src="https://static-file.jejupass.com/download/188916?width=500&amp;height=500" class="img-thumbnail" />
-						<strong class="titDep5" style="font-size: 2rem; color: cadetblue;">투썸</strong>
-						</a>
-						<div class="conUtil">
-							<span class="likeNum" title="좋아요 갯수">
-								<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">23</i></span>
-							<span class="icoScore" title="평균 평점">
-								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8<i title="리뷰 갯수">(367)</i></span>
-							<span title="위치 정보">해운대구</span>
-						</div>
-						<p class="txt">해운대 해안도로의 오션뷰 카페. 테라스에서는 드넓은 정원과 바다 풍경이 펼쳐지고,
-						 안에는 편안한 소파와 빈백 좌석들이 마련되어 있어요. 다양하고 맛있는 디저트가 있지만 커피와 함께하면 더욱 맛있는 커피콩빵은 이집만의 매력! </p>
-						<p class="tagWrap">
-							<span class="tag">#디저트카페</span>
-							<span class="tag">#해운대카페</span>
-							<span class="tag">#해운대오션뷰</span>
-						</p>
-						<span class="flagWrap">
-							<span class="flag col24">기본음료_아메리카노</span>
-							<span class="flag col04">음료 변경 가능_2천원 할인</span>
-						</span>
-					</div>
-					
-					<div class="col-6">
-					<a href="${path}/cafe/cafeDetail" style="text-decoration:none">
-						<img id="cafe_logo" src="https://static-file.jejupass.com/download/120164?width=500&amp;height=500" class="img-thumbnail" />
-						<strong class="titDep5" style="font-size: 2rem; color: cadetblue;">투썸</strong>
-						</a>
-						<div class="conUtil">
-							<span class="likeNum" title="좋아요 갯수">
-								<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">23</i></span>
-							<span class="icoScore" title="평균 평점">
-								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8<i title="리뷰 갯수">(367)</i></span>
-							<span title="위치 정보">해운대구</span>
-						</div>
-						<p class="txt">해운대 해안도로의 오션뷰 카페. 테라스에서는 드넓은 정원과 바다 풍경이 펼쳐지고,
-						 안에는 편안한 소파와 빈백 좌석들이 마련되어 있어요. 다양하고 맛있는 디저트가 있지만 커피와 함께하면 더욱 맛있는 커피콩빵은 이집만의 매력! </p>
-						<p class="tagWrap">
-							<span class="tag">#디저트카페</span>
-							<span class="tag">#해운대카페</span>
-							<span class="tag">#해운대오션뷰</span>
-						 </p>
-						<span class="flagWrap">
-							<span class="flag col24">기본음료_아메리카노</span>
-							<span class="flag col04">음료 변경 가능_2천원 할인</span>
-						</span>
-					</div>
-				</div> --%>
-<%-- 				<form id="readForm">
-					<input type="hidden" name="ownerno" value="${cafe.owner_no}"/>
-				</form> --%>
+
 				
 <!--			여기 위까지 본문 영역 -->
 			</div>
@@ -199,39 +98,78 @@
 </section>
 <script>
 
-
-let cafelist = $("#cafelist");
-
-$.get("${path}/cafe/api/cafeList",{owner_no:2}, function(data){
-	console.log(data);
-	for(var i=0; i<data.length; i++){
-		var str = 
-			`<div class="col-6">
-		<a href="${path}/cafe/cafeDetail" style="text-decoration:none">
-		<img id="cafe_logo" src="\${data[i].photo_url}" class="img-thumbnail" />
-		<strong class="title" style="font-size: 2rem; color: cadetblue;">\${data[i].name}</strong>
-		</a>
-		<div class="conUtil">
-			<span class="likeNum" title="좋아요 갯수">
-				<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">\${data[i].likenum}</i></span>
-			<span class="icoScore" title="평균 평점">
-				<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8<i title="리뷰 갯수">(367)</i></span>
-			<span title="위치 정보">\${data[i].addr_detail}</span>
-		</div>
-		<p class="txt">\${data[i].content}</p>
-		<p class="tagWrap">
-			<span class="tag">\${data[i].tag}</span>
-		 </p>
-		<span class="flagWrap">
-			<span class="flag">\${data[i].flag}</span>
-		</span>
-	</div>`;
-		cafelist.append(str);
+	let cafelist = $("#cafelist");
+	let index = 0;
+	
+	
+	function getCafeList(){
+		$.get("${path}/cafe/api/cafeList", {index:index},function(data){
+			console.log(data);
+			for(var i=0; i<data.length; i++){
+				var str = 
+					`<div class="col-6">
+				<a href="${path}/cafe/cafeDetail" style="text-decoration:none">
+				<img src="\${data[i].photo_url}" class="img-thumbnail" />
+				<strong class="title" style="font-size: 2rem; color: cadetblue;">
+				\${data[i].name}
+				</strong>
+				</a>
+				<div class="conUtil">
+					<span class="likeNum" title="좋아요 갯수">
+						<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">
+						\${data[i].likenum}</i>
+					</span>
+					<span class="icoScore" title="평균 평점">
+						<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;">
+						</i>4.8<i title="리뷰 갯수"></i>(367)
+					</span>
+					<span title="위치 정보">
+					\${data[i].addr_detail}</span>
+				</div>
+				<p class="txt">\${data[i].content}</p>
+				<p class="tagWrap">
+					<span class="tag">\${data[i].tag}</span>
+				 </p>
+				<span class="flagWrap">
+					<span class="flag">\${data[i].flag}</span>
+				</span>
+			</div>`;
+				cafelist.append(str);
+			}
+	 });
 	}
+	getCafeList();
+ $(function(){
+		var page =1;
+		$(window).scroll(function(){
+		let $window = $(this);
+	 	let scrollTop = $(window).scrollTop();
+		let windowHeight = $(window).height();
+		let documentHeight = $(document).height();
+	 	if(scrollTop + windowHeight+1 >= documentHeight){
+// 			console.log(++page);
+// 			console.log(scrollTop);
+// 			console.log(windowHeight);
+// 			console.log(documentHeight);
+			index +=4;
+console.log("getCafeList 호출 index : " + index);
+			getCafeList();
+	 	}
+	 }) 
 });
-
-
-
+$(function() {
+    $("#input--time").timepicker({
+        timeFormat: 'h:mm p',
+        interval: 60,
+        minTime: '9',
+        maxTime: '10:00pm',
+        startTime: '09:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true        
+    });
+});
+		
 </script>
     <!-- Jquery JS-->
     <script src="${path}/resources/lib/searchBar/vendor/jquery/jquery.min.js"></script>
@@ -242,8 +180,8 @@ $.get("${path}/cafe/api/cafeList",{owner_no:2}, function(data){
     <script src="${path}/resources/lib/searchBar/vendor/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
     <script src="${path}/resources/lib/searchBar/vendor/datepicker/moment.min.js"></script>
     <script src="${path}/resources/lib/searchBar/vendor/datepicker/daterangepicker.js"></script>
-    <script src="${path}/resources/lib/searchBar/vendor/datepicker/timepicker.js"></script>
+     <script src="${path}/resources/lib/searchBar/vendor/datepicker/timepicker.js"></script>
 	 <!-- Main JS-->
     <script src="${path}/resources/lib/searchBar/global.js"></script>
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </html>

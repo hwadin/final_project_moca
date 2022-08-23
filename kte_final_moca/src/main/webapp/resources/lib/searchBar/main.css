@@ -323,7 +323,6 @@ a:active {
    #BUTTON
    ========================================================================== */
 .btn-submit {
-  width: 250px;
   display: inline-block;
   line-height: 90px;
   font-family: inherit;
@@ -386,9 +385,9 @@ a:active {
 
 @media (max-width: 767px) {
   .daterangepicker {
-    width: -webkit-calc(100% - 60px);
-    width: -moz-calc(100% - 60px);
-    width: calc(100% - 60px);
+    width: -webkit-calc(100% - 50px);
+    width: -moz-calc(100% - 50px);
+    width: calc(100% - 50px);
     padding: 25px 0px;
   }
 }
@@ -410,8 +409,8 @@ a:active {
 
 .daterangepicker .calendar {
   margin: 0;
-  width: 280px;
-  max-width: 280px;
+  width: 200px;
+  max-width: 200px;
   padding: 30px;
   padding-bottom: 25px;
 }
