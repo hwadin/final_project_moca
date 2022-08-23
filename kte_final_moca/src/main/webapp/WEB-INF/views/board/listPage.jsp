@@ -176,7 +176,21 @@ ul, ul li {
 						<p class="lead"><i class="bi bi-chat-right-heart" style="color : red;"></i> 공지사항</p>
 					</div>
 				</div>
-				
+				<div class="row justify-content-between">
+					<div class="col-2">
+					<select id="pageNumSelect" class="form-select form-select-sm" aria-label=".form-select-sm example"
+										name="perPageNum">
+									<option value="${pm.cri.perPageNum}">${pm.cri.perPageNum}개씩 보기</option>
+									<option value="10">10개씩 보기</option>
+									<option value="15">15개씩 보기</option>
+									<option value="20">20개씩 보기</option>
+									</select>
+									</div>
+									<div class="col-2">
+									<input class="form-control btn btn-primary btn-sm"  id="newBtn" type="button" value="글쓰기"/>
+									
+									</div>
+				</div>
 <!-- 			여기서부터 본문 영역 -->
 <!-- 			row클래스로 하나의 행을 생성 -->
 
@@ -184,38 +198,8 @@ ul, ul li {
 <!-- 				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
 				</div>
-				<form id="searchForm">
-				<input type="hidden" value="${cafe_no}" name="cafe_no">
-						<div class="col text-end">
-							<a href="${pageContext.request.contextPath}">메인으로</a> <br/>
-									<select id="pageNumSelect" 
-										name="perPageNum">
-									<option value="${pm.cri.perPageNum}">${pm.cri.perPageNum}개씩 보기</option>
-									<option value="10">10개씩 보기</option>
-									<option value="15">15개씩 보기</option>
-									<option value="20">20개씩 보기</option>
-									</select>
-				</div>
-							<!-- grid 12개로 나눔 -->
-								<div class="col-8 form-control text-end" style="border:0;">
-							<div>
-								<select name="searchType">
-									<option ${pm.cri.searchType == null ? 'selected' : ''} value="n">----------------</option>
-									<option ${pm.cri.searchType == 'category' ? 'selected' : ''} value="category">카테고리</option>
-									<option ${pm.cri.searchType == 'title' ? 'selected' : ''} value="title">제목</option>
-									<option ${pm.cri.searchType == 'writer' ? 'selected' : ''} value="writer">작성자</option>
-									<option ${pm.cri.searchType == 'ct' ? 'selected' : ''} value="ct" >카테고리 &amp; 제목</option>
-									<option ${pm.cri.searchType == 'cw' ? 'selected' : ''} value="cw">카테고리 &amp; 작성자</option>
-									<option ${pm.cri.searchType == 'ctw' ? 'selected' : ''} value="ctw">카테고리 &amp; 제목 &amp; 작성자</option>
-								</select>
-									<input type="text" name="keyword" value="${pm.cri.keyword}"/>
-									<input class="btn btn-warning"  type="submit" value="검색"/>
-									<input class="btn btn-primary"  id="newBtn" type="button" value="글쓰기"/>
-								</div>
-							</div>
-						</form>
 					<div class="row">
-								<table class="table text-center">
+								<table class="table text-center table-hover">
 						<tr>
 							<td>번호</td>
 							<td>제목</td>
@@ -232,7 +216,7 @@ ul, ul li {
 									<tr>
 										<td>${sb.no}</td>
 										<td>
-											<a href="readPage${pm.makeQuery(pm.cri.page)}&bno=${sb.no}">${sb.title}</a>
+											<a href="readPage${pm.makeQuery(pm.cri.page)}&no=${sb.no}">${sb.title}</a>
 										</td>
 										<td>${sb.category}</td>
 										<td>${sb.writer}</td>
@@ -257,8 +241,34 @@ ul, ul li {
 						</c:choose>
 					</table>
 					</div>
+					
+					<form id="searchForm">
+				<input type="hidden" value="${cafe_no}" name="cafe_no">
+						<div class="col text-end">
+				</div>
+							<!-- grid 12개로 나눔 -->
+								<div class="row justify-content-center">
+							<div class="col-3">
+								<select class="form-select" name="searchType">
+									<option ${pm.cri.searchType == null ? 'selected' : ''} value="n">선택</option>
+									<option ${pm.cri.searchType == 'category' ? 'selected' : ''} value="category">카테고리</option>
+									<option ${pm.cri.searchType == 'title' ? 'selected' : ''} value="title">제목</option>
+									<option ${pm.cri.searchType == 'writer' ? 'selected' : ''} value="writer">작성자</option>
+									<option ${pm.cri.searchType == 'ct' ? 'selected' : ''} value="ct" >카테고리 &amp; 제목</option>
+									<option ${pm.cri.searchType == 'cw' ? 'selected' : ''} value="cw">카테고리 &amp; 작성자</option>
+									<option ${pm.cri.searchType == 'ctw' ? 'selected' : ''} value="ctw">카테고리 &amp; 제목 &amp; 작성자</option>
+								</select>
+								</div>
+								<div class="col-3">
+									<input class="form-control" type="text" name="keyword" value="${pm.cri.keyword}"/>
+								</div>
+								<div class="col-1">
+									<input class="btn btn-warning"  type="submit" value="검색"/>
+								</div>
+							</div>
+						</form>
 				
-				<div class="row">
+				<div class="row mt-3">
 					<!-- 페이징 블럭 출력 -->
 					<div class="col">
 						<ul class="pagination justify-content-center">
