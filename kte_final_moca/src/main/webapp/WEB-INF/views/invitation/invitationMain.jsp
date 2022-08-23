@@ -80,6 +80,10 @@
 					</div>
 					<div class="col-6">
 						<p class="lead"><i class="bi bi-chat-right-heart"></i> 채팅</p>
+						<div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+						  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+						  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
 					</div>
 				</div>
 				<!-- Modal -->
@@ -96,6 +100,7 @@
 				          	<label for="recipient-name" class="col-form-label"></label>
 				            <input type="text" id="modalValue" class="form-control" id="recipient-name">
 				            <p id="modalResult" class="my-auto pt-2 text-end text-danger align-middle"></p>
+				            <div id="modalAlert" class="alert" role="alert"></div>
 				          </div>
 				        </form>
 				      </div>
@@ -130,7 +135,9 @@
 			  var modalTitle = modal.querySelector('.modal-title');
 			  var modalBodyInput = modal.querySelector('.modal-body input');
 			  var modalLabel = modal.querySelector('.modal-body .col-form-label');
-			  $("#modalResult").text("");
+			  $("#modalAlert").removeClass("alert-success");
+			  $("#modalAlert").removeClass("alert-danger");
+			  $("#modalAlert").text("");
 			  modalTitle.textContent = (recipient == "@nMember") ? "모임에 초대하기" : "새 모임 만들기";
 			  modalLabel.textContent = (recipient == "@nMember") ? "추가할 회원의 아이디를 입력하세요." : "모임의 이름을 입력하세요.";
 			  modalBodyInput.value = (recipient == "@nMember") ? "" : "새 모임";
@@ -162,9 +169,9 @@
 					console.log(id);
 					console.log(selectedInvNo);
 					if(selectedInvNo == ""){
-						$("#modalResult").removeClass("text-success");
-						$("#modalResult").addClass("text-danger");
-						$("#modalResult").text("모임을 먼저 선택하세요!");
+						$("#modalAlert").removeClass("alert-success");
+						$("#modalAlert").addClass("alert-danger");
+						$("#modalAlert").text("모임을 먼저 선택하세요!");
 						return;
 					}
 // 					$.post("${path}/invitation/api/sendInvite/", {no : selectedInvNo, id : id},"text", function(data){
@@ -177,32 +184,32 @@
 						dataType: "text",
 						success : function(result){
 							if(result == ""){
-								$("#modalResult").removeClass("text-success");
-								$("#modalResult").addClass("text-danger");
-								$("#modalResult").text("존재하지 않는 아이디입니다.");
+								$("#modalAlert").removeClass("alert-success");
+								$("#modalAlert").addClass("alert-danger");
+								$("#modalAlert").text("존재하지 않는 아이디입니다.");
 								return;
 							}
 							if(result == "DUPLICATED"){
-								$("#modalResult").removeClass("text-success");
-								$("#modalResult").addClass("text-danger");
-								$("#modalResult").text("이미 초대한 회원입니다.");
+								$("#modalAlert").removeClass("alert-success");
+								$("#modalAlert").addClass("alert-danger");
+								$("#modalAlert").text("이미 초대한 회원입니다.");
 								return;
 							}
 							if(result == "FORBIDDEN"){
-								$("#modalResult").removeClass("text-success");
-								$("#modalResult").addClass("text-danger");
-								$("#modalResult").text("초대 권한이 없습니다.");
+								$("#modalAlert").removeClass("alert-success");
+								$("#modalAlert").addClass("alert-danger");
+								$("#modalAlert").text("초대 권한이 없습니다.");
 								return;
 							}
 							if(result == "SELFINVITED"){
-								$("#modalResult").removeClass("text-success");
-								$("#modalResult").addClass("text-danger");
-								$("#modalResult").text("자신을 초대할 수 없습니다.");
+								$("#modalAlert").removeClass("alert-success");
+								$("#modalAlert").addClass("alert-danger");
+								$("#modalAlert").text("자신을 초대할 수 없습니다.");
 								return;
 							}
-							$("#modalResult").removeClass("text-danger");
-							$("#modalResult").addClass("text-success");
-							$("#modalResult").text(result + " 님을 초대했습니다.");
+							$("#modalAlert").removeClass("alert-danger");
+							$("#modalAlert").addClass("alert-success");
+							$("#modalAlert").text(result + " 님을 초대했습니다.");
 							getParticipantList(selectedInvNo, selectedInvMemNo, selectedInvName);
 						}
 					});
