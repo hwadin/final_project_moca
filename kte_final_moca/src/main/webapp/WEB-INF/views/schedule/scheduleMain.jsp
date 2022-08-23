@@ -31,6 +31,7 @@
        	  },
        	  locale : 'ko',
        	  themeSystem : 'bootstrap5',
+       	<c:if test="${!empty sessionScope.memberInfo}">
 	      dateClick: function(info) {
 // 	       	    alert('Clicked on: ' + info.dateStr);
 // 	       	    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
@@ -47,21 +48,28 @@
 	       	    pop(info.jsEvent.pageX, info.jsEvent.pageY, $("#myPop"));
 // 	       	    info.dayEl.style.backgroundColor = 'red';
 	       	  },
+	       	  </c:if>
 	      googleCalendarApiKey: 'AIzaSyAGPf1yW8M9XzGKy_llS0jrWKVoVvMYdsg',
 	      eventSources: [
 	    		{
 		          googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
 		          color : '#ed6f63',
 		          textColor : '#2D2926'
-		       	},
+		       	} 
+	    		<c:if test="${!empty sessionScope.memberInfo}">
+	    		,
 		       	{
 		       		events:	function(info, successCallback, failureCallback){
-			       		$.get("${path}/schedule/api/scheduleList",{member_no:1}, function(data){
+		       			
+			       		$.get("${path}/schedule/api/scheduleList",{member_no:${sessionScope.memberInfo.no}}, function(data){
 			       			successCallback(data);
 			       		});
+			       		
 			       	}
 		       	}
+	    		</c:if>
         	],
+        	
 	      eventClick: function(info) {
 	            info.jsEvent.preventDefault(); // don't let the browser navigate
 	            console.log(info);
@@ -93,7 +101,7 @@
 		       	    pop(info.jsEvent.pageX, info.jsEvent.pageY, $("#myPop"));
 	            });
 	        }
-       	  
+  
         });
         cal = calendar;
         calendar.render();
@@ -252,7 +260,7 @@ $("#sDeleteBtn").click(function(){
 		}
 	});
 });
-
+<c:if test="${!empty sessionScope.memberInfo}">
 $("#sRegistBtn").click(function(){
 	let method = $("#myPop").attr("data-method");
 	let title = $("#title").val();
@@ -269,7 +277,7 @@ $("#sRegistBtn").click(function(){
 			url : "${path}/schedule/api/",
 			method : "POST",
 			data : {
-				member_no : 2,
+				member_no : ${sessionScope.memberInfo.no},
 				title : title,
 				detail : detail,
 				start : start,
@@ -308,6 +316,7 @@ $("#sRegistBtn").click(function(){
 		});
 	}
 });
+</c:if>
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </html>

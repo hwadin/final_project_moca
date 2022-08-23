@@ -24,10 +24,10 @@ public class CafeRestController {
 	
 	
 	@GetMapping("cafeList")
-	public ResponseEntity<List<CafeVO>> cafeList(CafeVO vo){
+	public ResponseEntity<List<CafeVO>> cafeList(int index){
 		List<CafeVO> list = null;
 		try {
-			list = cs.cafeList(vo);
+			list = cs.cafeList(index);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,6 +56,6 @@ public class CafeRestController {
 		return new ResponseEntity<>(c,HttpStatus.OK);
 	} 
 	
-	
-	
+
+		
 }

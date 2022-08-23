@@ -55,7 +55,7 @@ $(window).on('load',function(){
 	console.log($(window).height());
 	if($("section").height() < $(window).height()){
 		console.log("aa");
-		$("section").css("height", $(window).height()-$("footer").height());
+		$("section").css("min-height", $(window).height()-$("footer").height());
 	}
 });
 </script>
