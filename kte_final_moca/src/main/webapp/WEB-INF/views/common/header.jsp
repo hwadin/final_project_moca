@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
     <meta charset="UTF-8"/>
@@ -52,14 +53,23 @@
                   <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
                     <span class="visually-hidden">New alerts</span>
                 </button>
-                <button class=" btn btn-secondary rounded-circle me-2"><i class="bi bi-person-fill "></i></button>
+                <!-- drop down 해야되는곳 -->
+                <div class="dropdown">
+                  	<a class="btn btn-secondary rounded-circle me-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  	<i class="bi bi-person-fill "></i>
+                	</a>
+                	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown">
+					    <li><a class="dropdown-item" href="#">회원정보수정</a></li>
+					    <li><a class="dropdown-item" href="member/logOut">로그아웃</a></li>
+					    <li><a class="dropdown-item" href="#">회원탈퇴</a></li>
+					 </div>
+                </div>
                 <c:choose>
                 	<c:when test="${!empty sessionScope.memberInfo}">
-                	<label>${memberInfo.id}</label>
+                	<label>${memberInfo.name}</label>
                 	</c:when>
             		<c:otherwise>
             			<a href="member/logIn" class="small "><strong>Login First</strong></a>
-                		
             		</c:otherwise>
             	</c:choose>
               </div>

@@ -26,9 +26,9 @@ public class MemberServiceImpl implements MemberService {
 	public void memberUpdate(MemberVO vo) throws Exception{
 		dao.memberUpdate(vo);
 	}
-	@Override
-	public MemberVO searchId(String id) throws Exception{
-		return dao.searchId(id);
+	
+	public void ownerSignUp() throws Exception{
+		dao.ownerSignUp();
 	}
 
 }

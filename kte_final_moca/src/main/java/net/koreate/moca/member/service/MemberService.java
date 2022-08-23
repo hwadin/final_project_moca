@@ -13,6 +13,6 @@ public interface MemberService {
 	// 회원정보 수정
 	void memberUpdate(MemberVO vo) throws Exception;
 	
-	// id 검색
-	MemberVO searchId(String id) throws Exception;
+	// owner 회원가입
+	void ownerSignUp() throws Exception;
 }
