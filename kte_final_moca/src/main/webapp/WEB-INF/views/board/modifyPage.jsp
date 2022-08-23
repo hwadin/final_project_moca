@@ -83,7 +83,7 @@
 		</div>
 	</div>
 	<div class="row text-end">
-		<a href="${path}/board/readPage">목록</a>
+		<a href="${path}/board/readPage?no=${board.no}">목록</a>
 	</div>
 	<hr/>
 		<%-- <div>
