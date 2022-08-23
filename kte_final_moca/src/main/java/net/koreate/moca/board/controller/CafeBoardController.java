@@ -37,7 +37,8 @@ public class CafeBoardController {
 	
 	
 	@GetMapping("register")
-	public String register() {
+	public String register(CafeBoardVO vo,Model model) {
+		model.addAttribute("cafe_no",vo.getCafe_no());
 		return "/board/register";
 	}
 	
@@ -49,7 +50,7 @@ public class CafeBoardController {
 			) throws Exception{
 		String msg = cs.register(vo);
 		rttr.addFlashAttribute("result",msg);
-		return "redirect:/board/listPage";
+		return "redirect:/board/listPage?cafe_no="+vo.getCafe_no();
 	}
 	
 	@GetMapping("readPage")
@@ -74,8 +75,9 @@ public class CafeBoardController {
 		public String remove(
 					int no	// 삭제해야할 게시글 번호
 				)throws Exception{
+			CafeBoardVO vo = cs.read(no);
 			cs.remove(no);
-			return "redirect:/board/listPage";
+			return "redirect:/board/listPage?cafe_no="+vo.getCafe_no();
 		}
 		
 		// 수정 페이지 요청

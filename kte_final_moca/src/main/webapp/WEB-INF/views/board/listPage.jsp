@@ -251,9 +251,9 @@ ul, ul li {
 							<div class="col-3">
 								<select class="form-select" name="searchType">
 									<option ${pm.cri.searchType == null ? 'selected' : ''} value="n">선택</option>
-									<option ${pm.cri.searchType == 'category' ? 'selected' : ''} value="category">카테고리</option>
-									<option ${pm.cri.searchType == 'title' ? 'selected' : ''} value="title">제목</option>
-									<option ${pm.cri.searchType == 'writer' ? 'selected' : ''} value="writer">작성자</option>
+									<option ${pm.cri.searchType == 'category' ? 'selected' : ''} value="c">카테고리</option>
+									<option ${pm.cri.searchType == 'title' ? 'selected' : ''} value="t">제목</option>
+									<option ${pm.cri.searchType == 'writer' ? 'selected' : ''} value="w">작성자</option>
 									<option ${pm.cri.searchType == 'ct' ? 'selected' : ''} value="ct" >카테고리 &amp; 제목</option>
 									<option ${pm.cri.searchType == 'cw' ? 'selected' : ''} value="cw">카테고리 &amp; 작성자</option>
 									<option ${pm.cri.searchType == 'ctw' ? 'selected' : ''} value="ctw">카테고리 &amp; 제목 &amp; 작성자</option>
@@ -557,7 +557,7 @@ ul, ul li {
 	});
 	
 	$("#newBtn").click(function(){
-		location.href="register";		
+		location.href="register?cafe_no="+${cafe_no};		
 	});
 	
 	/* $("#newBtn").click(function(){
