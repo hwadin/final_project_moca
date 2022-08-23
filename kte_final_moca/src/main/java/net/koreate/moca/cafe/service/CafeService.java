@@ -10,8 +10,8 @@ public interface CafeService {
 	// 카페 정보 등록
 	void regist(CafeVO vo) throws Exception;
 	
-	// 카페 상세 정보 읽어오기 (오너 번호로 조회)  
-	CafeVO read(int owner_no) throws Exception;
+	// 카페 상세 정보 읽어오기 (카페 번호로 조회)  
+	CafeVO read(int no) throws Exception;
 	
 	// 카페 리스트 읽어오기 
 	List<CafeVO> cafeList(int index) throws Exception;
