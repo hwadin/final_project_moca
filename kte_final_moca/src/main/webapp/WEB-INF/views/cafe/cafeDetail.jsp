@@ -74,34 +74,24 @@
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
 					
 					<div class="col-6">
-						<img src="https://static-file.jejupass.com/download/120160?width=400&amp;height=400"
+						<img src="${cafeVO.photo_url}"
 							 class="img-thumbnail" />
 					</div>
 					<div class="col-6">	
 						<span>
-						<strong class="titDep5" style="font-size: 2rem; color: cadetblue;">투썸</strong>
-						<div class="conUtil">
+						<strong class="titDep5" style="font-size: 2rem; color: cadetblue;">${cafeVO.name}</strong>
+						<div class="conUtil mt-3">
 							<span class="icoScore" title="평균 평점">
 								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8
 								<i title="리뷰 갯수">(367)</i>
 							</span>
-							<span title="위치 정보">해운대구</span>
+							<span title="위치 정보">${cafeVO.addr_detail}</span>
 						</div>
-						<p class="txt">해운대 해안도로의 오션뷰 카페. 테라스에서는 드넓은 정원과 바다 풍경이 펼쳐지고,
-						 안에는 편안한 소파와 빈백 좌석들이 마련되어 있어요. 다양하고 맛있는 디저트가 있지만 커피와 함께하면
-						  더욱 맛있는 커피콩빵은 이집만의 매력!
-						  </p>
-						<p class="tagWrap">
-							<span class="tag">#디저트카페</span>
-							<span class="tag">#해운대카페</span>
-							<span class="tag">#해운대오션뷰</span>
-						 </p>
-						<span class="flagWrap">
-							<span class="flag col24">기본음료_아메리카노</span>
-							<span class="flag col04">음료 변경 가능_2천원 할인</span>
-						</span>
+						<p class="txt">${cafeVO.content}</p>
+						<p class="tagWrap">${cafeVO.tag}</p>
+						<span class="flagWrap">${cafeVO.flag}</span>
 						<div class="likeNum mt-5" title="좋아요 갯수">
-							<i class="bi bi-heart">23</i>
+							<i class="bi bi-heart">${cafeVO.likenum}</i>
 						</div>
 <!--       카페 Q&A 게시판      -->
 						<form id="searchForm">Notice & Event
