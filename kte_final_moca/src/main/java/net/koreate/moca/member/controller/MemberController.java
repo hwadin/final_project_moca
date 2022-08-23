@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
+import net.koreate.moca.cafe.service.CafeService;
+import net.koreate.moca.cafe.vo.CafeVO;
 import net.koreate.moca.member.service.MemberService;
 import net.koreate.moca.member.vo.MemberVO;
 
@@ -28,6 +30,7 @@ import net.koreate.moca.member.vo.MemberVO;
 public class MemberController {
 	
 	private final MemberService ms;
+	private final CafeService cs;
 	
 	@Autowired
 	ServletContext context;
@@ -88,22 +91,23 @@ public class MemberController {
 	}
 	
 	@PostMapping("ownerSignUpPost")
-	public  String ownerSignUpPost(MemberVO vo, String c_name) throws Exception{
-		ms.ownerSignUp();
+	public  String ownerSignUpPost(MemberVO vo, String c_name, String c_addr, String c_addr_detail) throws Exception{
+		CafeVO cvo = new CafeVO();
+		vo.setIsOwner(true);
+		ms.signUp(vo);
+		cvo.setOwner_no(vo.getNo());
+		cvo.setName(c_name);
+		cvo.setAddr(c_addr);
+		cvo.setAddr_detail(c_addr_detail);
+		cs.regist(cvo);
 		return "redirect:/member/logIn";
 	}
 	
 	@GetMapping("logOut")
-	public String logOut(HttpSession session, HttpServletResponse response,
-			@CookieValue(name="logInCookie", required=false)Cookie logInCookie
-			) {
+	public String logOut(HttpSession session, HttpServletResponse response) {
 		if(session.getAttribute("memberInfo") != null) {
 			session.removeAttribute("memberInfo");
 			session.removeAttribute("invalidate");
-		}if (logInCookie != null) {
-			logInCookie.setMaxAge(0);
-			logInCookie.setPath("/");
-			response.addCookie(logInCookie);
 		}
 		return "redirect:/";
 	}

@@ -26,9 +26,6 @@ public class MemberServiceImpl implements MemberService {
 	public void memberUpdate(MemberVO vo) throws Exception{
 		dao.memberUpdate(vo);
 	}
-	
-	public void ownerSignUp() throws Exception{
-		dao.ownerSignUp();
-	}
+
 
 }
