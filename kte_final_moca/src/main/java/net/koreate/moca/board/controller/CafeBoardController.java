@@ -51,4 +51,52 @@ public class CafeBoardController {
 		rttr.addFlashAttribute("result",msg);
 		return "redirect:/board/listPage";
 	}
+	
+	@GetMapping("readPage")
+	public String readPage(int no,
+			RedirectAttributes rttr
+			)throws Exception{
+		// 조회수 증가
+		cs.updateCnt(no);
+		rttr.addAttribute("no",no);
+		return "redirect:/board/read";
+	}
+	
+	@GetMapping("read")
+	public String read(int no,Model model)throws Exception{
+		CafeBoardVO vo = cs.read(no);
+		model.addAttribute("board",vo);
+		return "/board/readPage";
+	}
+	
+	// 게시글 삭제 요청
+		@PostMapping("remove")
+		public String remove(
+					int no	// 삭제해야할 게시글 번호
+				)throws Exception{
+			cs.remove(no);
+			return "redirect:/board/listPage";
+		}
+		
+		// 수정 페이지 요청
+		@GetMapping("modifyPage")
+		public String modifyPage(int no,Model model)
+					throws Exception{
+			CafeBoardVO vo = cs.read(no);
+			model.addAttribute("board",vo);
+			return "/board/modifyPage";
+		}
+		
+		// 게시글 수정 완료 요청
+		@PostMapping("modifyPage")
+		public String modifyPage(
+					CafeBoardVO vo, 		// 수정할 게시글 정보
+					RedirectAttributes rttr
+				)throws Exception{
+			// 게시글 정보 수정
+			cs.modify(vo);
+			System.out.println(vo);
+			rttr.addAttribute("no",vo.getNo());
+			return "redirect:/board/read";
+		}
 }
