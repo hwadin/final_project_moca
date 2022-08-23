@@ -34,7 +34,7 @@
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
 					
 					<div class="col-6">
-						<div class="row" style="height:500px">
+						<div class="row" >
 							<div class="col">
 								<div class="d-flex justify-content-between mb-3">
 									<p class="lead"><i class="bi bi-chat-right-heart"></i> 모임 목록 </p>
@@ -42,21 +42,13 @@
 								</div>
 								
 								
-								<div id="invitationList" class="list-group">
-<!-- 									  <button type="button" class="d-flex justify-content-between list-group-item list-group-item-action active" aria-current="true"> -->
-<!-- 									   	<div class="me-auto">초대제목1</div><span class="badge bg-danger rounded-pill">14</span> -->
-<!-- 									  </button> -->
-<!-- 									  <button type="button" class="d-flex justify-content-between list-group-item list-group-item-action"> -->
-<!-- 									  	<div class="me-auto"><span class="text-success">[참여 중] </span>초대제목2</div><span class="badge bg-danger rounded-pill">5</span> -->
-<!-- 									  </button> -->
-<!-- 									  <button type="button" class="d-flex justify-content-between list-group-item list-group-item-action"> -->
-<!-- 									  	<div class="me-auto"><span class="text-warning">[대기 중] </span>초대제목3</div><span class="badge bg-danger rounded-pill"></span> -->
-<!-- 									  </button> -->
+								<div id="invitationList" class="list-group overflow-auto" style="max-height:400px">
+
 								</div>
 							</div>
 						</div>
 						<div class="row mt-5">
-							<div class="col">
+							<div class="col" >
 								<div class="d-flex justify-content-between mb-3">
 									<p class="lead"><i class="bi bi-chat-right-heart"></i> 모임 정보 </p>
 									<button id="invParticipantBtn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@nMember">+ 초대하기</button>
@@ -64,7 +56,8 @@
 								<div id="participantListTitle" class="d-flex justify-content-between">
 								
 								</div>
-								<table class="table align-middle text-center table-hover">
+								<div class="overflow-auto" style="max-height:300px">
+								<table class="table align-middle text-center table-hover" >
 								  <thead>
 								    <tr>
 								      <th scope="col">#</th>
@@ -74,26 +67,10 @@
 								    </tr>
 								  </thead>
 								  <tbody  id="participantList" >
-<!-- 								    <tr> -->
-<!-- 								      <th scope="row">1</th> -->
-<!-- 								      <td>하옥형</td> -->
-<!-- 								      <td><i class="text-danger bi bi-x-lg"></i></td> -->
-<!-- 								      <td><button class="master-cancel-btn btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td> -->
-<!-- 								    </tr> -->
-<!-- 								    <tr> -->
-<!-- 								      <th scope="row">2</th> -->
-<!-- 								      <td>송화진</td> -->
-<!-- 								      <td><i class="text-success bi bi-check-lg"></i></td> -->
-<!-- 								      <td><button class="btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td> -->
-<!-- 								    </tr> -->
-<!-- 								    <tr> -->
-<!-- 								      <th scope="row">3</th> -->
-<!-- 								      <td>이주명</td> -->
-<!-- 								      <td><i class="text-dark bi bi-three-dots"></i></td> -->
-<!-- 								      <td><button class="btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td> -->
-<!-- 								    </tr> -->
+
 								  </tbody>
 								</table>
+								</div>
 								<div id="participantListFooter" class="d-flex justify-content-end">
 								
 								</div>
