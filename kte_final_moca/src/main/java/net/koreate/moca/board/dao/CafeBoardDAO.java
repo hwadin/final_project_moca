@@ -26,7 +26,7 @@ public interface CafeBoardDAO {
 	
 	void replyRegister(CafeBoardVO vo);
 	
-	@Update("UPDATE tbl_cafe_board SET viewcnt = viewcnt + 1")
+	@Update("UPDATE tbl_cafe_board SET viewcnt = viewcnt + 1 WHERE no = #{no}")
 	void updateCnt(int no);
 	
 	@Update("UPDATE tbl_cafe_board SET title=#{title}, content=#{content}, updatedate=now() WHERE no = #{no}")

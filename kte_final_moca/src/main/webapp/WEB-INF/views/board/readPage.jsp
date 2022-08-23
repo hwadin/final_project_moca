@@ -66,7 +66,7 @@
 	</div>
 	</div>
 	<div class="row text-end">
-		<a href="${path}/board/listPage">목록</a>
+		<a href="${path}/board/listPage?cafe_no=${board.cafe_no}">목록</a>
 	</div>
 	<hr/>
 	<%-- <!-- 첨부파일 -->

@@ -2,7 +2,6 @@ package net.koreate.moca.board.provider;
 
 import org.apache.ibatis.jdbc.SQL;
 
-import net.koreate.common.utils.SearchCriteria;
 import net.koreate.moca.common.utils.CafeSearchCriteria;
 
 public class CafeBoardQueryProvider {
@@ -23,8 +22,7 @@ public class CafeBoardQueryProvider {
 	private void getSearchWhere(CafeSearchCriteria csri,SQL sql) {
 		String titleQuery ="title LIKE CONCAT('%','"+csri.getKeyword()+"','%')";
 		String categoryQuery ="category LIKE CONCAT('%',#{keyword},'%')";
-		String writerQuery ="U.uname LIKE CONCAT('%',#{keyword},'%')";
-		sql.WHERE("cafe_no = #{cafe_no}");
+		String writerQuery ="C.name LIKE CONCAT('%',#{keyword},'%')";
 		
 		if(csri.getSearchType() != null 
 				&&
@@ -41,6 +39,7 @@ public class CafeBoardQueryProvider {
 					sql.OR().WHERE(writerQuery);
 				}
 			}
+		sql.AND().WHERE("cafe_no = #{cafe_no}");
 	}
 	
 	public String searchSelectCount(CafeSearchCriteria csri) {

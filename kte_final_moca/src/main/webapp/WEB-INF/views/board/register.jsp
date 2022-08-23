@@ -37,7 +37,7 @@
 				
 <!-- 			여기서부터 본문 영역 -->
 	<form id="registerForm" action="register" method="POST">
-		<input type="hidden" name="cafe_no" value="2" />
+		<input type="hidden" name="cafe_no" value="${cafe_no}" />
 		<table>
 			<tr>
 				<td>카테고리</td>
@@ -212,5 +212,6 @@
 	});
 	
 	*/
+	
 </script>
 </html>

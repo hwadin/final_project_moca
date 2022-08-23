@@ -21,4 +21,7 @@ public class MemberVO {
 	private Date regdate;
 	private Date updatedate;
 	private String profile_url;
+	private int isOwner;
 }
+
+
