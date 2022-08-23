@@ -108,7 +108,7 @@
 			for(var i=0; i<data.length; i++){
 				var str = 
 					`<div class="col-6">
-				<a href="${path}/cafe/cafeDetail" style="text-decoration:none">
+				<a href="${path}/cafe/cafeDetail/\${data[i].no}" style="text-decoration:none">
 				<img src="\${data[i].photo_url}" class="img-thumbnail" />
 				<strong class="title" style="font-size: 2rem; color: cadetblue;">
 				\${data[i].name}

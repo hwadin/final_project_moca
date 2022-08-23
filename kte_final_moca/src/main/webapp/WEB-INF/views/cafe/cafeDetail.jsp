@@ -216,7 +216,7 @@
     });
     
 	$("#searchForm").click(function(){
-		location.href="/board/listPage";		
+		location.href="${path}/board/listPage?cafe_no=${no}";		
 	});
 
 </script>	

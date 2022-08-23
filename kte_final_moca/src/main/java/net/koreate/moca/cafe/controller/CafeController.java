@@ -1,13 +1,15 @@
 package net.koreate.moca.cafe.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
-import net.koreate.common.utils.SearchCriteria;
 import net.koreate.moca.cafe.service.CafeService;
+import net.koreate.moca.cafe.vo.CafeVO;
 
 
 @Controller
@@ -22,11 +24,16 @@ public class CafeController {
 		return "cafe/cafeMain";
 	}
 	
-	@GetMapping("cafeDetail")
-	public String CafeDetail() {
+	@GetMapping("cafeDetail/{no}")
+	public String CafeDetail(
+			@PathVariable(name="no") int no,
+			Model model
+			) throws Exception{
+		CafeVO cafeVO =cs.read(no);
+		model.addAttribute("cafeVO",cafeVO);
 		return "cafe/cafeDetail";
 	}
-	
+		
 
 
 	
