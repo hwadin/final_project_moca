@@ -59,7 +59,10 @@
 							<div class="col">
 								<div class="d-flex justify-content-between mb-3">
 									<p class="lead"><i class="bi bi-chat-right-heart"></i> 모임 정보 </p>
-									<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@nMember">+ 초대하기</button>
+									<button id="invParticipantBtn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@nMember">+ 초대하기</button>
+								</div>
+								<div id="participantListTitle" class="d-flex justify-content-between">
+								
 								</div>
 								<table class="table align-middle text-center table-hover">
 								  <thead>
@@ -70,27 +73,30 @@
 								      <th scope="col">취소하기</th>
 								    </tr>
 								  </thead>
-								  <tbody>
-								    <tr>
-								      <th scope="row">1</th>
-								      <td>하옥형</td>
-								      <td><i class="text-danger bi bi-x-lg"></i></td>
-								      <td><button class="btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td>
-								    </tr>
-								    <tr>
-								      <th scope="row">2</th>
-								      <td>송화진</td>
-								      <td><i class="text-success bi bi-check-lg"></i></td>
-								      <td><button class="btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td>
-								    </tr>
-								    <tr>
-								      <th scope="row">3</th>
-								      <td>이주명</td>
-								      <td><i class="text-dark bi bi-three-dots"></i></td>
-								      <td><button class="btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td>
-								    </tr>
+								  <tbody  id="participantList" >
+<!-- 								    <tr> -->
+<!-- 								      <th scope="row">1</th> -->
+<!-- 								      <td>하옥형</td> -->
+<!-- 								      <td><i class="text-danger bi bi-x-lg"></i></td> -->
+<!-- 								      <td><button class="master-cancel-btn btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td> -->
+<!-- 								    </tr> -->
+<!-- 								    <tr> -->
+<!-- 								      <th scope="row">2</th> -->
+<!-- 								      <td>송화진</td> -->
+<!-- 								      <td><i class="text-success bi bi-check-lg"></i></td> -->
+<!-- 								      <td><button class="btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td> -->
+<!-- 								    </tr> -->
+<!-- 								    <tr> -->
+<!-- 								      <th scope="row">3</th> -->
+<!-- 								      <td>이주명</td> -->
+<!-- 								      <td><i class="text-dark bi bi-three-dots"></i></td> -->
+<!-- 								      <td><button class="btn btn-sm btn-danger"><i class="bi bi-x"></i></button></td> -->
+<!-- 								    </tr> -->
 								  </tbody>
 								</table>
+								<div id="participantListFooter" class="d-flex justify-content-end">
+								
+								</div>
 							</div>
 						</div>
 						
@@ -112,7 +118,7 @@
 				          <div class="">
 				          	<label for="recipient-name" class="col-form-label"></label>
 				            <input type="text" id="modalValue" class="form-control" id="recipient-name">
-				            <p id="modalResult" class="text-end"></p>
+				            <p id="modalResult" class="my-auto pt-2 text-end text-danger align-middle"></p>
 				          </div>
 				        </form>
 				      </div>
@@ -126,6 +132,12 @@
 <!--			여기 위까지 본문 영역 -->
 			</div>
 			<script>
+			let selectedInvNo = "";
+			let selectedInvMemNo = "";
+			let selectedInvName = "";
+			let selectedInvTitle = "";
+			let loginMemberNo = ${sessionScope.memberInfo.no};
+			
 // 				modal control
 			var modal = document.getElementById('modal');
 			var recipient;
@@ -141,7 +153,7 @@
 			  var modalTitle = modal.querySelector('.modal-title');
 			  var modalBodyInput = modal.querySelector('.modal-body input');
 			  var modalLabel = modal.querySelector('.modal-body .col-form-label');
-			  
+			  $("#modalResult").text("");
 			  modalTitle.textContent = (recipient == "@nMember") ? "모임에 초대하기" : "새 모임 만들기";
 			  modalLabel.textContent = (recipient == "@nMember") ? "추가할 회원의 아이디를 입력하세요." : "모임의 이름을 입력하세요.";
 			  modalBodyInput.value = (recipient == "@nMember") ? "" : "새 모임";
@@ -169,16 +181,73 @@
 					});
 				} else {
 					// 모임에 새 멤버 추가하기 ajax
+					let id = $("#modalValue").val();
+					console.log(id);
+					console.log(selectedInvNo);
+					if(selectedInvNo == ""){
+						$("#modalResult").removeClass("text-success");
+						$("#modalResult").addClass("text-danger");
+						$("#modalResult").text("모임을 먼저 선택하세요!");
+						return;
+					}
+// 					$.post("${path}/invitation/api/sendInvite/", {no : selectedInvNo, id : id},"text", function(data){
+// 						console.log(data);
+// 					});
+					$.ajax({
+						url : "${path}/invitation/api/sendInvite/",
+						method : "POST",
+						data : {no : selectedInvNo, id : id},
+						dataType: "text",
+						success : function(result){
+							if(result == ""){
+								$("#modalResult").removeClass("text-success");
+								$("#modalResult").addClass("text-danger");
+								$("#modalResult").text("존재하지 않는 아이디입니다.");
+								return;
+							}
+							if(result == "DUPLICATED"){
+								$("#modalResult").removeClass("text-success");
+								$("#modalResult").addClass("text-danger");
+								$("#modalResult").text("이미 초대한 회원입니다.");
+								return;
+							}
+							if(result == "FORBIDDEN"){
+								$("#modalResult").removeClass("text-success");
+								$("#modalResult").addClass("text-danger");
+								$("#modalResult").text("초대 권한이 없습니다.");
+								return;
+							}
+							if(result == "SELFINVITED"){
+								$("#modalResult").removeClass("text-success");
+								$("#modalResult").addClass("text-danger");
+								$("#modalResult").text("자신을 초대할 수 없습니다.");
+								return;
+							}
+							$("#modalResult").removeClass("text-danger");
+							$("#modalResult").addClass("text-success");
+							$("#modalResult").text(result + " 님을 초대했습니다.");
+							getParticipantList(selectedInvNo, selectedInvMemNo, selectedInvName);
+						}
+					});
 				}
 			});
+			
+			
 			
 			// 모임 리스트 불러오기 함수
 			function getInvitationList(){
 				$.get("${path}/invitation/api/listByMember/"+${sessionScope.memberInfo.no}, function(data){
-	       			console.log(data);
+// 	       			console.log(data);
+					// 모임 목록 초기화(비우기)
 	       			$("#invitationList").empty();
+					
+					// 모임 목록 그리기
 	       			for(let i =0; i<data.length; i++){
 	       				let status = "";
+	       				
+	       				// 모임 만든 사람 회원 번호와 로그인한 사용자의 회원 번호가 일치하지 않을 때
+	       				// = 내가 만든 모임이 아닐 때
+	       				// 수락 상태에 따라 참여 중 대기 중으로 표시, 거절하면 표시하지 않음
 	       				if(data[i].member_no != ${sessionScope.memberInfo.no}){
 	       					if(data[i].isAccepted == true || data[i].isAccepted == 1){
 	       						status = `<span class="text-success">[참여 중] </span>`;	
@@ -187,25 +256,266 @@
 	       					} else {
 	       						continue;
 	       					}
-	       				}
+	       				} 
 	       				
-	       				let str = `
+	       				let str = `	       			
 	       					<button type="button" class="d-flex justify-content-between list-group-item list-group-item-action" data-bs-toggle="button">
-						   	<div class="me-auto">\${status} \${data[i].title}</div><span class="badge bg-danger rounded-pill"></span>
-						  </button>
+							   	<div class="me-auto">\${status} \${data[i].title}</div><span class="badge bg-danger rounded-pill"></span>
+							   	
+							   	<input type="hidden" id="input_no" name="no" value="\${data[i].no}" />
+							   	<input type="hidden" id="input_member" name="member_no" value="\${data[i].member_no}" />
+							   	<input type="hidden" id="input_name" name="name" value="\${data[i].name}" />
+							</button>
 	       				`;
 	       				$("#invitationList").append(str);
 	       			}
 	       		});
 			}
 			
+			// 최초 모임 목록 불러오기
 			getInvitationList();
 			
+			function getParticipantList(no, member_no, name){
+				// 모임 번호로 코드를 조회해서 tbl_invite_participant 테이블에서 해당 코드 데이터 불러오는 ajax
+				$.get("${path}/invitation/api/listByCode/"+no, function(data){
+// 					console.log(data);
+					// 상세 정보 목록 초기화(비우기)
+					$("#participantList").empty();
+					$("#participantListTitle").empty();
+					$("#participantListFooter").empty();
+					console.log(data);
+					// 초대를 아무도 안했을 때
+					if(data.length == 0){
+						let str = `
+							<tr>
+						      <th scope="row"></th>
+						      <td colspan="3">초대 명단이 없습니다.</td>
+						    </tr>
+						`;							
+						$("#participantList").append(str);
+					}
+					
+					let delBtn = "";
+					// 초대한 사람과 로그인한 사람이 다를 때(남이 보낸 초대)
+					if(loginMemberNo != member_no){
+						$("#invParticipantBtn").addClass("d-none-custom");
+						let btns = `
+							<button id="inviteAcceptBtn" class="btn btn-sm btn-success">수락</button>
+						      <button id="inviteCancelBtn" class="btn btn-sm btn-danger">거절</button>
+						`;
+						for(let i=0; i<data.length; i++){
+							if(data[i].participant_no == loginMemberNo){
+								if(data[i].isAccepted == true || data[i].isAccepted == 1 ){
+									btns = `
+										<button id="inviteCancelBtn" class="btn btn-sm btn-danger">거절</button>
+									`;
+								}
+							}
+						}
+						let str = `
+							<span class="text-truncate">\${selectedInvTitle} - \${name}님의 초대</span><div class="text-end" style="min-width:86px;">\${btns}</div>
+						`;							
+						$("#participantListTitle").append(str);
+					} else {
+						$("#invParticipantBtn").removeClass("d-none-custom");
+       					delBtn = `<button id="inviteDelBtn" class="ms-3 btn btn-outline-danger align-middle">모임 삭제
+       								<input type="hidden" value="\${no}" />
+       							</button>`;
+       					let str = `
+							<span class="text-truncate">\${selectedInvTitle}</span>
+							<div class="text-end" style="min-width:86px;">
+								<button id="inviteModifyBtn" class="btn btn-sm btn-warning">수정</button>
+							</div>
+						`;							
+						$("#participantListTitle").append(str);
+       				}
+					
+					let status = ``;
+					let cancelBtn = ``;
+					
+					// 초대 받은 사람들 목록 출력
+					for(let i=0; i<data.length; i++){
+						if(data[i].isAccepted == null){
+							status = `<i class="text-dark bi bi-three-dots"></i>`;
+						} else if (data[i].isAccepted == true || data[i].isAccepted == 1 ){
+							status = `<i class="text-success bi bi-check-lg"></i>`;
+						} else if (data[i].isAccepted == false || data[i].isAccepted == 0 ){
+							status = `<i class="text-danger bi bi-x-lg"></i>`;
+						}
+						
+						// 내가 보낸 초대일 때는 취소 버튼 만들기, 아니면 없음
+						if(loginMemberNo == member_no){
+							cancelBtn = `<button class="master-cancel-btn btn btn-sm btn-danger">
+											<i class="bi bi-x"></i>
+											<input type="hidden" value="\${data[i].no}"/>
+										</button>`;
+						} else {
+							cancelBtn = ``;
+						}
+						
+						let str = `
+							<tr>
+						      <th scope="row">\${i+1}</th>
+						      <td>\${data[i].name}</td>
+						      <td>\${status}</td>
+						      <td>\${cancelBtn}</td>
+						    </tr>
+						`;							
+						$("#participantList").append(str);
+					}
+					
+					if(delBtn != ""){
+						let str = `
+							\${delBtn}
+						`;							
+						$("#participantListFooter").append(str);
+					}
+					
+				});
+			}
+			
+			
+			// 모임 목록 클릭했을 때 하단에 모임 정보 출력
 			$("#invitationList").on("click", "button", function(){
+				// 클릭한 모임만 액티브 설정
 				$("#invitationList button").each(function(){
 					$(this).removeClass("active");
 				});
 				$(this).addClass("active");
+				
+// 				console.log($(this).find("input").val());
+				// 필요한 변수값 가져오기
+				var no = $(this).find("#input_no").val();	// 모임 번호
+				var member_no = $(this).find("#input_member").val();	// 모임 만든 사람 회원 번호
+				var name = $(this).find("#input_name").val();	// 모임 만든 사람 이름
+				var title = $(this).find("div").text();
+				selectedInvNo = no;
+				selectedInvMemNo = member_no;
+				selectedInvName = name;
+				selectedInvTitle = title;
+				getParticipantList(no, member_no, name);
+			});
+			
+			
+			// 상세 목록에서 취소하기 버튼 눌렀을 때 삭제하는 이벤트
+			$("#participantList").on("click", "button", function(){
+				console.log($(this).find("input").val());
+				// tbl_invite_participant에서 no값으로 삭제하는 ajax 처리
+				let confirmResult = confirm("정말로 취소하시겠습니까?");
+				if(confirmResult){
+					let no = $(this).find("input").val();
+					$.ajax({
+						url: "${path}/invitation/api/participant/"+no,
+						method : "DELETE",
+						dataType : "text",
+						success : function(){
+							getParticipantList(selectedInvNo, selectedInvMemNo, selectedInvName);
+						}
+					});
+				}
+			});
+			
+			// 초대 받은 모임에서 수락, 거절 이벤트
+			$("#participantListTitle").on("click","button", function(){
+				console.log(this);
+				let url = "";
+				let id = $(this).attr("id");
+				if(id == "inviteCancelBtn"){
+					url = "${path}/invitation/api/participant/cancel";
+					let confirmResult = confirm("정말로 거절하시겠습니까? 거절 시 상대방이 다시 초대해야 합니다.");
+					if(!confirmResult){
+						return;
+					}
+				} else if(id == "inviteAcceptBtn"){
+					url = "${path}/invitation/api/participant/accept";
+				} else if(id == "inviteModifyBtn"){
+					let title = $("#participantListTitle").find("span").text();
+					modifyTitle(title);
+					return;
+				} else if(id == "inviteModifyAcceptBtn"){
+					url = "${path}/invitation/api/invitation";
+					let title = $("#participantListTitle").find("input").val();
+					$.ajax({
+						url : url,
+						method : "PATCH",
+						data : {
+							no : selectedInvNo,
+							title : title
+						},
+						dataType: "text",
+						success : function(result){
+							getInvitationList();
+							$("#participantList").empty();
+							$("#participantListTitle").empty();
+							$("#participantListFooter").empty();
+						}
+					});
+					return;
+				} else if(id == "inviteModifyCancelBtn"){
+					getParticipantList(selectedInvNo, selectedInvMemNo, selectedInvName);
+					return;
+				}
+				$.ajax({
+					url : url,
+					method : "PATCH",
+					data : {
+						inv_no : selectedInvNo,
+						participant_no : loginMemberNo
+					},
+					dataType: "text",
+					success : function(result){
+						getInvitationList();
+						$("#participantList").empty();
+						$("#participantListTitle").empty();
+					}
+				});
+			});
+			
+			function modifyTitle(title){
+				$("#participantListTitle").empty();
+				let btns = `
+					<button id="inviteModifyAcceptBtn" class="btn btn-sm btn-warning">확인</button>
+				    <button id="inviteModifyCancelBtn" class="btn btn-sm btn-danger">취소</button>
+				`;
+				let str = `
+					<input class="form-control me-3" type="text" value="\${title}" />
+					<div class="text-end" style="min-width:86px;">\${btns}</div>
+					`;
+				$("#participantListTitle").append(str);
+			}
+// 			$("#inviteCancelBtn").click(function(){
+// 				$.ajax({
+// 					url : "${path}/invitation/api/participant/cancel",
+// 					method : "PATCH",
+// 					data : {
+// 						inv_no : selectedInvNo,
+// 						participant_no : loginMemberNo
+// 					},
+// 					dataType: "text",
+// 					success : function(result){
+// 						getInvitationList();
+// 						$("#participantList").empty();
+// 					}
+// 				});
+// 			});
+
+			// 모임 삭제 이벤트 
+			$("#participantListFooter").on("click", "button", function(){
+				let confirmResult = confirm("정말로 삭제하시겠습니까?");
+				if(confirmResult){
+					let no = $(this).find("input").val();
+					$.ajax({
+						url: "${path}/invitation/api/invitation/"+no,
+						method : "DELETE",
+						dataType : "text",
+						success : function(){
+							getInvitationList();
+							$("#participantList").empty();
+							$("#participantListTitle").empty();
+							$("#participantListFooter").empty();
+						}
+					});
+				}
 			});
 			</script>
 			<div class="col-2">

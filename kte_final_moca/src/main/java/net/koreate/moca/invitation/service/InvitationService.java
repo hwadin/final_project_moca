@@ -2,6 +2,7 @@ package net.koreate.moca.invitation.service;
 
 import java.util.List;
 
+import net.koreate.moca.invitation.vo.InvParticipantVO;
 import net.koreate.moca.invitation.vo.InvitationVO;
 
 public interface InvitationService {
@@ -15,5 +16,15 @@ public interface InvitationService {
 	int delete(int no) throws Exception;
 
 	int update(InvitationVO vo) throws Exception;
+
+	List<InvParticipantVO> findByCode(int no) throws Exception;
+
+	int deleteParticipant(int no) throws Exception;
+
+	String sendInvite(int no, String id, Object memberInfo) throws Exception;
+
+	int acceptInvite(int inv_no, int participant_no) throws Exception;
+
+	int cancelInvite(int inv_no, int participant_no) throws Exception;
 
 }

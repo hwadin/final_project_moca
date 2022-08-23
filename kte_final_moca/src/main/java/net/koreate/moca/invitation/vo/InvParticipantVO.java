@@ -5,15 +5,14 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class InvitationVO {
+public class InvParticipantVO {
 
 	private int no;
 	private String code;
-	private String title;
-	private int member_no;
-	private Date regdate;
-
+	private int participant_no;
+	private Date invitedate;
 	private Boolean isAccepted;
+
 	private String name;
 
 }
