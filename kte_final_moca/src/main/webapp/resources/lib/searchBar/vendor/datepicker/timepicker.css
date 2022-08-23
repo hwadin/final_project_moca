@@ -11,6 +11,7 @@
     position: absolute;
     overflow: hidden;
     box-sizing: border-box;
+    
 }
 
 .ui-timepicker {
@@ -36,7 +37,7 @@
 .ui-timepicker-standard {
     /* overwrites .ui-widget */
     font-family: Verdana,Arial,sans-serif;
-    font-size: 1.1em;
+    font-size: 1.0em;
     /* overwrites .ui-widget-content */
     background-color: #FFF;
     border: 1px solid #AAA;

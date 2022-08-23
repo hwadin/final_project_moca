@@ -25,11 +25,11 @@ public interface CafeDAO {
 	 * " tbl_cafe AS C INNER JOIN tbl_cafe_schedule AS S " +
 	 * " WHERE S.dayofweek = #{dayofweek}")
 	 */
-	@Select("SELECT * FROM tbl_cafe")
-	List<CafeVO> cafeList(CafeVO vo) throws Exception;
+	@Select("SELECT * FROM tbl_cafe LIMIT #{index}, 4")
+	List<CafeVO> cafeList(int index) throws Exception;
 	
-	@Select("SELECT * FROM tbl_cafe WHERE owner_no = #{owner_no}")
-	CafeVO read(int owner_no) throws Exception;
+	@Select("SELECT * FROM tbl_cafe WHERE no = #{no}")
+	CafeVO read(int no) throws Exception;
 	
 	@Update("UPDATE tbl_cafe SET addr=#{addr}, addr_detail=#{addr_detail}, content=#{content}, photo_url=#{photo_url}, tag=#{tag}, flag=#{flag}")
 	int update(CafeVO vo) throws Exception; 

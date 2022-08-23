@@ -10,12 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Document</title>
 
 <style>
 
-.boardBox {
-	margin-top: 50px;
+#searchForm {
+	margin-top: 40px;
     padding: 15px 15px;
     text-align: center;
     border-radius: 12px;
@@ -70,7 +69,7 @@
 				
 <!-- 			여기서부터 본문 영역 -->
 <!-- 			row클래스로 하나의 행을 생성 -->
-				<div class="row mt-2">
+				<div id="cafedetail" class="row mt-2">
 <!-- 				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
 					
@@ -105,7 +104,9 @@
 							<i class="bi bi-heart">23</i>
 						</div>
 <!--       카페 Q&A 게시판      -->
-						<div class="boardBox" >Q&A 게시판 이동</div>
+						<form id="searchForm">Notice & Event
+							<input type="hidden" value="${cafe_no}" name="cafe_no">
+						</form>	
 						</span>
 					</div>
 				</div>
@@ -190,17 +191,16 @@
 		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f">
 </script>
 
-	<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
+<script>
 
-		var map = new kakao.maps.Map(container, options);
-	</script>
-    <script>
-    
+	var container = document.getElementById('map');
+	var options = {
+		center: new kakao.maps.LatLng(33.450701, 126.570667),
+		level: 3
+	};
+
+	var map = new kakao.maps.Map(container, options);
+	
     var i = 0;
     $('.bi-heart').on('click',function(){
         if(i==0){
@@ -214,6 +214,10 @@
         }
         
     });
+    
+	$("#searchForm").click(function(){
+		location.href="/board/listPage";		
+	});
 
 </script>	
 

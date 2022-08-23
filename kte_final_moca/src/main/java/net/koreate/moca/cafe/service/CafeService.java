@@ -14,7 +14,7 @@ public interface CafeService {
 	CafeVO read(int owner_no) throws Exception;
 	
 	// 카페 리스트 읽어오기 
-	List<CafeVO> cafeList(CafeVO vo) throws Exception;
+	List<CafeVO> cafeList(int index) throws Exception;
 	
 	// 카페 정보 수정
 	void update(CafeVO vo) throws Exception;
