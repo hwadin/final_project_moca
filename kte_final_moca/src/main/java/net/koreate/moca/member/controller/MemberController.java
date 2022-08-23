@@ -42,6 +42,7 @@ public class MemberController {
 		MemberVO user = ms.logIn(vo);
 		session.setAttribute("memberInfo", ms.logIn(vo));
 //		model.addAttribute("memberInfo", ms.logIn(vo));
+		
 		if(user == null) {
 			return "member/logIn";
 		}else {
@@ -53,6 +54,11 @@ public class MemberController {
 	@RequestMapping("/signUp")
 	public String signUp() {
 		return "member/signUp";
+	}
+	
+	@RequestMapping("/signUpChoice")
+	public String signUpChoice() {
+		return "member/signUpChoice";
 	}
 	
 	@PostMapping("signUpPost")
@@ -76,18 +82,28 @@ public class MemberController {
 		return "redirect:/member/logIn";
 	}
 	
+	@RequestMapping("ownerSignUp")
+	public String ownerSignUp(MemberVO vo) {
+		return "member/ownerSignUp";
+	}
+	
+	@PostMapping("ownerSignUpPost")
+	public  String ownerSignUpPost(MemberVO vo, String c_name) throws Exception{
+		ms.ownerSignUp();
+		return "redirect:/member/logIn";
+	}
+	
 	@GetMapping("logOut")
 	public String logOut(HttpSession session, HttpServletResponse response,
 			@CookieValue(name="logInCookie", required=false)Cookie logInCookie
 			) {
-		if(session.getAttribute("userInfo") != null) {
-			session.removeAttribute("userInfo");
+		if(session.getAttribute("memberInfo") != null) {
+			session.removeAttribute("memberInfo");
 			session.removeAttribute("invalidate");
-			if(logInCookie != null) {
-				logInCookie.setMaxAge(0);
-				logInCookie.setPath("/");
-				response.addCookie(logInCookie);
-			}
+		}if (logInCookie != null) {
+			logInCookie.setMaxAge(0);
+			logInCookie.setPath("/");
+			response.addCookie(logInCookie);
 		}
 		return "redirect:/";
 	}

@@ -7,6 +7,7 @@
 	table {
     margin-left:auto; 
     margin-right:auto;
+	margin-top:200px;
 }
 </style>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
@@ -65,7 +66,7 @@
 				<tr>
 					<th colspan="2">
 						<input type="submit" class="btn btn-success" value="로그인"/>
-						<input type="button" class="btn btn-primary" onclick="location.href='signUp';" value="회원가입"/>  
+						<input type="button" class="btn btn-primary" onclick="location.href='signUpChoice';" value="회원가입"/>  
 					</th>
 				</tr>
 			</table>

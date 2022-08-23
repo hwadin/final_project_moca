@@ -97,13 +97,6 @@
 						</td>
 					</tr>
 					<tr>
-						<td>성별</td>
-						<td>
-							남<input type="radio" name="gender" alt="성별" value="남" required checked/>
-							여<input type="radio" name="gender" alt="성별" value="여" required/>
-						</td>
-					</tr>
-					<tr>
 					<tr>
 						<td>주소</td>
 						<td>
@@ -251,6 +244,7 @@
 	},
 	debug : false,
 	submitHandler : function(form){
+		// submit 하기전 전처리 공간
 		$(form).submit();
 	}
 });

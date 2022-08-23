@@ -66,7 +66,6 @@
 					<div class="col-6">
 						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
 						<span>설명</span>
-						<h1>${memberInfo.id}</h1>
 					</div>
 					<div class="col-6">
 						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
@@ -74,12 +73,9 @@
 					</div>
 				</div>
 <!--			여기 위까지 본문 영역 -->
-			</div>
 			<div class="col-2">
 <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			</div>
-		</div>
-	</div>
 
 <!-- end of container -->
 </section>
