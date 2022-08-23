@@ -18,7 +18,7 @@ public interface InvitationDAO {
 	@Select("SELECT * FROM tbl_invite WHERE no = #{no}")
 	InvitationVO findByNo(int no) throws Exception;
 
-	@Select("SELECT DISTINCT i.*, p.isAccepted, m.name FROM tbl_invite i LEFT JOIN tbl_invite_participant p ON i.code=p.code JOIN tbl_member m ON i.member_no = m.no WHERE i.member_no=#{member_no} OR p.participant_no=#{member_no}")
+	@Select("SELECT DISTINCT i.*,  IF(i.member_no = #{member_no}, null, p.isAccepted) isAccepted, m.name FROM tbl_invite i LEFT JOIN tbl_invite_participant p ON i.code=p.code JOIN tbl_member m ON i.member_no = m.no WHERE i.member_no=#{member_no} OR p.participant_no=#{member_no}")
 	List<InvitationVO> findByMember(int member_no) throws Exception;
 
 	@Delete("DELETE FROM tbl_invite WHERE no=#{no}")
