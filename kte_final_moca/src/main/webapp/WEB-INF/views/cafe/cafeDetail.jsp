@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <style>
 
@@ -105,26 +105,27 @@
 				<ul class="nav nav-tabs justify-content-center nav-pills nav-justified"
 					 id="myTab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="userinfo-tab" data-bs-toggle="tab"
-							data-bs-target="#userinfo" type="button" role="tab" aria-controls="userinfo"
+						<button class="nav-link active" id="locationinfo-tab" data-bs-toggle="tab"
+							data-bs-target="#locationinfo" type="button" role="tab" aria-controls="locationinfo"
 							aria-selected="true">위치</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="myreview-tab" data-bs-toggle="tab"
-							data-bs-target="#myreview" type="button" role="tab"
-							aria-controls="myreview" aria-selected="false">메뉴</button>
+						<button class="nav-link" id="menu-tab" data-bs-toggle="tab"
+							data-bs-target="#menu" type="button" role="tab"
+							aria-controls="menu" aria-selected="false">메뉴</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="wishlist-tab" data-bs-toggle="tab"
-							data-bs-target="#wishlist" type="button" role="tab"
-							aria-controls="wishlist" aria-selected="false">리뷰</button>
+						<button class="nav-link" id="review-tab" data-bs-toggle="tab"
+							data-bs-target="#review" type="button" role="tab"
+							aria-controls="review" aria-selected="false">리뷰</button>
 					</li>
 				</ul>
 			</div>	
-				<!-- 내용 -->
+<!-- 내용 입력 div -->
 				<div class="tab-content" id="myTabContent">
-					<div class="tab-pane fade show active" id="userinfo" role="tabpanel"
-						aria-labelledby="userinfo-tab">
+	 	<!-- 위치 -->
+					<div class="tab-pane fade show active" id="locationinfo" role="tabpanel"
+						aria-labelledby="locationinfo-tab">
 				<div class="row mt-5">
 					<div class="col-12">
 						<strong class="titDep5" style="font-size: 2rem;">
@@ -135,8 +136,9 @@
 					</div>
 				</div>		
 					</div>
-					<div class="tab-pane fade" id="myreview" role="tabpanel"
-						aria-labelledby="myreview-tab">
+		<!-- 메뉴 -->	
+					<div class="tab-pane fade" id="menu" role="tabpanel"
+						aria-labelledby="menu-tab">
 						<div class="row mt-5">
 						<strong class="titDep5" style="font-size: 2rem;">
 						<i class="bi bi-cart-plus-fill" style="font-size: 2rem; color: crimson;"></i>
@@ -145,7 +147,7 @@
 							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300"
 								 class="img-thumbnail" />
 								<span class="menu">아메리카노</span>
-		<!-- pricediscount는 현재시각에 할인율 겹치는 가격으로 보여주기  -->
+					<!-- pricediscount는 현재시각에 할인율 겹치는 가격으로 보여주기  -->
 								<span class="price"><del>5,000원</del></span>
 								<span class="pricediscount" style="color:red;">4,000원</span>
 							</div>
@@ -165,7 +167,12 @@
 							</div>
 						</div>
 					</div>
-				</div>				
+		 <!--리뷰  -->
+				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+				
+				
+				</div>
+			</div>				
 
 <!--			여기 위까지 본문 영역 -->
 				</div>
@@ -178,19 +185,33 @@
 <!-- end of container -->
 </section>
 <script type="text/javascript"
-		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f">
+		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f&libraries=services,clusterer">
 </script>
-
 <script>
-
-	var container = document.getElementById('map');
-	var options = {
-		center: new kakao.maps.LatLng(33.450701, 126.570667),
-		level: 3
-	};
-
-	var map = new kakao.maps.Map(container, options);
+	//map 지도 객체 생성
+ 	var container = document.getElementById('map');
 	
+    // place 키워드로 위도, 경도 찾기
+	var places = new kakao.maps.services.Places();
+	var callback = function(result, status) {
+	    if (status === kakao.maps.services.Status.OK) {
+	        console.log(result);
+	        console.log(result[0].address_name);
+	        console.log(result[0].x);
+	        console.log(result[0].y);
+	        var options = {
+	        		center: new kakao.maps.LatLng(result[0].y, result[0].x),
+	        		level: 0.5
+	        	}; 
+         	var map = new kakao.maps.Map(container, options); 
+ 			var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+   			var marker = new kakao.maps.Marker({position: markerPosition});
+   			 marker.setMap(map);
+	        }
+	    }
+	places.keywordSearch('${cafeVO.name}', callback);
+
+
     var i = 0;
     $('.bi-heart').on('click',function(){
         if(i==0){
