@@ -198,9 +198,7 @@
 <!-- end of container -->
 </section>
 <script type="text/javascript"
-
 		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f&libraries=services">
-
 </script>
 <script>
 	//map 지도 객체 생성
@@ -210,7 +208,10 @@
 	var places = new kakao.maps.services.Places();
 	var callback = function(result, status) {
 	    if (status === kakao.maps.services.Status.OK) {
-
+/* 	        console.log(result);
+	        console.log(result[0].address_name);
+	        console.log(result[0].x);
+	        console.log(result[0].y); */
 	        var options = {
 	        		center: new kakao.maps.LatLng(result[0].y, result[0].x),
 	        		level: 0.5
@@ -219,16 +220,8 @@
  			var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
    			var marker = new kakao.maps.Marker({position: markerPosition});
    			 marker.setMap(map);
-
     		var infowindow = new kakao.maps.InfoWindow({
         		content: '<div id="mapinfo">'+result[0].address_name+'</div>'
-
-	        }
-	    }
-	places.keywordSearch('${cafeVO.name}', callback);
-
-        
-
     });
     infowindow.open(map, marker);
         }
