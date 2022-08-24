@@ -19,6 +19,14 @@
 		}
 	
 </style>
+<!-- 토스트 에디터 CDN -->
+  <script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
+ <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+ 
+<script>
+const Viewer = toastui.Editor;
+</script>
+ 
 <section class="bg-light">
 	<div class="container pt-3">
 		<div class="row">
@@ -42,33 +50,19 @@
 				
 <!-- 			여기서부터 본문 영역 -->
 	<!-- 게시글 정보 name : board -->
-	<div class="row justify-content-center">
-	<div class="col-10">
-	<table class="table text-center table-bordered">
-		<tr>
-			<th class="bg-success" style="--bs-bg-opacity: .2">제목</th>
-			<td class="bg-white">${board.title}</td>
-		</tr>
-		<tr>
-			<th class="bg-success" style="--bs-bg-opacity: .2">작성자</th>
-			<td class="bg-white">${sessionScope.memberInfo.name}</td>
-		</tr>
-		<tr>
-			<td colspan="2">내용</td>
-		</tr>
-		<tr>
-			<td class="bg-white text-start" colspan="2" style="min-height:300px;">
-				<%-- <textarea rows="30" cols="50" readonly class="form-control">${board.content}</textarea> --%>
-				${board.content}
-			</td>
-		</tr>
-	</table>
+
+	
+	<div class="row my-3">
+		<span class="col-1 border-end">제목</span>
+		<div class="col-11">
+			<span>${board.title}</span>
+		</div>
+		<textarea hidden id="content"><c:out value="${board.content}" /></textarea>
 	</div>
-	</div>
-	<div class="row text-end">
-		<a href="${path}/board/listPage?cafe_no=${board.cafe_no}">목록</a>
-	</div>
-	<hr/>
+	<hr />
+	<div class="row border mb-3">
+    	<div class="col" id="viewer" style="min-height:500px"></div>
+    </div>
 	<%-- <!-- 첨부파일 -->
 	<div>
 		<ul class="uploadList">
@@ -105,22 +99,39 @@
 	</div> --%>
 	
 	<!-- 수정 삭제 답글 버튼 -->
-	<div class="form-control text-center">
-				<input type="button" id="modifyBtn" value="수정"/>
-				<input type="button" id="removeBtn" value="삭제"/>
-		<c:if test="${!empty memberInfo}">
-			<c:if test="${memberInfo.name eq board.writer}">
-				<!-- <input type="button" id="modifyBtn" value="수정"/>
-				<input type="button" id="removeBtn" value="삭제"/> -->
+	<div class="row">
+		<div class="col-2"></div>
+		<div class="col-8 text-center">
+<!-- 			<input type="button" id="modifyBtn" value="수정"/> -->
+<!-- 			<input type="button" id="removeBtn" value="삭제"/> -->
+			<button type="button" id="modifyBtn" class="btn btn-secondary" >수정</button>
+			<button type="button" id="removeBtn" class="btn btn-danger" >삭제</button>
+			<c:if test="${!empty memberInfo}">
+				<c:if test="${memberInfo.name eq board.writer}">
+					<!-- <input type="button" id="modifyBtn" value="수정"/>
+					<input type="button" id="removeBtn" value="삭제"/> -->
+				</c:if>
+				<!-- <input type="button" id="replyBtn" value="REPLY"/> -->
 			</c:if>
-			<!-- <input type="button" id="replyBtn" value="REPLY"/> -->
-		</c:if>
+		</div>
+		<div class="col-2  text-end">
+			<a class="btn btn-warning" href="${path}/board/listPage?cafe_no=${board.cafe_no}">목록으로</a>
+		</div>
 	</div>
+	
 	<form id="readForm">
 		<input type="hidden" name="no" value="${board.no}"/>
 	</form>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+
+
+const viewer = new Viewer({
+    el: document.querySelector('#viewer'),
+    viewer: true,
+	height: '500px',
+    initialValue: $("#content").text()
+  });
+
 	var formObj = $("#readForm");
 	
 	/* $("#replyBtn").click(function(){
