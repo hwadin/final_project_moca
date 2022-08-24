@@ -54,29 +54,76 @@
                   <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
                     <span class="visually-hidden">New alerts</span>
                 </button>
+                
                 <!-- drop down 해야되는곳 -->
-                <div class="dropdown">
-                  	<a class="btn btn-secondary rounded-circle me-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  	<i class="bi bi-person-fill "></i>
-                	</a>
-                	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown">
-					    <li><a class="dropdown-item" href="#">회원정보수정</a></li>
-					    <li><a class="dropdown-item" href="member/logOut">로그아웃</a></li>
-					    <li><a class="dropdown-item" href="#">회원탈퇴</a></li>
+				 <div class="dropdown" style="width=500;">
+                <c:choose>
+                	<c:when test="${!empty sessionScope.memberInfo}">
+                	<c:choose>
+                		<c:when test="${memberInfo.profile_url == null}">
+                			<a class="btn btn-secondary rounded-circle me-2 " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
+                  			<i class="bi bi-person-fill "></i>
+                		</a>
+                	</c:when>
+                	<c:otherwise>
+                		<a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
+	                		<img class="rounded-circle profile_url" src="${pageContext.request.contextPath}/${memberInfo.profile_url}" />
+	                	</a>
+                	</c:otherwise>
+                	</c:choose>
+	                	
+                	</c:when>
+                	<c:otherwise>
+                		<a class="btn btn-secondary rounded-circle me-2 " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
+                  			<i class="bi bi-person-fill "></i>
+                		</a>
+                	</c:otherwise>
+                </c:choose>
+                  	
+                <c:choose>
+                	<c:when test="${!empty sessionScope.memberInfo}">
+	                	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown">
+	                		<c:choose>
+                				<c:when test="${memberInfo.profile_url == null}">
+                					<a class="btn btn-secondary rounded-circle me-2 " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
+                  					<i class="bi bi-person-fill "></i>
+                					</a>
+                			</c:when>
+                		<c:otherwise>
+                			<a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
+	                		</a>
+                		</c:otherwise>
+                	</c:choose>
+                		<div>
+                			<img style="width: 150px; height: 150px;" class="rounded-circle profile_url" src="${pageContext.request.contextPath}/${memberInfo.profile_url}" />
+                			<br/>
+                			<label>${memberInfo.id}</label>
+                		</div>
+                			<hr/>
+						    <a class="dropdown-item" href="member/update">회원정보수정</a>
+						    <a class="dropdown-item" href="member/logOut">로그아웃</a>
+						 </div>
 					 </div>
-                </div>
+					 </c:when>
+					 <c:otherwise>
+					 
+					 	<div class="align-items-center dropdown-menu-end dropdown-menu text-center" aria-labelledby="dropdownMenuLink" id="dropdown">
+					 		로그인 해주세요
+					 		<a href="${pageContext.request.contextPath}/member/logIn" class="btn btn-success">로그인</a>
+					 	</div>
+					 </c:otherwise>
+                </c:choose>
+                <!-- 위로 dropdown -->
                 <c:choose>
                 	<c:when test="${!empty sessionScope.memberInfo}">
                 	<label>${memberInfo.name}</label>
                 	</c:when>
             		<c:otherwise>
-
             			<a href="${pageContext.request.contextPath}/member/logIn" class="small "><strong>Login First</strong></a>
-                		
-
             		</c:otherwise>
             	</c:choose>
               </div>
+              
               <!-- end of nav bar content -->
               </div>
           </nav>

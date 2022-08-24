@@ -20,7 +20,7 @@ public interface MemberDAO {
 	void signUp(MemberVO vo) throws Exception;
 
 	// 회원정보 수정 비밀번호,이름, 나이, 주소
-	@Update("UPDATE tbl_member SET profile_url=#{profile_url},pw=#{pw}, name=#{name}, age=#{pw}, post=#{post},addr=#{addr},addr_detail=#{addr_detail} WHERE no =#{no}")
+	@Update("UPDATE tbl_member SET profile_url=#{profile_url},pw=#{pw}, name=#{name}, age=#{age}, post=#{post},addr=#{addr},addr_detail=#{addr_detail} WHERE no =#{no}")
 	void memberUpdate(MemberVO vo) throws Exception;
 
 	// id로 회원 검색
