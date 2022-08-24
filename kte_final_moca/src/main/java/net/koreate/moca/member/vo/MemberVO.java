@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 public class MemberVO {
 
 	private int no;
+	private String profile_url;
 	private String id;
 	private String pw;
 	private String name;
@@ -20,8 +21,8 @@ public class MemberVO {
 	private String addr_detail;
 	private Date regdate;
 	private Date updatedate;
-	private String profile_url;
 	private boolean IsOwner;
+	private boolean isDelete;
 }
 
 

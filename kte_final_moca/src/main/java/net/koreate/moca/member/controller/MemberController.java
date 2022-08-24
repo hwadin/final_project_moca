@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,12 +45,10 @@ public class MemberController {
 	public String logInPost(MemberVO vo,RedirectAttributes rttr, HttpSession session) throws Exception{
 		MemberVO user = ms.logIn(vo);
 		session.setAttribute("memberInfo", ms.logIn(vo));
-//		model.addAttribute("memberInfo", ms.logIn(vo));
 		
 		if(user == null) {
 			return "member/logIn";
 		}else {
-			rttr.addFlashAttribute("memberInfo",user);
 			return "redirect:/";
 		}
 	}
@@ -64,10 +63,22 @@ public class MemberController {
 		return "member/signUpChoice";
 	}
 	
+	@RequestMapping("/update")
+	public String update() {
+		return "member/update";
+	}
+	
+	@PostMapping("updatePost")
+	public String updatePost(MemberVO vo, RedirectAttributes rttr) throws Exception{
+		ms.memberUpdate(vo);
+		rttr.addFlashAttribute("no",vo.getNo());
+		return "redirect:/";
+	}
+	
 	@PostMapping("signUpPost")
 	public String signUpPost(MemberVO vo, MultipartFile profileImage) throws Exception {
 		
-		ms.signUp(vo);
+		
 		if(!profileImage.isEmpty()) {
 			String path = "upload"+File.separator + "profile"+File.separator+vo.getId();
 			String realPath = context.getRealPath(path);
@@ -81,7 +92,7 @@ public class MemberController {
 			vo.setProfile_url(profile_url);
 			
 		}
-
+		ms.signUp(vo);
 		return "redirect:/member/logIn";
 	}
 	

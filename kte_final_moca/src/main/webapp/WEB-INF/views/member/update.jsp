@@ -36,7 +36,7 @@
 				<div class="row mt-5 mb-4">
 					<div class="col mt-5">
 <!-- 	페이지 제목 및 설명 헤더 부분(작성) -->
-						<p class="text-center display-5">회원가입</p>
+						<p class="text-center display-5">회원정보수정</p>
 					</div>
 				</div>
 <%@ include file="/WEB-INF/views/common/btnHeader.jsp" %>
@@ -54,12 +54,12 @@
 <!-- 	한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
 	<div>
 		<article>
-			<form id="signUpForm" action="signUpPost" method="POST" enctype="multipart/form-data">
+			<form id="updateForm" action="updatePost" method="POST" enctype="multipart/form-data">
 				<table class="table-primary">
 					<tr>
 						<td>프로필 이미지</td>
 						<td style="text-align:center">
-							<img src="${path}/resources/img/profile.jpg" id="profile_url" class="profile_url"/>
+							<img src="${path}/resources/img/profile.jpg" id="profile_url" value="${memberInfo.profile_url}" class="profile_url"/>
 							<br/>
 							<input type="file" id="profileImage" name="profileImage" accept="image/*"/>
 						</td>
@@ -67,33 +67,33 @@
 					<tr>
 						<td>아이디</td>
 						<td>
-							<input type="text" name="id" id="id" alt="아이디" required/>
+							<input type="text" name="id" id="id" alt="아이디" value="${memberInfo.id}" disabled/>
 						</td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
 						<td>
-							<input type="password" name="pw" id="pw" alt="비밀번호" required/>
+							<input type="password" name="pw" id="pw" alt="비밀번호" value="${memberInfo.pw}" required/>
 							<div class="result"></div>
 						</td>
 					</tr>
 					<tr>
 						<td>비밀번호확인</td>
 						<td>
-							<input type="password" name="repw" id="repw" alt="비밀번호확인" required/>
+							<input type="password" name="repw" id="repw" alt="비밀번호확인" value="${memberInfo.pw}" required/>
 							<div class="result"></div>
 						</td>
 					</tr>
 					<tr>
 						<td>이름</td>
 						<td>
-							<input type="text" name="name" id="name" alt="이름" required/>
+							<input type="text" name="name" id="name" alt="이름" value="${memberInfo.name}" required/>
 						</td>
 					</tr>
 					<tr>
 						<td>나이</td>
 						<td>
-							<input type="text" name="age" alt="나이" required/>
+							<input type="text" name="age" alt="나이" value="${memberInfo.age}" required/>
 						</td>
 					</tr>
 					<tr>
@@ -101,17 +101,20 @@
 						<td>주소</td>
 						<td>
 							<div>
-								<input type="text" name="post" id="post" placeholder="우편번호"/>
+								<input type="text" name="post" id="post" value="${memberInfo.post}" placeholder="우편번호"/>
 								<input type="button" value="주소찾기" onclick="daumPostCode();"/>
 							</div>
-							<input type="text" name="addr" id="addr" placeholder="주소"/>
+							<input type="text" name="addr" id="addr" value="${memberInfo.addr}" placeholder="주소"/>
 							<br/>
-						    <input type="text" name="addr_detail" id="addr_detail" placeholder="상세주소"/>
+						    <input type="text" name="addr_detail" id="addr_detail" value="${memberInfo.addr_detail}" placeholder="상세주소"/>
 						</td>
 					</tr>
+					<div>
+						<input type="hidden" name="no" value="${memberInfo.no}" />
+					</div>
 					<tr>
 						<th colspan="5">
-							<input type="submit" class="btn btn-primary" value="회원가입"/> 
+							<input type="submit" class="btn btn-primary" value="수정"/> 
 							<input type="button" class="btn btn-success" onclick="location.href='logIn';" value="로그인"/>  
 						</th>
 					</tr>
