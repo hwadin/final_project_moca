@@ -58,6 +58,10 @@ $(window).on('load',function(){
 		$("section").css("min-height", $(window).height()-$("footer").height());
 	}
 });
+
+$("#sideTopBtn").click(function(e){
+	$('html').animate( { scrollTop : 0 }, 200, "linear" );	
+});
 </script>
 
 </body>
