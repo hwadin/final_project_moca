@@ -19,7 +19,7 @@
 						  <div class="carousel-inner position-relative">
 						    <div class="carousel-item active">
 						    	<div class="position-absolute w-100 h-100 bg-dark carousel-wrap"></div>
-						      <img src="${path}/resources/images/cafeimage.jpg" class="d-block w-100" alt="...">
+						      <img src="https://static-file.jejupass.com/download/834333" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block">
 						        <h5>일정을 관리하세요!</h5>
 						        <p>일정을 등록하고 모임에 초대한 친구와 겹쳐볼 수 있습니다.</p>
@@ -28,7 +28,7 @@
 						    
 						    <div class="carousel-item">
 						   	 <div class="position-absolute w-100 h-100 bg-dark carousel-wrap"></div>	
-						      <img src="${path}/resources/images/carousel2.png" class="d-block w-100" alt="...">
+						      <img src="https://static-file.jejupass.com/download/119992" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block">
 						        <h5>Second slide label</h5>
 						        <p>Some representative placeholder content for the second slide.</p>
@@ -36,7 +36,7 @@
 						    </div>
 						    <div class="carousel-item">
 						  	  <div class="position-absolute w-100 h-100 bg-dark carousel-wrap"></div>
-						      <img src="${path}/resources/images/carousel3.png" class="d-block w-100" alt="...">
+						      <img src="https://static-file.jejupass.com/download/84414" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block">
 						        <h5>Third slide label</h5>
 						        <p>Some representative placeholder content for the third slide.</p>

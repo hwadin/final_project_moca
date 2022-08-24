@@ -107,14 +107,14 @@
 			console.log(data);
 			for(var i=0; i<data.length; i++){
 				var str = 
-					`<div class="col-6">
+					`<div class="col-6 mt-3">
 				<a href="${path}/cafe/cafeDetail/\${data[i].no}" style="text-decoration:none">
 				<img src="\${data[i].photo_url}" class="img-thumbnail" />
 				<strong class="title" style="font-size: 2rem; color: cadetblue;">
 				\${data[i].name}
 				</strong>
 				</a>
-				<div class="conUtil">
+				<div class="conUtil mt-2">
 					<span class="likeNum" title="좋아요 갯수">
 						<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">
 						\${data[i].likenum}</i>
@@ -137,7 +137,7 @@
 				cafelist.append(str);
 			}
 	 });
-	}
+}
 	getCafeList();
  $(function(){
 		var page =1;
@@ -147,10 +147,6 @@
 		let windowHeight = $(window).height();
 		let documentHeight = $(document).height();
 	 	if(scrollTop + windowHeight+1 >= documentHeight){
-// 			console.log(++page);
-// 			console.log(scrollTop);
-// 			console.log(windowHeight);
-// 			console.log(documentHeight);
 			index +=4;
 console.log("getCafeList 호출 index : " + index);
 			getCafeList();
