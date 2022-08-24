@@ -14,6 +14,15 @@
 		margin:auto;
 	}
 </style>
+<!-- 토스트 에디터 CDN -->
+ <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script> 
+ <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+ 
+<!--  토스트 에디터 선언 -->
+ <script>
+      const Editor = toastui.Editor;
+ </script>
+ 
 <section class="bg-light">
 	<div class="container pt-3">
 		<div class="row">
@@ -31,46 +40,43 @@
 					<div class="col">
 						<hr />
 <!-- 					페이지 소제목 부분(작성) -->
-						<p class="lead"><i class="bi bi-chat-right-heart"></i>글 작성</p>
+						<p class="lead"><i class="bi bi-chat-right-heart"></i> 글 작성</p>
 					</div>
 				</div>
 				
 <!-- 			여기서부터 본문 영역 -->
 	<form id="registerForm" action="register" method="POST">
 		<input type="hidden" name="cafe_no" value="${cafe_no}" />
-		<table>
-			<tr>
-				<td>카테고리</td>
-				<td>
-					<select id="category" 
-										name="category">
-									<option value="공지사항">공지사항</option>
-									<option value="이벤트">이벤트</option>
-									</select>
-				</td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="title" required/></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td>
-					${sessionScope.memberInfo.name}
-				</td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td>
-					<textarea name="content" rows="30" cols="50"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="submit" id="saveBtn" value="등록"/>
-				</th>
-			</tr>
-		</table>
+		
+		<div class="row my-3">
+			<label for="title" class="col-1 col-form-label border-end">제목</label>
+			<div class="col-7">
+				<input type="text" id="title" name="title" class="form-control" required/>
+			</div>
+			<label for="category" class="col-2 col-form-label text-center border-end">카테고리</label>
+			<div class="col-2">
+				<select id="category" class="form-select" name="category">
+					<option value="공지사항">공지사항</option>
+					<option value="이벤트">이벤트</option>
+				</select>
+			</div>
+			<textarea hidden name="content" id="content" ></textarea>
+		</div>
+		<hr/>
+		<!-- 					토스트 에디터 적용 영역 -->
+		<div class="row">
+			<div id="editor" class="col"></div>
+		</div>
+		
+		<div class="row mt-3">
+			<div class="col-4"></div>
+			<div class="col-4 text-center">
+				<button type="submit" id="saveBtn" class="btn btn-success">작성 완료</button>
+			</div>
+			<div class="col-4 text-end">
+				<button type="button" id="backBtn" class="btn btn-warning">뒤로 가기</button>
+			</div>
+		</div>
 		<!-- <div>
 			<label>FILE DROP HERE</label>
 			<div class="fileDrop">
@@ -96,10 +102,24 @@
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	/* $("#saveBtn").click(function(){
-		location.href="register";
-	}); */
+// 토스트 에디터 작동
+const editor = new Editor({
+	  el: document.querySelector('#editor'),
+	  height: '500px',
+	  initialEditType: 'markdown',
+	  previewStyle: 'vertical'
+	});
 
+$("#saveBtn").click(function(e){
+	e.preventDefault();
+	$("#content").text(editor.getMarkdown());
+	console.log($("#content").text());
+	$("#registerForm").submit();
+}); 
+
+$("#backBtn").click(function(e){
+	history.go(-1);
+});
 /* // dragenter dragover , drop
 	$(".fileDrop").on("dragenter dragover", function(e){
 		e.preventDefault();
