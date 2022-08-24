@@ -27,6 +27,16 @@
 		list-style:none;
 	}
 </style>
+
+<!-- 토스트 에디터 CDN -->
+ <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script> 
+ <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+ 
+<!--  토스트 에디터 선언 -->
+ <script>
+      const Editor = toastui.Editor;
+ </script>
+
 <section class="bg-light">
 	<div class="container pt-3">
 		<div class="row">
@@ -50,42 +60,33 @@
 				
 <!-- 			여기서부터 본문 영역 -->
 <!-- 			row클래스로 하나의 행을 생성 -->
-				<h2>
-	</h2>
 	<form id="modifyForm" action="modifyPage" method="POST">
 		<%-- <input type="hidden" name="no" value="${memberInfo.no}"/> --%>
 		<input type="hidden" name="no" value="${board.no}" />
-		<div class="row justify-content-center">
-		<div class="col-10">
-		<table class="table text-center">
-			<tr>
-				<td class="align-middle">제목</td>
-				<td><input  class="form-control" type="text" name="title" value="${board.title}" required/></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td>
-					${sessionScope.memberInfo.name}
-				</td>
-			</tr>
-			<tr>
-				<td class="align-middle">내용</td>
-				<td>
-					<textarea class="form-control" name="content" rows="20" cols="50">${board.content}</textarea>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="button" id="saveBtn" value="등록" class="btn btn-primary"/>
-				</th>
-			</tr>
-		</table>
+
+		<div class="row my-3">
+			<label for="title" class="col-1 col-form-label border-end">제목</label>
+			<div class="col-11">
+				<input type="text" id="title" name="title" class="form-control" value="${board.title}" required/>
+			</div>
+			<textarea hidden name="content" id="content" >${board.content}</textarea>
 		</div>
-	</div>
-	<div class="row text-end">
-		<a href="${path}/board/readPage?no=${board.no}">목록</a>
-	</div>
-	<hr/>
+		<hr/>
+		<!-- 					토스트 에디터 적용 영역 -->
+		<div class="row">
+			<div id="editor" class="col"></div>
+		</div>
+		
+		<div class="row mt-3">
+			<div class="col-4"></div>
+			<div class="col-4 text-center">
+				<button type="submit" id="saveBtn" class="btn btn-success">작성 완료</button>
+			</div>
+			<div class="col-4 text-end">
+				<button type="button" id="backBtn" class="btn btn-warning">뒤로 가기</button>
+			</div>
+		</div>
+
 		<%-- <div>
 			<label>FILE DROP HERE</label>
 			<div class="fileDrop">
@@ -135,6 +136,28 @@
 <!-- end of container -->
 </section>
 <script>
+
+//토스트 에디터 작동
+const editor = new Editor({
+	  el: document.querySelector('#editor'),
+	  height: '500px',
+	  initialEditType: 'markdown',
+	  previewStyle: 'vertical',
+	  initialValue: $("#content").text()
+	});
+
+$("#saveBtn").click(function(e){
+	e.preventDefault();
+	$("#content").text(editor.getMarkdown());
+	console.log($("#content").text());
+	$("#registerForm").submit();
+}); 
+
+$("#backBtn").click(function(e){
+	history.go(-1);
+});
+
+
 	$(".fileDrop").on("dragenter dragover",function(e){
 		e.preventDefault();
 	});

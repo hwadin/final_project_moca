@@ -45,3 +45,24 @@ footer {
 	width : 100%;
 	
 }
+
+
+
+	.profile_url{
+		width:50px;
+		height:50px;
+		border:1px solid #ccc;
+	}
+	 #dropdown{
+     background-color : #e2e2e2;
+    }
+    
+    .user_header{
+    	background-color : #fff;
+    }
+
+
+.form-control-plaintext:focus{
+	outline : none;
+}
+

@@ -26,8 +26,8 @@
 				<div class="row mt-5 mb-4">
 					<div class="col mt-5">
 <!-- 					페이지 제목 및 설명 헤더 부분(작성) -->
-						<p class="text-center display-5">CAFE</p>
-						<p class="text-center lead">카페를 찾아보자</p>
+						<p class="text-center display-5">JOIN</p>
+						<p class="text-center lead">회원가입</p>
 					</div>
 				</div>
 				
@@ -45,8 +45,8 @@
 <!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
 					<div class="col-12">
 					<div class="text-center" id=btnpck>
-						<input type="submit" class="btn btn-warning" id="signUpbtn" onclick="location.href='ownerSignUp';" value="사업자용 회원가입"/> 
-						<input type="button" class="btn btn-info" id="signUpbtn" onclick="location.href='signUp';" value="일반회원용 회원가입"/>
+						<input type="submit" class="btn btn-outline-warning text-dark" id="signUpbtn" onclick="location.href='ownerSignUp';" value="사업자용 회원가입"/> 
+						<input type="button" class="btn btn-outline-info text-dark" id="signUpbtn" onclick="location.href='signUp';" value="일반회원용 회원가입"/>
 					</div>  
 <!--			여기 위까지 본문 영역 -->
 			</div>

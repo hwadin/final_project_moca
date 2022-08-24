@@ -6,8 +6,7 @@
 <html lang='ko'>
 <style>
 	table {
-	max-width:500px;
-    margin-left:auto; 
+    margin-left:300px; 
     margin-right:auto;
 }
 
@@ -52,7 +51,7 @@
 <div class="row">
 <!-- 	row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
 <!-- 	한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
-	<div class="col-12">
+	<div>
 		<article>
 			<form id="signUpForm" action="ownerSignUpPost" method="POST" enctype="multipart/form-data">
 				<table class="table-primary">
@@ -118,7 +117,6 @@
 					</tr>
 					<tr>
 						<td>카페 이름</td>
-						<td>
 							<td>
 								<input type="text" name="c_name" id="c_name" alt="카페이름" required/>
 							</td>
