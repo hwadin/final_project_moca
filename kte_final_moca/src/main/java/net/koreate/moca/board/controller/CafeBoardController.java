@@ -101,4 +101,9 @@ public class CafeBoardController {
 			rttr.addAttribute("no",vo.getNo());
 			return "redirect:/board/read";
 		}
+		
+		@GetMapping("wishList")
+		public String wishList() {
+			return "/board/wishList";
+		}
 }
