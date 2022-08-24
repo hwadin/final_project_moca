@@ -42,10 +42,11 @@ public class CafeServiceImpl implements CafeService {
 		return dao.cafeList(index);
 	}
 
+
 	@Override
-	public List<CafeVO> cafeListPage(int no, Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public void updatelikenum(int no) throws Exception {
+		dao.updatelikenum(no);
+		
 	}
 
 }

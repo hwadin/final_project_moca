@@ -33,7 +33,10 @@ public interface CafeDAO {
 	
 	@Update("UPDATE tbl_cafe SET addr=#{addr}, addr_detail=#{addr_detail}, content=#{content}, photo_url=#{photo_url}, tag=#{tag}, flag=#{flag}")
 	int update(CafeVO vo) throws Exception; 
-
+	
+	@Update("UPDATE tbl_cafe SET likenum=#{likenum} WHERE no = #{no}")
+	void updatelikenum(int no) throws Exception;
+	
 	@Delete("DELETE FROM tbl_cafe WHERE no = #{no}")
 	int delete(int no) throws Exception;
 	

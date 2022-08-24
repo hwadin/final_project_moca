@@ -37,6 +37,15 @@
        color:crimson;
        cursor:pointer;
    }
+   
+#mapinfo{
+	border-radius : 20px;
+	text-align:center;
+	padding:3px 0;
+	border: 2px solid green;
+	width:210px;
+
+}  
 </style>
 </head>
 
@@ -90,9 +99,13 @@
 						<p class="txt">${cafeVO.content}</p>
 						<p class="tagWrap">${cafeVO.tag}</p>
 						<span class="flagWrap">${cafeVO.flag}</span>
-						<div class="likeNum mt-5" title="좋아요 갯수">
-							<i class="bi bi-heart">${cafeVO.likenum}</i>
-						</div>
+						
+				<div class="likeNum mt-5" title="좋아요 갯수">
+					<c:if test="${!empty sessionScope.memberInfo}">
+						<i class="bi bi-heart">${cafeVO.likenum}</i>
+					</c:if>
+				</div>
+
 <!--       카페 Q&A 게시판      -->
 						<form id="searchForm">Notice & Event
 							<input type="hidden" value="${cafe_no}" name="cafe_no">
@@ -185,7 +198,9 @@
 <!-- end of container -->
 </section>
 <script type="text/javascript"
-		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f&libraries=services,clusterer">
+
+		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f&libraries=services">
+
 </script>
 <script>
 	//map 지도 객체 생성
@@ -195,10 +210,7 @@
 	var places = new kakao.maps.services.Places();
 	var callback = function(result, status) {
 	    if (status === kakao.maps.services.Status.OK) {
-	        console.log(result);
-	        console.log(result[0].address_name);
-	        console.log(result[0].x);
-	        console.log(result[0].y);
+
 	        var options = {
 	        		center: new kakao.maps.LatLng(result[0].y, result[0].x),
 	        		level: 0.5
@@ -207,24 +219,48 @@
  			var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
    			var marker = new kakao.maps.Marker({position: markerPosition});
    			 marker.setMap(map);
+
+    		var infowindow = new kakao.maps.InfoWindow({
+        		content: '<div id="mapinfo">'+result[0].address_name+'</div>'
+
 	        }
 	    }
 	places.keywordSearch('${cafeVO.name}', callback);
 
-
-    var i = 0;
-    $('.bi-heart').on('click',function(){
-        if(i==0){
-            $(this).removeClass('bi-heart');
-            $(this).addClass('bi-heart-fill');
-            i++;
-        }else if(i==1){
-            $(this).removeClass('bi-heart-fill');
-            $(this).addClass('bi-heart');
-            i--;
-        }
         
+
     });
+    infowindow.open(map, marker);
+        }
+	   $("#mapinfo").parent().parent().attr("style","cursor: default; position: absolute; background: rgb(255, 255, 255); border: 1px solid white; border-radius:25px; z-index: 0; display: block; width: 210px; height: 32px; left: 335px; top: 168px;");
+    }
+	places.keywordSearch('${cafeVO.name}', callback);
+
+	var i = 0;
+	var cno = 0;
+	var mno = 0;
+
+ $('.bi-heart').on('click',function(){
+      if(i==0){
+          $(this).removeClass('bi-heart');
+          $(this).addClass('bi-heart-fill');
+          i++;
+          
+      }else if(i==1){
+          $(this).removeClass('bi-heart-fill');
+          $(this).addClass('bi-heart');
+          i--;
+      }
+  });
+
+   	 $.get("${path}/cafe/api/cafeLike",{cno:23,mno:15},function(data){
+        	console.log(data);
+        	if(data.like_check==1){
+        		
+        	}
+}); 
+    
+    
     
 	$("#searchForm").click(function(){
 		location.href="${path}/board/listPage?cafe_no=${no}";		
