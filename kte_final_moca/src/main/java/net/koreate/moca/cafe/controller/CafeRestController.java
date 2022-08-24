@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import net.koreate.moca.cafe.service.CafeLikeService;
 import net.koreate.moca.cafe.service.CafeMenuService;
 import net.koreate.moca.cafe.service.CafeService;
+import net.koreate.moca.cafe.vo.CafeLikeVO;
 import net.koreate.moca.cafe.vo.CafeMenuVO;
 import net.koreate.moca.cafe.vo.CafeVO;
 
@@ -21,6 +23,7 @@ public class CafeRestController {
 
 	private final CafeMenuService cms;
 	private final CafeService cs;
+	private final CafeLikeService cls;
 	
 	
 	@GetMapping("cafeList")
@@ -55,6 +58,17 @@ public class CafeRestController {
 		}
 		return new ResponseEntity<>(cafevo,HttpStatus.OK);
 	} 
+	
+	@GetMapping("cafeLike")
+	public ResponseEntity<CafeLikeVO> cafeLike(CafeLikeVO vo){
+		CafeLikeVO cafelikevo = null;
+		try {
+			cafelikevo = cls.read(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(cafelikevo,HttpStatus.OK);
+	}
 	
 
 		
