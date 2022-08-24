@@ -45,3 +45,8 @@ footer {
 	width : 100%;
 	
 }
+
+
+.form-control-plaintext:focus{
+	outline : none;
+}
