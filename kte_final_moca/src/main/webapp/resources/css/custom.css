@@ -53,6 +53,7 @@ footer {
 		height:50px;
 		border:1px solid #ccc;
 	}
+	
 	 #dropdown{
      background-color : #e2e2e2;
     }
@@ -65,4 +66,10 @@ footer {
 .form-control-plaintext:focus{
 	outline : none;
 }
+
+.replyProfile{
+		width:30px;
+		height:30px;
+		border:1px solid #ccc;
+	}
 
