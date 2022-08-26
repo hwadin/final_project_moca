@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import net.koreate.moca.invitation.dao.InvitationDAO;
+import net.koreate.moca.invitation.vo.ChatVO;
 import net.koreate.moca.invitation.vo.InvParticipantVO;
 import net.koreate.moca.invitation.vo.InvitationVO;
 import net.koreate.moca.member.dao.MemberDAO;
@@ -118,6 +119,11 @@ public class InvitationServiceImpl implements InvitationService {
 		vo.setCode(dao.findByNo(inv_no).getCode());
 		vo.setParticipant_no(participant_no);
 		return dao.cancelInvite(vo);
+	}
+
+	@Override
+	public List<ChatVO> getChatList(int no) {
+		return dao.getChatList(no);
 	}
 
 }
