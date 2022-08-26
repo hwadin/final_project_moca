@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import net.koreate.moca.invitation.vo.ChatVO;
 import net.koreate.moca.invitation.vo.InvParticipantVO;
 import net.koreate.moca.invitation.vo.InvitationVO;
 
@@ -50,4 +52,14 @@ public interface InvitationDAO {
 
 	@Update("UPDATE tbl_invite_participant SET isAccepted=0 WHERE code=#{code} AND participant_no=#{participant_no}")
 	int cancelInvite(InvParticipantVO vo);
+
+	@Select("SELECT c.*, m.name FROM tbl_invite_chat c, tbl_member m WHERE member_no = m.no AND invite_code=(SELECT code FROM tbl_invite WHERE no=#{no})")
+	List<ChatVO> getChatList(int no);
+
+	@Insert("INSERT INTO tbl_invite_chat(invite_code, member_no, message) VALUES(#{invite_code}, #{member_no}, #{message})")
+	@Options(useGeneratedKeys = true, keyProperty = "no")
+	void sendChat(ChatVO chat) throws Exception;
+
+	@Select("SELECT c.*, m.name FROM tbl_invite_chat c, tbl_member m WHERE c.member_no = m.no AND c.no=#{no}")
+	ChatVO getOneChat(ChatVO vo);
 }
