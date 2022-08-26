@@ -49,7 +49,7 @@
 	border: 2px solid green;
 	width:210px;
 
-}  
+	}  
 </style>
 </head>
 
@@ -104,9 +104,9 @@
 						<p class="tagWrap">${cafeVO.tag}</p>
 						<span class="flagWrap">${cafeVO.flag}</span>
 						
-				<div class="likeNum mt-5" title="좋아요 갯수">
-					<c:if test="${!empty sessionScope.memberInfo}">
-						<i class="bi bi-heart">${cafeVO.likenum}</i>
+				<div id="likecount" class="likeNum mt-5" title="좋아요 갯수">
+					 <c:if test="${!empty sessionScope.memberInfo}">
+						<i id="likeIcon" class="bi bi-heart">${cafeVO.likenum}</i>
 					</c:if>
 				</div>
 
@@ -362,10 +362,6 @@
 	var places = new kakao.maps.services.Places();
 	var callback = function(result, status) {
 	    if (status === kakao.maps.services.Status.OK) {
-/* 	        console.log(result);
-	        console.log(result[0].address_name);
-	        console.log(result[0].x);
-	        console.log(result[0].y); */
 	        var options = {
 	        		center: new kakao.maps.LatLng(result[0].y, result[0].x),
 	        		level: 0.5
@@ -383,32 +379,57 @@
     }
 	places.keywordSearch('${cafeVO.name}', callback);
 
+	
 	var i = 0;
-	var cno = 0;
+	var cno = ${cafeVO.no};
 	var mno = 0;
-
- $('.bi-heart').on('click',function(){
-      if(i==0){
-          $(this).removeClass('bi-heart');
-          $(this).addClass('bi-heart-fill');
-          i++;
-          
-      }else if(i==1){
-          $(this).removeClass('bi-heart-fill');
-          $(this).addClass('bi-heart');
-          i--;
-      }
+	
+	<c:if test="${!empty memberInfo}">
+	mno = ${memberInfo.no};
+	
+	 $.get("${path}/cafe/api/cafeLike",{cno:${cafeVO.no},mno:${memberInfo.no}},function(data){
+	      	console.log(data);
+	      	if(data.like_check == 1 && data.cno == ${cafeVO.no}){
+				console.log("이미 좋아요 눌렀거덩여?");
+				$('#likeIcon').addClass('bi-heart-fill');
+				$('#likeIcon').removeClass('bi-heart');
+				
+	      	}else{
+	      		console.log("좋아요!");
+				$('#likeIcon').addClass('bi-heart');
+				$('#likeIcon').removeClass('bi-heart-fill');
+				
+	      	}
+	}); 
+	
+ $('#likeIcon').on('click',function(){
+		 let currentLikeNum = $("#likeIcon").text();
+	 
+	 $.ajax({
+			url : "${path}/cafe/api/",
+			method : "PATCH",
+			data : {
+				cno : cno,
+				mno : mno
+			},
+			dataType : "text",
+			success : function(result){
+				console.log(result);
+				if($('#likeIcon').hasClass("bi-heart-fill")){
+					 $("#likeIcon").text(currentLikeNum - 1);
+					 /* 좋아요 수를 줄이고, 좋아요 테이블에서도 삭제 ajax */
+				 }else {
+					 $("#likeIcon").text(Number(currentLikeNum) + 1);
+				 }
+				$('#likeIcon').toggleClass("bi-heart-fill bi-heart");
+			}
+			
+		}); 
+	 
   });
+	</c:if>
 
-   	 $.get("${path}/cafe/api/cafeLike",{cno:23,mno:15},function(data){
-        	console.log(data);
-        	if(data.like_check==1){
-        		
-        	}
-}); 
-    
-    
-    
+	
 	$("#searchForm").click(function(){
 		location.href="${path}/board/listPage?cafe_no=${no}";		
 	});

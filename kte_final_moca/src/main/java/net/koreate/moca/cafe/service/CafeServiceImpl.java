@@ -52,4 +52,6 @@ public class CafeServiceImpl implements CafeService {
 		return dao.findByKeyword(keyword);
 	}
 
+
+
 }
