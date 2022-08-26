@@ -19,11 +19,11 @@ public interface CafeService {
 	// 카페 정보 수정
 	void update(CafeVO vo) throws Exception;
 
-	// 카페 좋아요 수 업데이트
+	// 카페 좋아요 수 증가
 	void updatelikenum(int no) throws Exception;
 	
 	// 카페 정보 삭제(카페 번호로 조회)
 	void delete(int no) throws Exception; 
 	
-
+	
 }
