@@ -30,24 +30,24 @@ public class CafeRestController {
 	
 	@GetMapping("cafeList")
 	public ResponseEntity<List<CafeVO>> cafeList(int index){
-		List<CafeVO> list = null;
+		List<CafeVO> cafelist = null;
 		try {
-			list = cs.cafeList(index);
+			cafelist = cs.cafeList(index);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(list,HttpStatus.OK);
+		return new ResponseEntity<>(cafelist,HttpStatus.OK);
 	}
 	
 	@GetMapping("cafeMenuList")
-	public ResponseEntity<List<CafeMenuVO>> cafeMenuList(CafeMenuVO vo){
-		List<CafeMenuVO> list = null;
+	public ResponseEntity<List<CafeMenuVO>> cafeMenuList(int cafe_no){
+		List<CafeMenuVO> menulist = null;
 		try {
-			list = cms.menuList(vo);
+			menulist = cms.menuList(cafe_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(list,HttpStatus.OK);
+		return new ResponseEntity<>(menulist,HttpStatus.OK);
 	}
 	
 	@GetMapping("cafeDetail")
@@ -82,8 +82,6 @@ public class CafeRestController {
 			return new ResponseEntity<>("FAILED", HttpStatus.BAD_REQUEST);
 		}
 	}
-
-	
 
 		
 }
