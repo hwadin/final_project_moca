@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import net.koreate.common.utils.Criteria;
 import net.koreate.moca.cafe.dao.CafeDAO;
 import net.koreate.moca.cafe.vo.CafeVO;
 
@@ -14,7 +13,7 @@ import net.koreate.moca.cafe.vo.CafeVO;
 public class CafeServiceImpl implements CafeService {
 
 	private final CafeDAO dao;
-	
+
 	@Override
 	public void regist(CafeVO vo) throws Exception {
 		dao.regist(vo);
@@ -28,13 +27,13 @@ public class CafeServiceImpl implements CafeService {
 	@Override
 	public void update(CafeVO vo) throws Exception {
 		dao.update(vo);
-		
+
 	}
 
 	@Override
 	public void delete(int no) throws Exception {
 		dao.delete(no);
-		
+
 	}
 
 	@Override
@@ -42,11 +41,15 @@ public class CafeServiceImpl implements CafeService {
 		return dao.cafeList(index);
 	}
 
-
 	@Override
 	public void updatelikenum(int no) throws Exception {
 		dao.updatelikenum(no);
-		
+
+	}
+
+	@Override
+	public List<CafeVO> findByKeyword(String keyword) {
+		return dao.findByKeyword(keyword);
 	}
 
 }
