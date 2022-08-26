@@ -41,9 +41,25 @@
 
                 <!-- search bar -->
                 <form class="d-flex">
-                    <div class="input-group">
+                    <div class="input-group position-relative dropdown">
                         <input class="form-control " type="search" placeholder="Search" aria-label="Search">
-                        <button class="input-group-text btn btn-outline-success me-3" type="submit"><i class="bi bi-search "></i></button>
+                        <button id="headerSearchBtn" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle input-group-text btn btn-outline-success me-3" type="button"><i class="bi bi-search "></i></button>
+						<!-- search Result -->
+						
+						<!-- member Invite List Select -->
+							<div id="inviteSelectList" class="d-none-custom dropdown-item">
+								<select class="w-75 form-select form-select-sm d-inline me-3" aria-label="Search Invite Select Area">
+									<option selected>모임 선택하기</option>
+									<option value="1">새 모임</option>
+									<option value="2">새 모임2</option>
+									<option value="3">새 모임3</option>
+								</select>
+								<button id="headerInviteBtn" type="button" class="btn btn-sm btn-secondary">초대</button>
+							</div>
+						<!-- search Result List -->
+						<ul id="headerSearchResult" class="dropdown-menu" style="width:290px">
+							<li><span class="dropdown-item">검색 내용을 입력하세요.</span></li>
+						</ul>
                     </div>
                 </form>
 

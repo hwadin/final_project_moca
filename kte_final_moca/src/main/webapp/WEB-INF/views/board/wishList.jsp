@@ -120,44 +120,6 @@
 								<i class="bi bi-star-half" style="font-size: 2rem; color: gold;"></i>
 								<i class="bi bi-star" style="font-size: 2rem; color: gold;"></i>
 							</div>
-					<!-- 		<div class="col-1 align-items-center">
-								<div>5점</div>
-								<br/>
-								<div>4점</div>
-								<br/>
-								<div>3점</div>
-								<br/>
-								<div>2점</div>
-								<br/>
-								<div>1점</div>
-							</div>
-							<div class="col-5">
-								<div class="progress">
-									<div class="progress-bar bg-warning" role="progressbar"  style="width: 0%" aria-valuenow="0"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<br/>
-								<div class="progress">
-									<div class="progress-bar bg-warning" role="progressbar"  style="width: 25%" aria-valuenow="25"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<br/>
-								<div class="progress">
-									<div class="progress-bar bg-warning" role="progressbar"  style="width: 50%" aria-valuenow="50"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<br/>
-								<div class="progress">
-									<div class="progress-bar bg-warning" role="progressbar"  style="width: 75%" aria-valuenow="75"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<br/>
-								<div class="progress">
-									<div class="progress-bar bg-warning" role="progressbar"  style="width: 100%" aria-valuenow="100"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div> -->
-									
-									
 									
 									
 								<div class="col-6">	
@@ -214,20 +176,83 @@
 						<!-- 리뷰 작성 페이지 -->
 				<div class="row border-bottom">
 					<div class="col">
-						하단 리뷰 게시판 자리
-						<div>
-						 일반 리뷰 자리
+						<h3>최근 리뷰 : 3364개</h3>
+						<span class="lead text-secondary">사장님 댓글 : 687개</span>
+						<div class="text-end border-bottom">
+							<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+							  <label class="btn btn-outline-secondary" for="btnradio1">최신순</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+							  <label class="btn btn-outline-secondary" for="btnradio2">별점높은순</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+							  <label class="btn btn-outline-secondary" for="btnradio3">별점낮은순</label>
+							</div>
 						</div>
 						
-						<div>
-						 사장님 답글 자리 
+						<div class="mt-3 mb-4">
+							<div class="d-flex justify-content-start align-items-center">
+							<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							<span class="ms-2 lead">정대fan ></span>
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?</span>
+								<div>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+								</div>
+							</div>
+							<div class="text-secondary text-sm d-flex justify-content-end">
+								<a href="" class="btn text-secondary ">[답글]</a>
+							</div>
+						</div>
+						<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
+							<div class="d-flex justify-content-end align-items-center">
+							<span class="me-2 lead">&lt; 사장님</span>
+							<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
+							</div>
+						</div>
+						
+						<div class="mt-3 mb-4">
+							<div class="d-flex justify-content-start align-items-center">
+							<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							<span class="ms-2 lead">정대fan &gt;</span>
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?</span>
+								<div>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+								</div>
+							</div>
+						</div>
+						
+						<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
+							<div class="d-flex justify-content-end align-items-center">
+							<span class="me-2 lead">&lt; 사장님</span>
+							<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				</div>
 				<div id="myfirstchart" style="height: 300px;"></div>
 				<!-- 			row클래스로 하나의 행을 생성 -->
-
+	
+	
 				<!--			여기 위까지 본문 영역 -->
 			</div>
 			</div>

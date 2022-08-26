@@ -1,12 +1,13 @@
 package net.koreate.moca.member.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import net.koreate.moca.member.vo.MemberVO;
-
 
 public interface MemberDAO {
 
@@ -26,5 +27,9 @@ public interface MemberDAO {
 	// id로 회원 검색
 	@Select("SELECT * FROM tbl_member WHERE id=#{id}")
 	MemberVO searchId(String id) throws Exception;
+
+	// 검색창 키워드로 회원 검색
+	@Select("SELECT * FROM tbl_member WHERE id LIKE CONCAT('%',#{keyword},'%') OR name LIKE CONCAT('%',#{keyword},'%')")
+	List<MemberVO> findByKeyword(String keyword);
 
 }

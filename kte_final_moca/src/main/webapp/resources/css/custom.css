@@ -53,6 +53,7 @@ footer {
 		height:50px;
 		border:1px solid #ccc;
 	}
+	
 	 #dropdown{
      background-color : #e2e2e2;
     }
@@ -66,3 +67,14 @@ footer {
 	outline : none;
 }
 
+.replyProfile{
+		width:30px;
+		height:30px;
+		border:1px solid #ccc;
+	}
+
+.search-profile{
+	width:30px;
+	height:30px;
+	border:1px solid #ccc;
+}

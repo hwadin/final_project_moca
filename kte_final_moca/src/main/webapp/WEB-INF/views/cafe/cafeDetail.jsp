@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
+ 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -108,7 +112,8 @@
 
 <!--       카페 Q&A 게시판      -->
 						<form id="searchForm">Notice & Event
-							<input type="hidden" value="${cafe_no}" name="cafe_no">
+							<input type="hidden" value="${cafeVO.no}" name="cafe_no" id="cafe_no" />
+							<input type="hidden" value="${memberInfo.no}" name="member_no" id="member_no" />
 						</form>	
 						</span>
 					</div>
@@ -181,10 +186,159 @@
 						</div>
 					</div>
 		 <!--리뷰  -->
-				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-				
-				
+				<div class="tab-pane fade" id="review" role="tabpanel"
+						aria-labelledby="review-tab">
+						<div class="row mt-5">
+							<strong class="titDep5" style="font-size: 2rem;"> <i
+								class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								리뷰
+							</strong>
+						</div>
+						<div class="row my-3">
+							<div class="col-6 text-center">
+								<div class="row">
+									<strong class="titDep5 display-4"  id="starAvg"></strong>
+								</div>
+								<div id="starContainer">
+								<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star-half" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star" style="font-size: 2rem; color: gold;"></i>
+								</div>
+							</div>
+									
+									
+								<div  class="col-6">	
+									<div class="row align-items-center">
+										<div class="col-2 text-end">5점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="5b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="5">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">4점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="4b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="4">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">3점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="3b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="3">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">2점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="2b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="2">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">1점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="1b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="1">0</div>
+									</div>
+									</div>
+					</div>
+					
+						<div id="chartContainer" class="my-5 border-bottom" >
+						
+						</div>
+						<!-- 리뷰 작성 페이지 -->
+				<div class="row border-bottom">
+					<div class="col">
+						<h3>전체 리뷰 : <span id="reviewCount"></span>개</h3>
+						<span class="lead text-secondary">사장님 댓글 : <span id="ownerCount"></span>개</span>
+						<div class="text-end border-bottom">
+							<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+							  <label class="btn btn-outline-secondary" for="btnradio1">최신순</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+							  <label class="btn btn-outline-secondary" for="btnradio2">별점높은순</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+							  <label class="btn btn-outline-secondary" for="btnradio3">별점낮은순</label>
+							</div>
+						</div>
+						
+						<div id="reviewList"></div>
+						
+						<%-- <div class="mt-3 mb-4">
+							<div class="d-flex justify-content-start align-items-center">
+							<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							<span class="ms-2 lead">정대fan ></span>
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?</span>
+								<div>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+								</div>
+							</div>
+							<div class="text-secondary text-sm d-flex justify-content-end">
+								<a href="" class="btn text-secondary ">[답글]</a>
+							</div>
+						</div>
+						<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
+							<div class="d-flex justify-content-end align-items-center">
+							<span class="me-2 lead">&lt; 사장님</span>
+							<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
+							</div>
+						</div>
+						
+						<div class="mt-3 mb-4">
+							<div class="d-flex justify-content-start align-items-center">
+							<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							<span class="ms-2 lead">정대fan &gt;</span>
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?</span>
+								<div>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+									<i class="bi bi-star-fill" style="color: gold;"></i>
+								</div>
+							</div>
+						</div>
+						
+						<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
+							<div class="d-flex justify-content-end align-items-center">
+							<span class="me-2 lead">&lt; 사장님</span>
+							<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+							</div>
+							<div class="mt-2 text-secondary d-flex justify-content-between">
+								<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
+							</div>
+						</div> --%>
+					</div>
 				</div>
+				</div>
+				<div id="myfirstchart" style="height: 300px;"></div>
 			</div>				
 
 <!--			여기 위까지 본문 영역 -->
@@ -280,6 +434,186 @@
 		location.href="${path}/board/listPage?cafe_no=${no}";		
 	});
 
+	
+	/* 여기서부터 리뷰 스크립트 */
+	
+	
+	
+	function getReviewList(result){
+		$("#reviewList").empty();
+		for(var i=0; i<result.length;i++){
+			if(result[i].depth == 0){
+				var str = `
+					<div class="mt-3 mb-4">
+					<div class="d-flex justify-content-start align-items-center">
+					<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+					<span class="ms-2 lead">\${result[i].name} &gt;</span>
+					</div>
+					<div class="mt-2 text-secondary d-flex justify-content-between">
+						<span>\${result[i].content}</span>
+						<div>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+						</div>
+					</div>
+					<c:if test="${memberInfo.no == cafeVO.owner_no}">
+					<div class="text-secondary text-sm d-flex justify-content-end">
+						<a href="" class="btn text-secondary ">[답글]</a>
+					</div>
+					</c:if>
+				</div>
+				`;
+			}else{
+				var str = `
+					<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
+					<div class="d-flex justify-content-end align-items-center">
+					<span class="me-2 lead">&lt; 사장님</span>
+					<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\loen850@naver.com\KakaoTalk_20220617_120021184.jpg" />
+					</div>
+					<div class="mt-2 text-secondary d-flex justify-content-between">
+						<span>\${result[i].content}</span>
+					</div>
+				</div>
+				`;
+			}
+		$("#reviewList").append(str);
+		}
+		
+		
+		
+	}
+	
+	
+	
+	function setReply(){
+		var str = `
+			<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
+			<div class="d-flex justify-content-end align-items-center">
+			<span class="me-2 lead">&lt; 사장님</span>
+			<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\loen850@naver.com\KakaoTalk_20220617_120021184.jpg" />
+			</div>
+			<div class="mt-2 text-secondary d-flex justify-content-between">
+				<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
+			</div>
+		</div>
+		`;
+	}
+	
+	function starDrawer(starAvg){
+		
+		let str = "";
+		let cnt = 0;
+		
+		for(var i=1;i<=Math.floor(starAvg);i++){
+			str += `<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>`;
+			cnt++;
+		}
+		
+		if((Math.round(starAvg*10)/10 - Math.floor(starAvg)) >= 0.5){
+			str += `<i class="bi bi-star-half" style="font-size: 2rem; color: gold;"></i>`;
+			cnt++;
+		}else {
+			str += `<i class="bi bi-star" style="font-size: 2rem; color: gold;"></i>`;
+			cnt++;
+		}
+		
+		for(i=1;i<=5-cnt;i++){
+			str += `<i class="bi bi-star" style="font-size: 2rem; color: gold;"></i>`;
+		}
+		return str;
+	}
+	
+	
+	$("#review-tab").on('click',function(){
+		var cafe_no =  $("#cafe_no").val();
+		console.log(cafe_no);
+		
+		
+		$.ajax({
+			type : "GET",
+			url : "${path}/review/api/" + cafe_no,
+			dataType : "json",
+			success : function(result){
+				console.log(result);
+				getReviewList(result.list);
+				$("#reviewCount").text(result.reviewCount);
+				$("#ownerCount").text(result.ownerCount);
+				$("#starAvg").text(Math.round(result.starAvg*10)/10);
+				let starCount = $(".starCount");
+				starCount.each(function(){
+					for(let j=0; j<result.starCount.length; j++){
+						if($(this).attr("id") == result.starCount[j].criteria){
+							$(this).text(result.starCount[j].score);
+						}
+					}
+				});
+				
+				$("#starContainer").empty();
+				$("#starContainer").append(starDrawer(result.starAvg));
+				
+				let progressBar = $(".progress-bar");
+				progressBar.each(function(index,item){
+					for(let j=0; j<result.starCount.length; j++){
+						if(5-index == result.starCount[j].criteria){
+							let percent = Math.ceil((result.starCount[j].score / result.reviewCount) * 100) ;
+							$(this).attr("style","width:"+percent+"%");
+							$(this).attr("aria-valuenow",percent);
+						}
+					}
+				});
+				if(result.monthCount.length == 0){
+					result.monthCount = [{criteria : 0, score : 1}];
+				}
+				$("#myfirstchart").empty();
+
+				let chart = new Morris.Line({
+					  // ID of the element in which to draw the chart.
+					  element: 'myfirstchart',
+					  // Chart data records -- each entry in this array corresponds to a point on
+					  // the chart.
+					  /* data: [
+					    { month: `\${result.monthCount[0].criteria}`, value: `\${result.monthCount[0].score}`},
+					    { month: `\${result.monthCount[1].criteria}`, value: `\${result.monthCount[1].score}`},
+					    { month: `\${result.monthCount[2].criteria}`, value: `\${result.monthCount[2].score}`},
+					    { month: `\${result.monthCount[3].criteria}`, value: `\${result.monthCount[3].score}`},
+					    { month: `\${result.monthCount[4].criteria}`, value: `\${result.monthCount[4].score}`}
+					  ], */
+					  
+					  data: result.monthCount, 
+					  // The name of the data record attribute that contains x-values.
+					  xkey: 'criteria',
+					  // A list of names of data record attributes that contain y-values.
+					  ykeys: ['score'],
+					  // Labels for the ykeys -- will be displayed when you hover over the
+					  // chart.
+					  labels: ['평점'],
+					  
+					  ymax:'auto[5]',
+					  
+					  ymin:'auto[1]',
+					  hideHover: false,
+					  lineColors: [ '#D3D3D3' ],
+					  
+					  pointFillColors:['#020715'],
+					  
+					  gridTextColor:['#000000'],
+					  
+					  parseTime:false
+					  
+					});
+				
+				
+				$(function(){
+					$("#myfirstchart").appendTo($("#chartContainer"));
+				});
+				
+			}
+		});
+	});
+	
 </script>	
 
 
