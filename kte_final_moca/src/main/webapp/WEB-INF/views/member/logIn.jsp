@@ -41,7 +41,7 @@
 								<label class="form-check-label" for="useCookie">자동 로그인</label>
 							</div>
 							<div class="row mb-2 mt-5">
-								<button type="submit" class="btn btn-dark w-100">LOGIN</button>
+								<button type="submit" class="btn btn-dark w-100" id="login">LOGIN</button>
 							</div>
 							<div class="row">
 								<button type="button" id="joinBtn" class="btn btn-outline-dark w-100">JOIN</button>
@@ -67,6 +67,9 @@
 				$("#joinBtn").click(function(){
 					$("#joinChoice").fadeToggle();
 				})
+				
+				
+				
 			</script>
 			</div>
 
@@ -77,5 +80,6 @@
 	</div>
 <!-- end of container -->
 </section>
+
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </html>

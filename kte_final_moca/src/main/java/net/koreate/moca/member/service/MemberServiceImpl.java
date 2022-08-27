@@ -1,5 +1,6 @@
 package net.koreate.moca.member.service;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,19 @@ public class MemberServiceImpl implements MemberService {
 		dao.memberUpdate(vo);
 	}
 
+	@Override
+	public MemberVO searchId(MemberVO vo) throws Exception{
+		return dao.searchId(vo.getId());
+	}
+	
+	@Override
+	public MemberVO pwCheck(MemberVO vo) throws Exception{
+		return dao.pwCheck(vo.getPw());
+	}
+	
+	@Override
+	public void delete(MemberVO vo) throws Exception{
+		dao.delete(vo);
+	}
 
 }

@@ -13,4 +13,12 @@ public interface MemberService {
 	// 회원정보 수정
 	void memberUpdate(MemberVO vo) throws Exception;
 
+	// 아이디로 찾기
+	MemberVO searchId(MemberVO vo) throws Exception;
+
+	// 비밀번호 확인
+	MemberVO pwCheck(MemberVO vo) throws Exception;
+	
+	// 회원 탈퇴
+	void delete(MemberVO vo) throws Exception;
 }

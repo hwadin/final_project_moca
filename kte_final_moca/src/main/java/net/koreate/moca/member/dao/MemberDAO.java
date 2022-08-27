@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import net.koreate.moca.member.vo.MemberVO;
+import retrofit2.http.DELETE;
 
 
 public interface MemberDAO {
@@ -27,4 +28,11 @@ public interface MemberDAO {
 	@Select("SELECT * FROM tbl_member WHERE id=#{id}")
 	MemberVO searchId(String id) throws Exception;
 
+	// 비밀번호 확인
+	@Select("SELECT * FROM tbl_member WHERE pw=#{pw}")
+	MemberVO pwCheck(String pw) throws Exception;
+	
+	// 회원탈퇴
+	@DELETE("DELETE FROM tbl_member WHERE no=#{no}")
+	void delete(MemberVO vo)throws Exception;
 }
