@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import net.koreate.common.utils.Criteria;
+import net.koreate.moca.cafe.vo.CafeSearchVO;
 import net.koreate.moca.cafe.vo.CafeVO;
 
 public interface CafeDAO {
@@ -47,4 +48,11 @@ public interface CafeDAO {
 
 	@Select("SELECT * FROM tbl_cafe WHERE name LIKE CONCAT('%',#{keyword},'%')")
 	List<CafeVO> findByKeyword(String keyword);
+
+	@Select("SELECT * FROM tbl_cafe WHERE addr_detail LIKE CONCAT('%',#{addr_detail},'%') LIMIT #{index}, 4")
+	List<CafeVO> cafeSearchList(CafeSearchVO vo);
+	
+		
+	
+	
 }

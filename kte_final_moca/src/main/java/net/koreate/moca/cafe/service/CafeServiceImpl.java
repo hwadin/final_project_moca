@@ -2,10 +2,12 @@ package net.koreate.moca.cafe.service;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import net.koreate.moca.cafe.dao.CafeDAO;
+import net.koreate.moca.cafe.vo.CafeSearchVO;
 import net.koreate.moca.cafe.vo.CafeVO;
 
 @Service
@@ -52,6 +54,9 @@ public class CafeServiceImpl implements CafeService {
 		return dao.findByKeyword(keyword);
 	}
 
-
+	@Override
+	public List<CafeVO> cafesearchList(CafeSearchVO vo) {
+		return dao.cafeSearchList(vo);
+	}
 
 }

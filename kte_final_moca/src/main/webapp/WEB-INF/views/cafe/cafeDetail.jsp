@@ -273,9 +273,11 @@
 
 <!-- end of container -->
 </section>
+
 <script type="text/javascript"
 		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f&libraries=services">
 </script>
+
 <script>
 	//map 지도 객체 생성
  	var container = document.getElementById('map');
@@ -339,7 +341,6 @@
 				console.log(result);
 				if($('#likeIcon').hasClass("bi-heart-fill")){
 					 $("#likeIcon").text(currentLikeNum - 1);
-					 /* 좋아요 수를 줄이고, 좋아요 테이블에서도 삭제 ajax */
 				 }else {
 					 $("#likeIcon").text(Number(currentLikeNum) + 1);
 				 }
@@ -378,17 +379,11 @@
 });
 		
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 
+	 
+	 
+	 
+	 
 	
 	/* 여기서부터 리뷰 스크립트 */
 	
