@@ -64,21 +64,25 @@ public class InvitationRestController {
 		if (member != null) {
 			try {
 				InvitationVO inv = is.findByNo(no);
-				if (inv.getMember_no() == member.getNo()) {
-					// 1) 내가 보낸 초대일 때
-					List<ChatVO> chatList = is.getChatList(no);
-					entity = new ResponseEntity<>(chatList, HttpStatus.OK);
-				} else {
-					// 2) 내가 받은 초대일 때
-					List<InvParticipantVO> partList = is.findByCode(no);
-					for (InvParticipantVO ip : partList) {
-						if (ip.getParticipant_no() == member.getNo() && ip.getIsAccepted() == true) {
-							List<ChatVO> chatList = is.getChatList(no);
-							entity = new ResponseEntity<>(chatList, HttpStatus.OK);
-							break;
+				if (inv != null) {
+					if (inv.getMember_no() == member.getNo()) {
+						// 1) 내가 보낸 초대일 때
+						List<ChatVO> chatList = is.getChatList(no);
+						entity = new ResponseEntity<>(chatList, HttpStatus.OK);
+					} else {
+						// 2) 내가 받은 초대일 때
+						List<InvParticipantVO> partList = is.findByCode(no);
+						for (InvParticipantVO ip : partList) {
+							if (ip.getParticipant_no() == member.getNo() && ip.getIsAccepted() != null
+									&& ip.getIsAccepted() == true) {
+								List<ChatVO> chatList = is.getChatList(no);
+								entity = new ResponseEntity<>(chatList, HttpStatus.OK);
+								break;
+							}
 						}
 					}
 				}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

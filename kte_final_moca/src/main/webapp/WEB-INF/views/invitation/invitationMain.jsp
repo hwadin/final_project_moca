@@ -6,7 +6,7 @@
 <html lang='ko'>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
 <section class="bg-light">
 	<div class="container pt-3">
 		<div class="row">
@@ -146,7 +146,6 @@
 			
 			function onMessage(msg) {
 				var data = JSON.parse(msg.data);
-				console.log(data);
 				
 				let str = ``;
 				if(data.member_no == loginMemberNo){
@@ -165,8 +164,6 @@
 					`; 
 				}
 				$("#chatContentBox").append(str);
-				console.log($("#chatContentBox").children().last().offset().top);
-				console.log($("#chatContentBox").scrollTop());
 				let scrollPoint = $("#chatContentBox").scrollTop() + $("#chatContentBox").children().last().offset().top;
 				$("#chatContentBox").animate({scrollTop : scrollPoint },200);
 				
@@ -215,7 +212,6 @@
 			});
 			
 			$("#modalSubmitBtn").click(function(){
-				console.log(recipient);
 				if(recipient == "@nInvitation"){
 					// 새 모임 만들기 ajax
 					let title = $("#modalValue").val();
@@ -236,8 +232,8 @@
 				} else {
 					// 모임에 새 멤버 추가하기 ajax
 					let id = $("#modalValue").val();
-					console.log(id);
-					console.log(selectedInvNo);
+// 					대상에게 알림 전송
+					
 					if(selectedInvNo == ""){
 						$("#modalAlert").removeClass("alert-success");
 						$("#modalAlert").addClass("alert-danger");
@@ -281,6 +277,7 @@
 							$("#modalAlert").addClass("alert-success");
 							$("#modalAlert").text(result + " 님을 초대했습니다.");
 							getParticipantList(selectedInvNo, selectedInvMemNo, selectedInvName);
+							sendAlert(id);
 						}
 					});
 				}
@@ -337,7 +334,6 @@
 					$("#participantList").empty();
 					$("#participantListTitle").empty();
 					$("#participantListFooter").empty();
-					console.log(data);
 					// 초대를 아무도 안했을 때
 					if(data.length == 0){
 						let str = `
@@ -435,11 +431,9 @@
 				
 				// 모임번호 no로 해당 채팅방의 채팅 내용 불러오는 ajax
 				$.get("${path}/invitation/api/chat/"+no, function(data){
-					console.log(sock);
 					if(typeof sock != "undefined"){
 						sock.close();
 					}
-					console.log(data);
 					for(let i=0; i<data.length; i++){
 						let str = ``;
 						if(data[i].member_no == loginMemberNo){
@@ -464,11 +458,7 @@
 						$("#chatInputBox textarea").attr("disabled", "disabled");
 					} else {
 						$("#chatInputBox textarea").removeAttr("disabled");
-						$("#chatInputBox").on("keyup",function(key){
-							if(key.keyCode == 13){
-								sendMessage();
-							}
-						});
+						
 					}
 					
 					if($("#chatContentBox").children().length>0){
@@ -512,7 +502,6 @@
 			
 			// 상세 목록에서 취소하기 버튼 눌렀을 때 삭제하는 이벤트
 			$("#participantList").on("click", "button", function(){
-				console.log($(this).find("input").val());
 				// tbl_invite_participant에서 no값으로 삭제하는 ajax 처리
 				let confirmResult = confirm("정말로 취소하시겠습니까?");
 				if(confirmResult){
@@ -530,7 +519,6 @@
 			
 			// 초대 받은 모임에서 수락, 거절 이벤트
 			$("#participantListTitle").on("click","button", function(){
-				console.log(this);
 				let url = "";
 				let id = $(this).attr("id");
 				if(id == "inviteCancelBtn"){
@@ -580,6 +568,7 @@
 						getInvitationList();
 						$("#participantList").empty();
 						$("#participantListTitle").empty();
+						getAlert();
 					}
 				});
 			});
@@ -633,6 +622,12 @@
 			
 			$("#chatSubmitBtn").click(function(){
 				sendMessage();
+			});
+			
+			$("#chatInputBox").on("keyup",function(key){
+				if(key.keyCode == 13){
+					sendMessage();
+				}
 			});
 			</script>
 			<div class="col-2">

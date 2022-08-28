@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import net.koreate.moca.common.alert.AlertVO;
 import net.koreate.moca.invitation.vo.ChatVO;
 import net.koreate.moca.invitation.vo.InvParticipantVO;
 import net.koreate.moca.invitation.vo.InvitationVO;
@@ -62,4 +63,7 @@ public interface InvitationDAO {
 
 	@Select("SELECT c.*, m.name FROM tbl_invite_chat c, tbl_member m WHERE c.member_no = m.no AND c.no=#{no}")
 	ChatVO getOneChat(ChatVO vo);
+
+	@Select("SELECT * FROM tbl_invite WHERE code IN (SELECT code FROM tbl_invite_participant WHERE participant_no=(SELECT no FROM tbl_member WHERE id=#{id}) AND isAccepted is null)")
+	List<InvitationVO> getAlertList(AlertVO vo);
 }
