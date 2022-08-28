@@ -48,10 +48,10 @@
         <div class="wrapper mt-5">
             <div class="card-7">
  				<div class="card-body">
-                    <form class="form" method="POST" action="#">
+                    <form class="form" id="cafesearchlist" method="GET" action="${path}/cafe/api/cafeSearchList">
                         <div class="input--group input--large">
                             <label class="label">LOCATION</label>
-                            <input class="input--style-1" type="text" placeholder="구를 입력하세요" name="going">
+                            <input class="input--style-1" type="text" placeholder="구를 입력하세요" id="insertlocation">
                         </div>
                         <div class="input--group input--medium">
                             <label class="label">START DATE</label>
@@ -59,13 +59,13 @@
                         </div>
                         <div class="input--group input--medium">
                             <label class="label">END DATE</label>
-                            <input class="input--style-1" type="text" name="enddate" placeholder="mm/dd/yyyy" id="input-end">
+                            <input class="input--style-1" type="text" name="enddate" placeholder="mm/dd/yyyy" id="input-end" >
                         </div>
                         <div class="input--group input--medium">
                             <label class="label">TIME</label>
                             <input class="input--style-1" type="text" name="time"  placeholder="   hh:mm  " id="input--time" style="width:130px">
                         </div>
-                        <button class="btn-submit" type="submit">Search</button>
+                        <button data-id="false" id="submit" class="btn-submit" type="button">Search</button>
                     </form>
                 </div>
             </div>
@@ -139,6 +139,7 @@
 	 });
 }
 	getCafeList();
+	
  $(function(){
 		var page =1;
 		$(window).scroll(function(){
@@ -148,11 +149,78 @@
 		let documentHeight = $(document).height();
 	 	if(scrollTop + windowHeight+1 >= documentHeight){
 			index +=4;
-console.log("getCafeList 호출 index : " + index);
+			console.log("getCafeList 호출 index : " + index);
+			let btnid = $("#submit").attr("data-id");
+			if(btnid=="true"){
+			getcafesearchlist();
+			} else {
 			getCafeList();
+			}
 	 	}
 	 }) 
 });
+
+// 카페 검색 리스트
+
+let addr_detail = "${cafeVO.addr_detail}";
+index =0;
+
+function getcafesearchlist(){
+	
+	 let insertlocation = $("#insertlocation").val();
+		$.get("${path}/cafe/api/cafeSearchList", {addr_detail:insertlocation,index:index},function(data){
+			console.log("search result : " + data);
+			
+		for(var i=0; i<data.length; i++){		
+			if(insertlocation == data[i].addr_detail){
+				var str = 
+					`<div class="col-6 mt-3">
+				<a href="${path}/cafe/cafeDetail/\${data[i].no}" style="text-decoration:none">
+				<img src="\${data[i].photo_url}" class="img-thumbnail" />
+				<strong class="title" style="font-size: 2rem; color: cadetblue;">
+				\${data[i].name}
+				</strong>
+				</a>
+				<div class="conUtil mt-2">
+					<span class="likeNum" title="좋아요 갯수">
+						<i class="bi bi-heart-fill" style="font-size: 1rem; color: indianred;">
+						\${data[i].likenum}</i>
+					</span>
+					<span class="icoScore" title="평균 평점">
+						<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;">
+						</i>4.8<i title="리뷰 갯수"></i>(367)
+					</span>
+					<span title="위치 정보">
+					\${data[i].addr_detail}</span>
+				</div>
+				<p class="txt">\${data[i].content}</p>
+				<p class="tagWrap">
+					<span class="tag">\${data[i].tag}</span>
+				 </p>
+				<span class="flagWrap">
+					<span class="flag">\${data[i].flag}</span>
+				</span>
+			</div>`;
+				cafelist.append(str);
+				}
+			}
+		});
+}
+   $("#submit").on('click',function(){ 
+	   index = 0;
+	   cafelist.empty();
+	   if($("#insertlocation").val()==""){
+		   getCafeList();
+		   $(this).attr("data-id", "false");
+		   return;
+	   }
+	   $(this).attr("data-id", "true");
+	   let btnid = $(this).attr("data-id");
+	   console.log(btnid);
+	   getcafesearchlist();
+});  
+
+ 
 $(function() {
     $("#input--time").timepicker({
         timeFormat: 'h:mm p',
@@ -165,8 +233,9 @@ $(function() {
         scrollbar: true        
     });
 });
-		
-</script>
+
+
+ </script>
     <!-- Jquery JS-->
     <script src="${path}/resources/lib/searchBar/vendor/jquery/jquery.min.js"></script>
     <!-- Vendor JS-->
