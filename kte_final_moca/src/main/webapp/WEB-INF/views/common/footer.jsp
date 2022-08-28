@@ -195,7 +195,7 @@ $("#headerSearchBtn").click(function(){
 <c:if test="${!empty sessionScope.memberInfo}">
 
 var alertSock;
-alertSock = new SockJS('${path}/alert');
+alertSock = new SockJS('${pageContext.request.contextPath}/alert');
 alertSock.onmessage = onAlertMessage;
 alertSock.onclose = onAlertClose;
 alertSock.onopen = onAlertOpen;
