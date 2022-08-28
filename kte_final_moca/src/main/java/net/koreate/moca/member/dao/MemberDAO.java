@@ -1,12 +1,12 @@
 package net.koreate.moca.member.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import net.koreate.moca.member.vo.MemberVO;
-import retrofit2.http.DELETE;
 
 
 public interface MemberDAO {
@@ -33,6 +33,6 @@ public interface MemberDAO {
 	MemberVO pwCheck(String pw) throws Exception;
 	
 	// 회원탈퇴
-	@DELETE("DELETE FROM tbl_member WHERE no=#{no}")
-	void delete(MemberVO vo)throws Exception;
+	@Delete("DELETE FROM tbl_member WHERE no=#{no}")
+	void delete(int no) throws Exception;
 }

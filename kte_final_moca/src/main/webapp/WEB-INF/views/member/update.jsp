@@ -11,13 +11,13 @@
     margin-right:auto;
 }
 
-	.profile_url{
-		width:100px;
-		height:100px;
-		border-radius:50px;
-		border:1px solid #ccc;
-		margin-right:100px;
-	}
+/* 	.profile_url{ */
+/* 		width:100px; */
+/* 		height:100px; */
+/* 		border-radius:50px; */
+/* 		border:1px solid #ccc; */
+/* 		margin-right:150px; */
+/* 	} */
 	
 	.text-danger{
 	display:block;
@@ -55,67 +55,66 @@
 	<div>
 		<article>
 			<form id="updateForm" action="updatePost" method="POST" enctype="multipart/form-data">
-				<table class="table-primary">
-					<tr>
-						<td>프로필 이미지</td>
+				<table class="table">
+					<tr class="border-bottom">
+						<td class="align-middle">프로필 이미지</td>
 						<td style="text-align:center">
-							<img src="${path}/${memberInfo.profile_url}" id="profile_url"  class="profile_url"/>
-							<br/>
-							<input type="file" id="profileImage" name="profileImage" accept="image/*" value="${memberInfo.profile_url}"/>
+							<img src="${path}/resources/img/profile.jpg" id="profile_url" class="rounded-circle profile_url_big"/>
+                     		<br/>
+                     		<input type="file" id="profileImage" name="profileImage" class="form-control" accept="image/*"/>
 						</td>
 					</tr>
 					<tr>
-						<td>아이디</td>
+						<td class="align-middle">아이디</td>
 						<td>
-							<input type="text" name="id" id="id" alt="아이디" value="${memberInfo.id}" readonly/>
+							<input type="text" name="id" id="id" alt="아이디" class="form-control" value="${memberInfo.id}" readonly/>
 						</td>
 					</tr>
 					<tr>
-						<td>비밀번호</td>
+						<td class="align-middle">비밀번호</td>
 						<td>
-							<input type="password" name="pw" id="pw" alt="비밀번호" value="${memberInfo.pw}" required/>
+							<input type="password" name="pw" id="pw" class="form-control" alt="비밀번호" value="${memberInfo.pw}" required/>
 							<div class="result"></div>
 						</td>
 					</tr>
 					<tr>
-						<td>비밀번호확인</td>
+						<td class="align-middle">비밀번호확인</td>
 						<td>
-							<input type="password" name="repw" id="repw" alt="비밀번호확인" value="${memberInfo.pw}" required/>
+							<input type="password" name="repw" id="repw" class="form-control" alt="비밀번호확인" value="${memberInfo.pw}" required/>
 							<div class="result"></div>
 						</td>
 					</tr>
 					<tr>
-						<td>이름</td>
+						<td class="align-middle">이름</td>
 						<td>
-							<input type="text" name="name" id="name" alt="이름" value="${memberInfo.name}" required/>
+							<input type="text" name="name" id="name" class="form-control" alt="이름" value="${memberInfo.name}" required/>
 						</td>
 					</tr>
 					<tr>
-						<td>나이</td>
+						<td class="align-middle">나이</td>
 						<td>
-							<input type="text" name="age" alt="나이" value="${memberInfo.age}" required/>
+							<input type="text" name="age" alt="나이" class="form-control" value="${memberInfo.age}" required/>
 						</td>
 					</tr>
 					<tr>
 					<tr>
-						<td>주소</td>
+						<td class="align-middle">주소</td>
 						<td>
-							<div>
-								<input type="text" name="post" id="post" value="${memberInfo.post}" placeholder="우편번호"/>
-								<input type="button" value="주소찾기" onclick="daumPostCode();"/>
+							<div class="d-flex">
+								<input type="text" name="post" id="post" class="form-control" value="${memberInfo.post}" placeholder="우편번호"/>
+								<input type="button" class="btn btn-outline-secondary" value="주소찾기" onclick="daumPostCode();"/>
 							</div>
-							<input type="text" name="addr" id="addr" value="${memberInfo.addr}" placeholder="주소"/>
-							<br/>
-						    <input type="text" name="addr_detail" id="addr_detail" value="${memberInfo.addr_detail}" placeholder="상세주소"/>
+							<input type="text" name="addr" id="addr" class="form-control"  value="${memberInfo.addr}" placeholder="주소"/>
+						    <input type="text" name="addr_detail" id="addr_detail" class="form-control" value="${memberInfo.addr_detail}" placeholder="상세주소"/>
 						</td>
 					</tr>
 					<div>
 						<input type="hidden" name="no" value="${memberInfo.no}" />
 					</div>
 					<tr>
-						<th colspan="5">
-							<input type="submit" class="btn btn-primary" value="수정"/>
-							<input type="button" class="btn btn-success" id="deleteBtn" value="회원탈퇴"/>
+						<th colspan="2" class=" text-center">
+							<input type="submit" class="btn btn-success" value="수정" style="width:100px"/>
+							<input type="button" class="btn btn-outline-danger" href="" id="deleteBtn" style="width:100px"  onclick="location.href='delete';" value="회원탈퇴"/>
 						</th>
 					</tr>
 				</table>
@@ -252,20 +251,6 @@
 	}
 });
 
-	$(function(){
-		var formObj = $("#updateForm");
-	
-		$("#deleteBtn").click(function(){
-			var isDelete = confirm("회원탈퇴 하시겠습니까?");
-			if(isDelete){
-				formObj.attr("action","delete");
-				formObj.submit();
-			}else{
-				alert('취소되었습니다')
-			}
-			
-		});
-	});	
 </script>
 
 <c:if test="${!empty msg}">

@@ -22,7 +22,7 @@ public class MemberVO {
 	private Date regdate;
 	private Date updatedate;
 	private boolean IsOwner;
-	private boolean isDelete;
+	private boolean IsDelete;
 }
 
 

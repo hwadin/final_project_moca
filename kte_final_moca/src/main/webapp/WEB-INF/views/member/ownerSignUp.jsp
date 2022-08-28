@@ -6,17 +6,17 @@
 <html lang='ko'>
 <style>
 	table {
-    margin-left:300px; 
+    margin-left:auto; 
     margin-right:auto;
 }
-
+/* 
 	.profile_url{
 		width:100px;
 		height:100px;
 		border-radius:50px;
 		border:1px solid #ccc;
 		margin-right:100px;
-	}
+	} */
 	
 	.text-danger{
 	display:block;
@@ -54,89 +54,89 @@
 	<div>
 		<article>
 			<form id="signUpForm" action="ownerSignUpPost" method="POST" enctype="multipart/form-data">
-				<table class="table-primary">
-					<tr>
-						<td>프로필 이미지</td>
-						<td style="text-align:center">
-							<img src="${path}/resources/img/profile.jpg" id="profile_url" class="profile_url"/>
-							<br/>
-							<input type="file" id="profileImage" name="profileImage" accept="image/*"/>
-						</td>
-					</tr>
-					<tr>
-						<td>아이디</td>
-						<td>
-							<input type="text" name="id" id="id" alt="아이디" required/>
-						</td>
-					</tr>
-					<tr>
-						<td>비밀번호</td>
-						<td>
-							<input type="password" name="pw" id="pw" alt="비밀번호" required/>
-							<div class="result"></div>
-						</td>
-					</tr>
-					<tr>
-						<td>비밀번호확인</td>
-						<td>
-							<input type="password" name="repw" id="repw" alt="비밀번호확인" required/>
-							<div class="result"></div>
-						</td>
-					</tr>
-					<tr>
-						<td>이름</td>
-						<td>
-							<input type="text" name="name" id="name" alt="이름" required/>
-						</td>
-					</tr>
-					<tr>
-						<td>나이</td>
-						<td>
-							<input type="text" name="age" alt="나이" required/>
-						</td>
-					</tr>
-					<tr>
-						<td>성별</td>
-						<td>
-							남<input type="radio" name="gender" alt="성별" value="남" required checked/>
-							여<input type="radio" name="gender" alt="성별" value="여" required/>
-						</td>
-					</tr>
-					<tr>
-					<tr>
-						<td>주소</td>
-						<td>
-							<div>
-								<input type="text" name="post" id="post" placeholder="우편번호"/>
-								<input type="button" value="주소찾기" onclick="daumPostCode();"/>
-							</div>
-							<input type="text" name="addr" id="addr" placeholder="주소"/>
-							<br/>
-						    <input type="text" name="addr_detail" id="addr_detail" placeholder="상세주소"/>
-						</td>
+				<table class="table">
+					<tr class="border-bottom">
+					  <td class="align-middle">프로필 이미지</td>
+	                  <td style="text-align:center">
+	                     <img src="${path}/resources/img/profile.jpg" id="profile_url" class="rounded-circle profile_url_big"/>
+	                     <br/>
+	                     <input type="file" id="profileImage" name="profileImage" class="form-control" accept="image/*"/>
+	                  </td>
+	               </tr>
+	               <tr>
+	                  <td class="align-middle">아이디</td>
+	                  <td>
+	                     <input type="text" name="id" id="id" alt="아이디" class="form-control" required/>
+	                     <div class="result"></div>
+	                  </td>
+	               </tr>
+	               <tr>
+	                  <td class="align-middle">비밀번호</td>
+	                  <td>
+	                     <input type="password" name="pw" id="pw" class="form-control" alt="비밀번호" required/>
+	                     <div class="result"></div>
+	                  </td>
+	               </tr>
+	               <tr>
+	                  <td class="align-middle">비밀번호확인</td>
+	                  <td>
+	                     <input type="password" name="repw" id="repw" class="form-control" alt="비밀번호확인" required/>
+	                     <div class="result"></div>
+	                  </td>
+	               </tr>
+	               <tr>
+	                  <td class="align-middle">이름</td>
+	                  <td>
+	                     <input type="text" name="name" id="name" class="form-control" alt="이름" required/>
+	                  </td>
+	               </tr>
+	               <tr>
+	                  <td class="align-middle">나이</td>
+	                  <td>
+	                     <input type="text" name="age" class="form-control" alt="나이" required/>
+	                  </td>
+	               </tr>
+	               <tr>
+	                  <td class="align-middle">성별</td>
+	                  <td>
+	                     남<input type="radio" name="gender" alt="성별" value="남" required checked/>
+	                     여<input type="radio" name="gender" alt="성별" value="여" required/>
+	                  </td>
+               </tr>
+               <tr>
+               <tr>
+                  <td class="align-middle">주소</td>
+                  <td>
+                     <div class="d-flex">
+                        <input type="text" name="post" id="post" class="form-control" placeholder="우편번호"/>
+                        <input type="button" class="btn btn-outline-secondary" value="주소찾기" onclick="daumPostCode();"/>
+                     </div>
+                     	<input type="text" name="addr" id="addr" class="form-control" placeholder="주소"/>
+                      	<input type="text" name="addr_detail" id="addr_detail" class="form-control" placeholder="상세주소"/>
+                  </td>
 					</tr>
 					<tr>
 						<td>카페 이름</td>
 							<td>
-								<input type="text" name="c_name" id="c_name" alt="카페이름" required/>
+								<input type="text" name="c_name" id="c_name" class="form-control" alt="카페이름" required/>
 							</td>
 						</tr>
 						<tr>
 							<td>카페 주소</td>
 							<td>
-								<input type="text" name="c_addr" id="c_addr" alt="카페주소" required/>
+								<input type="text" name="c_addr" id="c_addr" class="form-control" alt="카페주소" required/>
 							</td>
 						</tr>
 						<tr>
 							<td>카페 상세주소</td>
 							<td>
-								<input type="text" name="c_addr_detail" id="c_addr_detail" alt="카페상세주소" required/>
+								<input type="text" name="c_addr_detail" id="c_addr_detail" class="form-control" alt="카페상세주소" required/>
 							</td>
 						</tr>
 					<tr>
-						<th colspan="5">
-							<input type="submit" class="btn btn-primary" value="회원가입"/> 
-							<input type="button" class="btn btn-success" onclick="location.href='logIn';" value="로그인"/>  
+						<th th colspan="2" class=" text-center">
+							<input type="submit" class="btn btn-primary" value="회원가입" style="width:100px" /> 
+							<input type="button" class="btn btn-success" onclick="location.href='logIn';" value="로그인" style="width:100px" />  
 						</th>
 					</tr>
 				</table>
