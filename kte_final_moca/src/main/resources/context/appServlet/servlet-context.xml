@@ -46,4 +46,13 @@
 		<beans:constructor-arg ref="invitationDAO"/>
 	</beans:bean>
 	
+	<websocket:handlers>
+		<websocket:mapping handler="alertHandler" path="/alert"/>
+		<websocket:sockjs></websocket:sockjs>
+	</websocket:handlers>
+	
+	<beans:bean id="alertHandler" class="net.koreate.moca.common.alert.AlertHandler" >
+		<beans:constructor-arg ref="invitationDAO"/>
+	</beans:bean>
+	
 </beans:beans>
