@@ -1,6 +1,10 @@
 package net.koreate.moca.member.service;
 
+
+import org.mybatis.spring.SqlSessionTemplate;
+
 import java.util.List;
+
 
 import org.springframework.stereotype.Service;
 
@@ -30,8 +34,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+
+	public MemberVO searchId(MemberVO vo) throws Exception{
+		return dao.searchId(vo.getId());
+	}
+	
+	@Override
+	public MemberVO pwCheck(MemberVO vo) throws Exception{
+		return dao.pwCheck(vo.getPw());
+	}
+	
+	@Override
+	public void delete(MemberVO vo) throws Exception{
+		dao.delete(vo);
+
 	public List<MemberVO> findByKeyword(String keyword) {
 		return dao.findByKeyword(keyword);
+
 	}
 
 }

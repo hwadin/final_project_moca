@@ -77,6 +77,11 @@
 <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			</div>
 
+<c:if test="${!empty msg}">
+ <script>
+ 	alert('${msg}');
+ </script>
+</c:if>
 <!-- end of container -->
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
