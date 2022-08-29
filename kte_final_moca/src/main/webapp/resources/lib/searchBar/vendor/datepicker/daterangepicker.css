@@ -3,7 +3,7 @@
   color: inherit;
   background-color: #fff;
   border-radius: 4px;
-  width: 278px;
+  width: 600px;
   padding: 4px;
   margin-top: 1px;
   top: 100px;
@@ -57,7 +57,7 @@
       border-bottom: initial;
       border-top: 6px solid #fff; }
   .daterangepicker.dropdown--menu {
-    max-width: none;
+
     z-index: 3001; }
   .daterangepicker.single .ranges, .daterangepicker.single .calendar {
     float: none; }
@@ -68,11 +68,11 @@
     max-width: 300px;
     margin: 4px; }
   .daterangepicker .calendar.single .calendar-table {
-      border: none; }
+      border: none;
+      width:300px; }
   .daterangepicker .calendar th, .daterangepicker .calendar td {
       white-space: nowrap;
-      text-align: center;
-      min-width: 32px; }
+      text-align: center; }
   .daterangepicker .calendar-table {
     border: 1px solid #fff;
     padding: 4px;
@@ -116,7 +116,7 @@
     border-color: transparent;
     color: #fff; }
   .daterangepicker th.month {
-    width: auto; }
+    width: 170px; }
   .daterangepicker td.disabled, .daterangepicker option.disabled {
     color: #999;
     cursor: not-allowed;
@@ -213,18 +213,24 @@
       float: left; }
     .daterangepicker.single.rtl .ranges, .daterangepicker.single.rtl .calendar {
       float: right; }
+      
     .daterangepicker.ltr {
       direction: ltr;
       text-align: left; }
+    
+      
       .daterangepicker.ltr .calendar.left {
         clear: left;
         margin-right: 0; }
+      
         .daterangepicker.ltr .calendar.left .calendar-table {
           border-right: none;
           border-top-right-radius: 0;
           border-bottom-right-radius: 0; }
+       
       .daterangepicker.ltr .calendar.right {
         margin-left: 0; }
+      
         .daterangepicker.ltr .calendar.right .calendar-table {
           border-left: none;
           border-top-left-radius: 0;
@@ -258,7 +264,7 @@
       .daterangepicker.rtl .ranges, .daterangepicker.rtl .calendar {
         text-align: right;
         float: right; } }
-@media (min-width: 730px) {
+@media (min-width: 500px) {
   .daterangepicker .ranges {
     width: auto; }
   .daterangepicker.ltr .ranges {

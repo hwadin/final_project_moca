@@ -160,7 +160,7 @@
 	 }) 
 });
 
-// 카페 검색 리스트
+// 카페 검색 리스트 (location)
 
 let addr_detail = "${cafeVO.addr_detail}";
 index =0;
@@ -220,7 +220,16 @@ function getcafesearchlist(){
 	   getcafesearchlist();
 });  
 
- 
+// 카페 검색 리스트 (Date)
+
+
+
+
+
+
+
+
+
 $(function() {
     $("#input--time").timepicker({
         timeFormat: 'h:mm p',
@@ -233,6 +242,7 @@ $(function() {
         scrollbar: true        
     });
 });
+
 
 
  </script>
