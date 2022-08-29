@@ -487,21 +487,6 @@
 	}
 	
 	
-	
-	function setReply(){
-		var str = `
-			<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
-			<div class="d-flex justify-content-end align-items-center">
-			<span class="me-2 lead">&lt; 사장님</span>
-			<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\loen850@naver.com\KakaoTalk_20220617_120021184.jpg" />
-			</div>
-			<div class="mt-2 text-secondary d-flex justify-content-between">
-				<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
-			</div>
-		</div>
-		`;
-	}
-	
 	function starDrawer(starAvg){
 		
 		let str = "";
@@ -574,13 +559,6 @@
 					  element: 'myfirstchart',
 					  // Chart data records -- each entry in this array corresponds to a point on
 					  // the chart.
-					  /* data: [
-					    { month: `\${result.monthCount[0].criteria}`, value: `\${result.monthCount[0].score}`},
-					    { month: `\${result.monthCount[1].criteria}`, value: `\${result.monthCount[1].score}`},
-					    { month: `\${result.monthCount[2].criteria}`, value: `\${result.monthCount[2].score}`},
-					    { month: `\${result.monthCount[3].criteria}`, value: `\${result.monthCount[3].score}`},
-					    { month: `\${result.monthCount[4].criteria}`, value: `\${result.monthCount[4].score}`}
-					  ], */
 					  
 					  data: result.monthCount, 
 					  // The name of the data record attribute that contains x-values.
