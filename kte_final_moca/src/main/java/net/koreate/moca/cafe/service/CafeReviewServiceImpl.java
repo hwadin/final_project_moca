@@ -22,7 +22,7 @@ public class CafeReviewServiceImpl implements CafeReviewService {
 		map.put("starCount", dao.starCount(cafe_no));
 		map.put("monthCount", dao.monthCount(cafe_no));
 		map.put("starAvg", dao.starAvg(cafe_no));
-		// List<CafeReviewVO> list = dao.reviewList(cafe_no);
+		
 		return map;
 	}
 

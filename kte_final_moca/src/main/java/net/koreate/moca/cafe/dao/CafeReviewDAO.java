@@ -11,7 +11,7 @@ import net.koreate.moca.cafe.vo.ReviewCounterVO;
 @Repository
 public interface CafeReviewDAO {
 	
-	@Select("SELECT R.*,M.name FROM tbl_cafe_review AS R INNER JOIN tbl_member AS M ON R.member_no = M.no WHERE cafe_no = #{cafe_no} ORDER BY origin DESC, no ASC")
+	@Select("SELECT R.*,M.name FROM tbl_cafe_review AS R INNER JOIN tbl_member AS M ON R.member_no = M.no WHERE cafe_no = #{cafe_no} ORDER BY origin DESC, no DESC")
 	List<CafeReviewVO> reviewList(int cafe_no);
 	
 	@Select("SELECT count(*) FROM tbl_cafe_review WHERE cafe_no = #{cafe_no} AND depth = 0")

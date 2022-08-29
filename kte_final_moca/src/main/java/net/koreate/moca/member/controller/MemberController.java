@@ -1,7 +1,7 @@
 package net.koreate.moca.member.controller;
 
 import java.beans.Encoder;
-import java.io.File;
+import java.io.File;import java.nio.file.Path;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -73,9 +74,26 @@ public class MemberController {
    }
    
    @PostMapping("updatePost")
-   public String updatePost(MemberVO vo, RedirectAttributes rttr) throws Exception{
+   public String updatePost(MemberVO vo, RedirectAttributes rttr, MultipartFile profileImage, HttpSession session) throws Exception{
+
+	   if(!profileImage.isEmpty()) {
+		   String path = "upload"+File.separator + "profile"+File.separator+vo.getId();
+	         String realPath = context.getRealPath(path);
+	         File file = new File(realPath);
+	         if(!file.exists()) {
+	            file.mkdir();
+	         }
+	         file = new File(realPath,profileImage.getOriginalFilename());
+	         profileImage.transferTo(file);
+	         String profile_url = path+File.separator+profileImage.getOriginalFilename();
+	         vo.setProfile_url(profile_url);
+	         
+	   }
+	  session.removeAttribute("memberInfo");
       ms.memberUpdate(vo);
+      session.setAttribute("memberInfo", ms.searchId(vo));
       rttr.addFlashAttribute("no",vo.getNo());
+      
       return "redirect:/";
    }
    
@@ -160,11 +178,28 @@ public class MemberController {
 
    }
    
-   @PostMapping("delete")
-   public String delete(MemberVO vo, RedirectAttributes rttr) throws Exception {
-	   ms.delete(vo);
-	   rttr.addFlashAttribute("no",vo.getNo());
-	   return "redirect:/";
+   @RequestMapping("delete")
+   public String delete() {
+	   
+	   return "member/delete";
+   }
+   
+   @PostMapping("deletePost")
+   public String delete(String pw, MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
+	   
+	  
+	   MemberVO user = (MemberVO)session.getAttribute("memberInfo");
+	   if(user.getPw().equals(pw)) {
+		   ms.delete(vo);
+		   session.invalidate();
+		   rttr.addAttribute("msg","정상적으로 탈퇴 되었습니다.");
+		   return "redirect:/";
+	   }else {
+		   rttr.addAttribute("msg","회원탈퇴에 실패했습니다.");
+		   return "member/delete";
+	   }
+
+
    }
 
 }
