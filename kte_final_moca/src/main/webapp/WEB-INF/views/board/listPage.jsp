@@ -180,7 +180,7 @@ ul, ul li {
 					<div class="col-2">
 					<select id="pageNumSelect" class="form-select form-select-sm" aria-label=".form-select-sm example"
 										name="perPageNum">
-									<option value="${pm.cri.perPageNum}">${pm.cri.perPageNum}개씩 보기</option>
+									<option value="${pm.cri.perPageNum}" selected>${pm.cri.perPageNum}개씩 보기</option>
 									<option value="10">10개씩 보기</option>
 									<option value="15">15개씩 보기</option>
 									<option value="20">20개씩 보기</option>

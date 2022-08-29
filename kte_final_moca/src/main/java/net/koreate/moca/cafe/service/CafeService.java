@@ -2,6 +2,7 @@ package net.koreate.moca.cafe.service;
 
 import java.util.List;
 
+import net.koreate.moca.cafe.vo.CafeSearchVO;
 import net.koreate.moca.cafe.vo.CafeVO;
 
 public interface CafeService {
@@ -12,9 +13,12 @@ public interface CafeService {
 	// 카페 상세 정보 읽어오기 (카페 번호로 조회)
 	CafeVO read(int no) throws Exception;
 
-	// 카페 리스트 읽어오기
+	// 카페 리스트 읽어오기(인덱스 번호로 조회)
 	List<CafeVO> cafeList(int index) throws Exception;
 
+	// 검색한 카페 리스트 읽어오기
+	List<CafeVO> cafesearchList(CafeSearchVO vo); 
+	
 	// 카페 정보 수정
 	void update(CafeVO vo) throws Exception;
 
@@ -25,5 +29,8 @@ public interface CafeService {
 	void delete(int no) throws Exception;
 
 	List<CafeVO> findByKeyword(String keyword);
+
+
+	
 
 }

@@ -2,6 +2,7 @@ package net.koreate.moca.invitation.service;
 
 import java.util.List;
 
+import net.koreate.moca.invitation.vo.ChatVO;
 import net.koreate.moca.invitation.vo.InvParticipantVO;
 import net.koreate.moca.invitation.vo.InvitationVO;
 
@@ -26,5 +27,7 @@ public interface InvitationService {
 	int acceptInvite(int inv_no, int participant_no) throws Exception;
 
 	int cancelInvite(int inv_no, int participant_no) throws Exception;
+
+	List<ChatVO> getChatList(int no);
 
 }

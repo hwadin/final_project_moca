@@ -149,41 +149,20 @@
 						<strong class="titDep5" style="font-size: 2rem;">
 						<i class="bi bi-flag-fill" style="font-size: 2rem; color: darkgreen;"></i> 
 						위치 </strong>
-						<div id="map" class="row" style="height:500px">
+						<div id="map" class="row mt-3" style="height:500px">
 					</div> 
 					</div>
 				</div>		
 					</div>
 		<!-- 메뉴 -->	
-					<div class="tab-pane fade" id="menu" role="tabpanel"
-						aria-labelledby="menu-tab">
-						<div class="row mt-5">
-						<strong class="titDep5" style="font-size: 2rem;">
-						<i class="bi bi-cart-plus-fill" style="font-size: 2rem; color: crimson;"></i>
-							 메뉴</strong>
-							<div class="col-sm-4">
-							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300"
-								 class="img-thumbnail" />
-								<span class="menu">아메리카노</span>
-					<!-- pricediscount는 현재시각에 할인율 겹치는 가격으로 보여주기  -->
-								<span class="price"><del>5,000원</del></span>
-								<span class="pricediscount" style="color:red;">4,000원</span>
-							</div>
-							<div class="col-sm-4">
-							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300"
-								 class="img-thumbnail" />
-								<span class="menu">카페 라떼</span>
-								<span class="price"><del>5,500원</del></span>
-								<span class="pricediscount" style="color:red;">5,000원</span>
-							</div>
-							<div class="col-sm-4">
-							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300"
-								 class="img-thumbnail" />
-								<span class="menu">바닐라 라떼</span>
-								<span class="price"><del>6,000원</del></span>
-								<span class="pricediscount" style="color:red;">5,500원</span>
-							</div>
-						</div>
+					<div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+					<div class="row mt-5">
+						<strong class="titDep5" style="font-size: 2rem;"><i 
+						class="bi bi-cart-plus-fill" style="font-size: 2rem; color: crimson;"></i>
+						 메뉴
+						</strong>
+					</div>	
+						<div id="menulist"  class="row mt-3"></div>
 					</div>
 		 <!--리뷰  -->
 				<div class="tab-pane fade" id="review" role="tabpanel"
@@ -277,64 +256,7 @@
 							  <label class="btn btn-outline-secondary" for="btnradio3">별점낮은순</label>
 							</div>
 						</div>
-						
 						<div id="reviewList"></div>
-						
-						<%-- <div class="mt-3 mb-4">
-							<div class="d-flex justify-content-start align-items-center">
-							<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
-							<span class="ms-2 lead">정대fan ></span>
-							</div>
-							<div class="mt-2 text-secondary d-flex justify-content-between">
-								<span>정대오빠 어디있어?</span>
-								<div>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-								</div>
-							</div>
-							<div class="text-secondary text-sm d-flex justify-content-end">
-								<a href="" class="btn text-secondary ">[답글]</a>
-							</div>
-						</div>
-						<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
-							<div class="d-flex justify-content-end align-items-center">
-							<span class="me-2 lead">&lt; 사장님</span>
-							<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
-							</div>
-							<div class="mt-2 text-secondary d-flex justify-content-between">
-								<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
-							</div>
-						</div>
-						
-						<div class="mt-3 mb-4">
-							<div class="d-flex justify-content-start align-items-center">
-							<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
-							<span class="ms-2 lead">정대fan &gt;</span>
-							</div>
-							<div class="mt-2 text-secondary d-flex justify-content-between">
-								<span>정대오빠 어디있어?</span>
-								<div>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-									<i class="bi bi-star-fill" style="color: gold;"></i>
-								</div>
-							</div>
-						</div>
-						
-						<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
-							<div class="d-flex justify-content-end align-items-center">
-							<span class="me-2 lead">&lt; 사장님</span>
-							<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
-							</div>
-							<div class="mt-2 text-secondary d-flex justify-content-between">
-								<span>정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?정대오빠 어디있어?</span>
-							</div>
-						</div> --%>
 					</div>
 				</div>
 				</div>
@@ -351,9 +273,11 @@
 
 <!-- end of container -->
 </section>
+
 <script type="text/javascript"
 		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f&libraries=services">
 </script>
+
 <script>
 	//map 지도 객체 생성
  	var container = document.getElementById('map');
@@ -379,7 +303,7 @@
     }
 	places.keywordSearch('${cafeVO.name}', callback);
 
-	
+	// 좋아요 기능 구현
 	var i = 0;
 	var cno = ${cafeVO.no};
 	var mno = 0;
@@ -417,7 +341,6 @@
 				console.log(result);
 				if($('#likeIcon').hasClass("bi-heart-fill")){
 					 $("#likeIcon").text(currentLikeNum - 1);
-					 /* 좋아요 수를 줄이고, 좋아요 테이블에서도 삭제 ajax */
 				 }else {
 					 $("#likeIcon").text(Number(currentLikeNum) + 1);
 				 }
@@ -429,11 +352,38 @@
   });
 	</c:if>
 
-	
+	// Q&A 게시판 이동
 	$("#searchForm").click(function(){
 		location.href="${path}/board/listPage?cafe_no=${no}";		
 	});
 
+	
+	// 메뉴 리스트
+	var menulist = $("#menulist");
+	var cafe_no = ${cafeVO.no};
+	
+	
+	 $.get("${path}/cafe/api/cafeMenuList",{cafe_no:${cafeVO.no}},function(data){
+		console.log(data); 
+		for(var i=0; i<data.length; i++){
+			var str = 
+					`<div class="col-4 sm-4 mt-3">
+							<img src="\${data[i].photo_url}"
+								 class="img-thumbnail" />
+								<span class="menu">\${data[i].name}</span>
+								<span class="price"><del>\${data[i].price}</del></span>
+								<span class="pricediscount" style="color:red;">\${data[i].discount}</span>
+					</div>`;
+				menulist.append(str);
+		} 
+});
+		
+	
+	 
+	 
+	 
+	 
+	 
 	
 	/* 여기서부터 리뷰 스크립트 */
 	
@@ -481,12 +431,9 @@
 			}
 		$("#reviewList").append(str);
 		}
-		
-		
-		
 	}
 	
-	
+
 	function starDrawer(starAvg){
 		
 		let str = "";

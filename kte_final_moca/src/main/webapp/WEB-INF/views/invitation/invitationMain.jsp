@@ -6,6 +6,7 @@
 <html lang='ko'>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
 <section class="bg-light">
 	<div class="container pt-3">
 		<div class="row">
@@ -37,7 +38,7 @@
 						<div class="row" >
 							<div class="col">
 								<div class="d-flex justify-content-between mb-3">
-									<p class="lead"><i class="bi bi-chat-right-heart"></i> 모임 목록 </p>
+									<p class="h2"><i class="bi bi-chat-right-heart"></i> 모임 목록 </p>
 									<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@nInvitation">+ 새 모임</button>
 								</div>
 								
@@ -50,7 +51,7 @@
 						<div class="row mt-5">
 							<div class="col" >
 								<div class="d-flex justify-content-between mb-3">
-									<p class="lead"><i class="bi bi-chat-right-heart"></i> 모임 정보 </p>
+									<p class="h2"><i class="bi bi-chat-right-heart"></i> 모임 정보 </p>
 									<button id="invParticipantBtn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@nMember">+ 초대하기</button>
 								</div>
 								<div id="participantListTitle" class="d-flex justify-content-between">
@@ -79,10 +80,19 @@
 						
 					</div>
 					<div class="col-6">
-						<p class="lead"><i class="bi bi-chat-right-heart"></i> 채팅</p>
-						<div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
-						  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-						  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						<p class="h2"><i class="bi bi-chat-right-heart"></i> 채팅</p>
+						<div id="chatContainer">
+							<div id="chatContentBox" class="overflow-auto border border-4 p-3 mt-4 mb-2" style="height:600px;">
+								<div class="alert alert-warning text-break">
+									선택된 모임이 없습니다.
+								</div>
+							</div>
+							<div id="chatInputBox" class="border border-4 d-flex justify-content-between">
+								<form>
+									<textarea id="chatContent" disabled class="form-control" rows="2" cols="30" style="resize:none;" placeholder="메시지를 입력하세요"></textarea>
+								</form>
+								<button id="chatSubmitBtn" type="button" class="w-25 mb-0 p-0 btn btn-outline-warning border-warning border-2">전송</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -117,8 +127,65 @@
 			let selectedInvNo = "";
 			let selectedInvMemNo = "";
 			let selectedInvName = "";
+			let selectedInvCode = "";
 			let selectedInvTitle = "";
 			let loginMemberNo = ${sessionScope.memberInfo.no};
+			
+			var sock;
+			
+			function sendMessage() {
+				let msg = {
+						invite_code : selectedInvCode,
+						member_no : loginMemberNo,
+						message : $("#chatContent").val() 
+				};
+				
+				sock.send(JSON.stringify(msg));
+				$("#chatContent").val("");
+			}
+			
+			function onMessage(msg) {
+				var data = JSON.parse(msg.data);
+				
+				let str = ``;
+				if(data.member_no == loginMemberNo){
+					str = `
+						<div class="alert alert-light text-end text-break">
+							<strong>\${data.name}</strong>
+							<p class="m-0">\${data.message}</p>
+						</div>
+					`; 
+				} else {
+					str = `
+						<div class="alert alert-warning text-break">
+							<strong>\${data.name}</strong>
+							<p class="m-0">\${data.message}</p>
+						</div>
+					`; 
+				}
+				$("#chatContentBox").append(str);
+				let scrollPoint = $("#chatContentBox").scrollTop() + $("#chatContentBox").children().last().offset().top;
+				$("#chatContentBox").animate({scrollTop : scrollPoint },200);
+				
+			}
+			
+			function onClose(evt) {
+
+				console.log("연결 종료");
+			}
+			function onOpen(evt) {
+				
+				let msg = {
+						no : 0,
+						invite_code : selectedInvCode,
+						member_no : loginMemberNo,
+						message : "OPENMESSAGE"
+				};
+				
+				sock.send(JSON.stringify(msg));
+				
+				console.log("연결됨");
+			}
 			
 // 				modal control
 			var modal = document.getElementById('modal');
@@ -145,7 +212,6 @@
 			});
 			
 			$("#modalSubmitBtn").click(function(){
-				console.log(recipient);
 				if(recipient == "@nInvitation"){
 					// 새 모임 만들기 ajax
 					let title = $("#modalValue").val();
@@ -166,8 +232,8 @@
 				} else {
 					// 모임에 새 멤버 추가하기 ajax
 					let id = $("#modalValue").val();
-					console.log(id);
-					console.log(selectedInvNo);
+// 					대상에게 알림 전송
+					
 					if(selectedInvNo == ""){
 						$("#modalAlert").removeClass("alert-success");
 						$("#modalAlert").addClass("alert-danger");
@@ -211,6 +277,7 @@
 							$("#modalAlert").addClass("alert-success");
 							$("#modalAlert").text(result + " 님을 초대했습니다.");
 							getParticipantList(selectedInvNo, selectedInvMemNo, selectedInvName);
+							sendAlert(id);
 						}
 					});
 				}
@@ -233,7 +300,7 @@
 	       				// = 내가 만든 모임이 아닐 때
 	       				// 수락 상태에 따라 참여 중 대기 중으로 표시, 거절하면 표시하지 않음
 	       				if(data[i].member_no != ${sessionScope.memberInfo.no}){
-	       					if(data[i].isAccepted == true || data[i].isAccepted == 1){
+	       					if(data[i].isAccepted == true || data[i].isAccepted == 1){ 
 	       						status = `<span class="text-success">[참여 중] </span>`;	
 	       					} else if (data[i].isAccepted == null){
 	       						status = `<span class="text-warning">[대기 중] </span>`;
@@ -245,7 +312,7 @@
 	       				let str = `	       			
 	       					<button type="button" class="d-flex justify-content-between list-group-item list-group-item-action" data-bs-toggle="button">
 							   	<div class="me-auto">\${status} \${data[i].title}</div><span class="badge bg-danger rounded-pill"></span>
-							   	
+							   	<input type="hidden" id="input_code" name="code" value="\${data[i].code}" />
 							   	<input type="hidden" id="input_no" name="no" value="\${data[i].no}" />
 							   	<input type="hidden" id="input_member" name="member_no" value="\${data[i].member_no}" />
 							   	<input type="hidden" id="input_name" name="name" value="\${data[i].name}" />
@@ -267,7 +334,6 @@
 					$("#participantList").empty();
 					$("#participantListTitle").empty();
 					$("#participantListFooter").empty();
-					console.log(data);
 					// 초대를 아무도 안했을 때
 					if(data.length == 0){
 						let str = `
@@ -359,6 +425,56 @@
 			}
 			
 			
+			// 채팅창 불러오기
+			function getChatter(no){
+				$("#chatContentBox").empty();
+				
+				// 모임번호 no로 해당 채팅방의 채팅 내용 불러오는 ajax
+				$.get("${path}/invitation/api/chat/"+no, function(data){
+					if(typeof sock != "undefined"){
+						sock.close();
+					}
+					for(let i=0; i<data.length; i++){
+						let str = ``;
+						if(data[i].member_no == loginMemberNo){
+							str = `
+								<div class="alert alert-light text-end text-break">
+									<strong>\${data[i].name}</strong>
+									<p class="m-0">\${data[i].message}</p>
+								</div>
+							`; 
+						} else {
+							str = `
+								<div class="alert alert-warning text-break">
+									<strong>\${data[i].name}</strong>
+									<p class="m-0">\${data[i].message}</p>
+								</div>
+							`; 
+						}
+						$("#chatContentBox").append(str);
+						
+					}
+					if(typeof data == "string" && data=="" ){
+						$("#chatInputBox textarea").attr("disabled", "disabled");
+					} else {
+						$("#chatInputBox textarea").removeAttr("disabled");
+						
+					}
+					
+					if($("#chatContentBox").children().length>0){
+						let scrollPoint = $("#chatContentBox").scrollTop() + $("#chatContentBox").children().last().offset().top;
+						$("#chatContentBox").animate({scrollTop : scrollPoint },0);
+					}
+					
+					sock = new SockJS('${path}/chat');
+					sock.onmessage = onMessage;
+					sock.onclose = onClose;
+					sock.onopen = onOpen;
+					
+				});
+			}
+			
+			
 			// 모임 목록 클릭했을 때 하단에 모임 정보 출력
 			$("#invitationList").on("click", "button", function(){
 				// 클릭한 모임만 액티브 설정
@@ -373,17 +489,19 @@
 				var member_no = $(this).find("#input_member").val();	// 모임 만든 사람 회원 번호
 				var name = $(this).find("#input_name").val();	// 모임 만든 사람 이름
 				var title = $(this).find("div").text();
+				var code = $(this).find("#input_code").val();
 				selectedInvNo = no;
 				selectedInvMemNo = member_no;
 				selectedInvName = name;
 				selectedInvTitle = title;
+				selectedInvCode = code;
 				getParticipantList(no, member_no, name);
+				getChatter(no);
 			});
 			
 			
 			// 상세 목록에서 취소하기 버튼 눌렀을 때 삭제하는 이벤트
 			$("#participantList").on("click", "button", function(){
-				console.log($(this).find("input").val());
 				// tbl_invite_participant에서 no값으로 삭제하는 ajax 처리
 				let confirmResult = confirm("정말로 취소하시겠습니까?");
 				if(confirmResult){
@@ -401,7 +519,6 @@
 			
 			// 초대 받은 모임에서 수락, 거절 이벤트
 			$("#participantListTitle").on("click","button", function(){
-				console.log(this);
 				let url = "";
 				let id = $(this).attr("id");
 				if(id == "inviteCancelBtn"){
@@ -451,6 +568,7 @@
 						getInvitationList();
 						$("#participantList").empty();
 						$("#participantListTitle").empty();
+						getAlert();
 					}
 				});
 			});
@@ -499,6 +617,16 @@
 							$("#participantListFooter").empty();
 						}
 					});
+				}
+			});
+			
+			$("#chatSubmitBtn").click(function(){
+				sendMessage();
+			});
+			
+			$("#chatInputBox").on("keyup",function(key){
+				if(key.keyCode == 13){
+					sendMessage();
 				}
 			});
 			</script>

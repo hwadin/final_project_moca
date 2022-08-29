@@ -30,8 +30,25 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+
+	public MemberVO searchId(MemberVO vo) throws Exception {
+		return dao.searchId(vo.getId());
+	}
+
+	@Override
+	public MemberVO pwCheck(MemberVO vo) throws Exception {
+		return dao.pwCheck(vo.getPw());
+	}
+
+	@Override
+	public void delete(MemberVO vo) throws Exception {
+		dao.delete(vo);
+	}
+
+	@Override
 	public List<MemberVO> findByKeyword(String keyword) {
 		return dao.findByKeyword(keyword);
+
 	}
 
 }

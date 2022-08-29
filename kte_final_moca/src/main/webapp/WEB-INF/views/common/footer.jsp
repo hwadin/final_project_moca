@@ -52,10 +52,7 @@ $("#sidebar .btn").each(function(){
 });
 
 $(window).on('load',function(){
-	console.log($("section").height());
-	console.log($(window).height());
 	if($("section").height() < $(window).height()){
-		console.log("aa");
 		$("section").css("min-height", $(window).height()-$("footer").height());
 	}
 });
@@ -68,7 +65,6 @@ $("#sideTopBtn").click(function(e){
 let select = $("#inviteSelectList").clone();
 
 $.get("${pageContext.request.contextPath}/invitation/api/listByMember/${memberInfo.no}", function(data){
-	console.log(data);
 	select.find("select").empty();
 	select.find("select").append(`<option selected>모임 선택하기</option>`);
 	for(let i=0; i<data.length; i++){
@@ -82,7 +78,6 @@ $.get("${pageContext.request.contextPath}/invitation/api/listByMember/${memberIn
 })
 
 $("#headerSearchResult").on("click", ".headerSearchUserResult div:first-child", function(){
-	console.log(select.is(":visible"));
 	if(select.is(":visible")){
 		select.prev().removeClass("alert alert-secondary my-0 py-1");
 		select.slideUp();
@@ -116,6 +111,7 @@ $("#headerSearchResult").on("click","button", function(){
 			return;
 		}
 		alert(result + " 님을 초대했습니다.");
+		sendAlert(id);
 	},"text");
 });
 
@@ -123,7 +119,6 @@ $("#headerSearchResult").on("click","button", function(){
 
 $("#headerSearchBtn").click(function(){
 	let keyword = $(this).prev().val();
-	console.log(keyword);
 
 	$("#headerSearchResult").empty();
 
@@ -194,6 +189,82 @@ $("#headerSearchBtn").click(function(){
 		
 	});
 });
+
+ 
+/* 로그인 했을 때 알림 읽어오고 알림 표시한 후 웹소켓 연결 */
+<c:if test="${!empty sessionScope.memberInfo}">
+
+var alertSock;
+alertSock = new SockJS('${pageContext.request.contextPath}/alert');
+alertSock.onmessage = onAlertMessage;
+alertSock.onclose = onAlertClose;
+alertSock.onopen = onAlertOpen;
+
+function sendAlert(id) {
+	let msg = {
+			no : ${sessionScope.memberInfo.no},
+			id : id
+	};
+	
+	alertSock.send(JSON.stringify(msg));
+}
+
+function onAlertMessage(msg) {
+	getAlert();
+}
+
+function onAlertClose(evt) {
+
+	console.log("알림 연결 종료");
+}
+function onAlertOpen(evt) {
+	
+	let msg = {id:"${sessionScope.memberInfo.id}",message:"OPENALERTSESSION"};
+	
+	alertSock.send(JSON.stringify(msg));
+	
+	console.log("알림 연결");
+}
+
+
+
+function getAlert(){
+	$.get("${pageContext.request.contextPath}/alert/${sessionScope.memberInfo.id}",function(data){
+		if(data.invitationAlert.length == 0 ){
+			$("#headerAlertRedDot").addClass("d-none-custom");
+			$("#headerAlertList").empty();
+			let str = `
+				<li><span class="dropdown-item">알림이 없습니다.</span></li>
+			`;
+			$("#headerAlertList").append(str);
+		} else {
+			$("#headerAlertRedDot").removeClass("d-none-custom");
+			$("#headerAlertList").empty();
+			
+			let str = `
+				<li><span class="dropdown-item">받은 알림 <i class="bi bi-caret-down-fill"></i></span></li>
+			`;
+			$("#headerAlertList").append(str);
+			
+			for(let i=0; i<data.invitationAlert.length; i++){
+				str = `
+					<li>
+						<a href="${pageContext.request.contextPath}/invitation/invitationMain" class="alert alert-warning mb-0 py-2 text-truncate dropdown-item">대기 중인 초대 - \${data.invitationAlert[i].title}</a>
+					</li>
+				`;
+				$("#headerAlertList").append(str);
+			}
+		}
+		
+	} );
+}
+
+$("#headerAlertBtn").click(function(){
+	getAlert();
+})
+
+getAlert();
+</c:if>
 </script>
 
 </body>

@@ -59,15 +59,15 @@
 					<tr>
 						<td>프로필 이미지</td>
 						<td style="text-align:center">
-							<img src="${path}/resources/img/profile.jpg" id="profile_url" value="${memberInfo.profile_url}" class="profile_url"/>
+							<img src="${path}/${memberInfo.profile_url}" id="profile_url"  class="profile_url"/>
 							<br/>
-							<input type="file" id="profileImage" name="profileImage" accept="image/*"/>
+							<input type="file" id="profileImage" name="profileImage" accept="image/*" value="${memberInfo.profile_url}"/>
 						</td>
 					</tr>
 					<tr>
 						<td>아이디</td>
 						<td>
-							<input type="text" name="id" id="id" alt="아이디" value="${memberInfo.id}" disabled/>
+							<input type="text" name="id" id="id" alt="아이디" value="${memberInfo.id}" readonly/>
 						</td>
 					</tr>
 					<tr>
@@ -114,8 +114,8 @@
 					</div>
 					<tr>
 						<th colspan="5">
-							<input type="submit" class="btn btn-primary" value="수정"/> 
-							<input type="button" class="btn btn-success" onclick="location.href='logIn';" value="로그인"/>  
+							<input type="submit" class="btn btn-primary" value="수정"/>
+							<input type="button" class="btn btn-success" id="deleteBtn" value="회원탈퇴"/>
 						</th>
 					</tr>
 				</table>
@@ -252,12 +252,27 @@
 	}
 });
 
-			
+	$(function(){
+		var formObj = $("#updateForm");
 	
-
-		
+		$("#deleteBtn").click(function(){
+			var isDelete = confirm("회원탈퇴 하시겠습니까?");
+			if(isDelete){
+				formObj.attr("action","delete");
+				formObj.submit();
+			}else{
+				alert('취소되었습니다')
+			}
+			
+		});
+	});	
 </script>
 
+<c:if test="${!empty msg}">
+ <script>
+ 	alert('${msg}');
+ </script>
+</c:if>
 
 <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 			</div>

@@ -67,6 +67,7 @@ footer {
 	outline : none;
 }
 
+
 .replyProfile{
 		width:30px;
 		height:30px;
@@ -77,4 +78,8 @@ footer {
 	width:30px;
 	height:30px;
 	border:1px solid #ccc;
+}
+
+.bi-chat-right-heart{
+	color : palevioletred;
 }

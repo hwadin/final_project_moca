@@ -21,6 +21,9 @@
     <!-- validation -->
    	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
    	 
+   	<!-- 웹소켓 --> 
+   	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> 
+   	 
     <script>
 
     </script>
@@ -64,16 +67,23 @@
                 </form>
 
                 <!-- icons and user -->
-                <button type="button" class=" btn btn-outline-secondary btn-sm rounded-circle me-3  position-relative">
-                  <i class="bi bi-bell"></i>
-                  <!-- alert badge -->
-                  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
-                    <span class="visually-hidden">New alerts</span>
-                </button>
+                <div class="dropdown">
+	                <button id="headerAlertBtn" type="button" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-outline-secondary btn-sm rounded-circle me-3  position-relative">
+	                  <i class="bi bi-bell"></i>
+	                  <!-- alert badge -->
+	                  <span id="headerAlertRedDot" class="d-none-custom position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+	                    <span class="visually-hidden">New alerts</span>
+	                </button>
+	                <ul id="headerAlertList" class="mt-1 dropdown-menu dropdown-menu-end" style="width:250px">
+							<li><span class="dropdown-item">알림이 없습니다.</span></li>
+					</ul>
+                </div>
                 
                 <!-- drop down 해야되는곳 -->
 				 <div class="dropdown" style="width=500;">
+
                 <c:choose>
+                	
                 	<c:when test="${!empty sessionScope.memberInfo}">
                 	<c:choose>
                 		<c:when test="${memberInfo.profile_url == null}">
@@ -90,9 +100,6 @@
 	                	
                 	</c:when>
                 	<c:otherwise>
-                		<a class="btn btn-secondary rounded-circle me-2 " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
-                  			<i class="bi bi-person-fill "></i>
-                		</a>
                 	</c:otherwise>
                 </c:choose>
                   	
@@ -102,7 +109,7 @@
 	                		<c:choose>
                 				<c:when test="${memberInfo.profile_url == null}">
                 					<a class="btn btn-secondary rounded-circle me-2 " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
-                  					<i class="bi bi-person-fill "></i>
+                  					<i  class="bi bi-person-fill "></i>
                 					</a>
                 			</c:when>
                 		<c:otherwise>
@@ -111,15 +118,14 @@
                 		</c:otherwise>
                 	</c:choose>
                 		<div>
-                			<img style="width: 150px; height: 150px;" class="rounded-circle profile_url" src="${pageContext.request.contextPath}/${memberInfo.profile_url}" />
-                			<br/>
                 			<label>${memberInfo.id}</label>
                 		</div>
                 			<hr/>
-						    <a class="dropdown-item" href="member/update">회원정보수정</a>
-						    <a class="dropdown-item" href="member/logOut">로그아웃</a>
+						    <a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwCheck">회원정보수정</a>
+						    <a class="dropdown-item" href="${pageContext.request.contextPath}/member/logOut">로그아웃</a>
 						 </div>
 					 </div>
+					 
 					 </c:when>
 					 <c:otherwise>
 					 
@@ -129,6 +135,7 @@
 					 	</div>
 					 </c:otherwise>
                 </c:choose>
+                
                 <!-- 위로 dropdown -->
                 <c:choose>
                 	<c:when test="${!empty sessionScope.memberInfo}">
