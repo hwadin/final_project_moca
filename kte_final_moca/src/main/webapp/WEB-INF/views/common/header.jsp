@@ -80,7 +80,7 @@
                 </div>
                 
                 <!-- drop down 해야되는곳 -->
-				 <div class="dropdown" style="width=500;">
+				 <div class="dropdown">
 
                 <c:choose>
                 	
@@ -105,7 +105,7 @@
                   	
                 <c:choose>
                 	<c:when test="${!empty sessionScope.memberInfo}">
-	                	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown">
+	                	<div class="dropdown-menu dropdown-menu-end text-center pb-0" aria-labelledby="dropdownMenuLink" id="dropdown"  style="width:300px;">
 	                		<c:choose>
                 				<c:when test="${memberInfo.profile_url == null}">
                 					<a class="btn btn-secondary rounded-circle me-2 " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
@@ -114,15 +114,18 @@
                 			</c:when>
                 		<c:otherwise>
                 			<a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
-	                		</a>
+	                		<img class="pb-2 rounded-circle profile_url_big" src="${pageContext.request.contextPath}/${memberInfo.profile_url}" /></a>
                 		</c:otherwise>
                 	</c:choose>
-                		<div>
-                			<label>${memberInfo.id}</label>
-                		</div>
+                		<div class="alert alert-light mb-0">
+                			<p class="mb-0">${memberInfo.id}</p>
+                			<p class="fs-5 py-0">${memberInfo.name}</p>
                 			<hr/>
-						    <a class="dropdown-item" href="${pageContext.request.contextPath}/member/pwCheck">회원정보수정</a>
-						    <a class="dropdown-item" href="${pageContext.request.contextPath}/member/logOut">로그아웃</a>
+                			<div class=" d-flex justify-content-between">
+							    <a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/member/pwCheck">회원정보수정</a>
+							    <a class="btn dropdown-item" href="${pageContext.request.contextPath}/member/logOut">로그아웃</a>
+						    </div>
+                		</div>
 						 </div>
 					 </div>
 					 
