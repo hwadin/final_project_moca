@@ -38,7 +38,7 @@
 						<div class="row" >
 							<div class="col">
 								<div class="d-flex justify-content-between mb-3">
-									<p class="h2"><i class="bi bi-chat-right-heart"></i> 모임 목록 </p>
+									<p class="h2"><i class="bi bi-card-list"></i> 모임 목록 </p>
 									<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@nInvitation">+ 새 모임</button>
 								</div>
 								
@@ -51,7 +51,7 @@
 						<div class="row mt-5">
 							<div class="col" >
 								<div class="d-flex justify-content-between mb-3">
-									<p class="h2"><i class="bi bi-chat-right-heart"></i> 모임 정보 </p>
+									<p class="h2"><i class="bi bi-people"></i> 모임 정보 </p>
 									<button id="invParticipantBtn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal" data-bs-whatever="@nMember">+ 초대하기</button>
 								</div>
 								<div id="participantListTitle" class="d-flex justify-content-between">
@@ -80,7 +80,7 @@
 						
 					</div>
 					<div class="col-6">
-						<p class="h2"><i class="bi bi-chat-right-heart"></i> 채팅</p>
+						<p class="h2"><i class="bi bi-chat-dots"></i> 채팅</p>
 						<div id="chatContainer">
 							<div id="chatContentBox" class="overflow-auto border border-4 p-3 mt-4 mb-2" style="height:600px;">
 								<div class="alert alert-warning text-break">

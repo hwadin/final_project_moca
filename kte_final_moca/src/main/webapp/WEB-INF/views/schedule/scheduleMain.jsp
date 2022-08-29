@@ -191,7 +191,7 @@
 					<div class="col">
 						<hr />
 <!-- 					페이지 소제목 부분(작성) -->
-						<p class="lead"><i class="bi bi-chat-right-heart"></i> 내 일정</p>
+						<p class="h2"><i class="bi bi-calendar-check"></i> 내 일정</p>
 					</div>
 				</div>
 				

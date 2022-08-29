@@ -6,7 +6,7 @@
 </footer>
 <script>
 // ë²í¼ í¤ë íì´ë ì¤í¬ë¦½í¸
-$(function(){
+/* $(function(){ */
 	$("#btnHeader .btn").each(function(){
 		$(this).on("mouseover", function(e){
 			$(this).find("i").stop().fadeOut();
@@ -17,7 +17,7 @@ $(function(){
 			$(this).find("p").stop().fadeOut();
 		});
 	});
-});
+/* }); */
 
 // ì¤í¬ë¡¤ ì¬ì´ëë° íì´ë ì¤í¬ë¦½í¸
 $(function(){
