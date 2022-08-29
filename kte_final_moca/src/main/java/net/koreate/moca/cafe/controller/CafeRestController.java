@@ -1,10 +1,13 @@
 package net.koreate.moca.cafe.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +17,7 @@ import net.koreate.moca.cafe.service.CafeMenuService;
 import net.koreate.moca.cafe.service.CafeService;
 import net.koreate.moca.cafe.vo.CafeLikeVO;
 import net.koreate.moca.cafe.vo.CafeMenuVO;
+import net.koreate.moca.cafe.vo.CafeSearchVO;
 import net.koreate.moca.cafe.vo.CafeVO;
 
 @RestController
@@ -28,24 +32,35 @@ public class CafeRestController {
 	
 	@GetMapping("cafeList")
 	public ResponseEntity<List<CafeVO>> cafeList(int index){
-		List<CafeVO> list = null;
+		List<CafeVO> cafelist = null;
 		try {
-			list = cs.cafeList(index);
+			cafelist = cs.cafeList(index);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(list,HttpStatus.OK);
+		return new ResponseEntity<>(cafelist,HttpStatus.OK);
+	}
+	
+	@GetMapping("cafeSearchList")
+	public ResponseEntity<List<CafeVO>> cafeSearchList(CafeSearchVO vo){
+		List<CafeVO> cafesearchlist = null;
+		try {
+			cafesearchlist = cs.cafesearchList(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(cafesearchlist,HttpStatus.OK);
 	}
 	
 	@GetMapping("cafeMenuList")
-	public ResponseEntity<List<CafeMenuVO>> cafeMenuList(CafeMenuVO vo){
-		List<CafeMenuVO> list = null;
+	public ResponseEntity<List<CafeMenuVO>> cafeMenuList(int cafe_no){
+		List<CafeMenuVO> menulist = null;
 		try {
-			list = cms.menuList(vo);
+			menulist = cms.menuList(cafe_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(list,HttpStatus.OK);
+		return new ResponseEntity<>(menulist,HttpStatus.OK);
 	}
 	
 	@GetMapping("cafeDetail")
@@ -61,15 +76,25 @@ public class CafeRestController {
 	
 	@GetMapping("cafeLike")
 	public ResponseEntity<CafeLikeVO> cafeLike(CafeLikeVO vo){
-		CafeLikeVO cafelikevo = null;
+		CafeLikeVO likevo = null;
 		try {
-			cafelikevo = cls.read(vo);
+			likevo = cls.read(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(cafelikevo,HttpStatus.OK);
+		return new ResponseEntity<>(likevo,HttpStatus.OK);
 	}
 	
+	@PatchMapping("/")
+	public ResponseEntity<String> update(CafeLikeVO vo) {
+		try {
+			cls.update(vo);
+			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("FAILED", HttpStatus.BAD_REQUEST);
+		}
+	}
 
 		
 }

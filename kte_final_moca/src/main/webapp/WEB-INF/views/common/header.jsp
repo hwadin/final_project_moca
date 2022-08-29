@@ -21,6 +21,9 @@
     <!-- validation -->
    	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
    	 
+   	<!-- 웹소켓 --> 
+   	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> 
+   	 
     <script>
 
     </script>
@@ -41,19 +44,40 @@
 
                 <!-- search bar -->
                 <form class="d-flex">
-                    <div class="input-group">
+                    <div class="input-group position-relative dropdown">
                         <input class="form-control " type="search" placeholder="Search" aria-label="Search">
-                        <button class="input-group-text btn btn-outline-success me-3" type="submit"><i class="bi bi-search "></i></button>
+                        <button id="headerSearchBtn" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle input-group-text btn btn-outline-success me-3" type="button"><i class="bi bi-search "></i></button>
+						<!-- search Result -->
+						
+						<!-- member Invite List Select -->
+							<div id="inviteSelectList" class="d-none-custom dropdown-item">
+								<select class="w-75 form-select form-select-sm d-inline me-3" aria-label="Search Invite Select Area">
+									<option selected>모임 선택하기</option>
+									<option value="1">새 모임</option>
+									<option value="2">새 모임2</option>
+									<option value="3">새 모임3</option>
+								</select>
+								<button id="headerInviteBtn" type="button" class="btn btn-sm btn-secondary">초대</button>
+							</div>
+						<!-- search Result List -->
+						<ul id="headerSearchResult" class="dropdown-menu" style="width:290px">
+							<li><span class="dropdown-item">검색 내용을 입력하세요.</span></li>
+						</ul>
                     </div>
                 </form>
 
                 <!-- icons and user -->
-                <button type="button" class=" btn btn-outline-secondary btn-sm rounded-circle me-3  position-relative">
-                  <i class="bi bi-bell"></i>
-                  <!-- alert badge -->
-                  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
-                    <span class="visually-hidden">New alerts</span>
-                </button>
+                <div class="dropdown">
+	                <button id="headerAlertBtn" type="button" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-outline-secondary btn-sm rounded-circle me-3  position-relative">
+	                  <i class="bi bi-bell"></i>
+	                  <!-- alert badge -->
+	                  <span id="headerAlertRedDot" class="d-none-custom position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"></span>
+	                    <span class="visually-hidden">New alerts</span>
+	                </button>
+	                <ul id="headerAlertList" class="mt-1 dropdown-menu dropdown-menu-end" style="width:250px">
+							<li><span class="dropdown-item">알림이 없습니다.</span></li>
+					</ul>
+                </div>
                 
                 <!-- drop down 해야되는곳 -->
 				 <div class="dropdown">

@@ -72,7 +72,6 @@
         	
 	      eventClick: function(info) {
 	            info.jsEvent.preventDefault(); // don't let the browser navigate
-	            console.log(info);
 	            if(info.el.host == "www.google.com" || info.event.url != ""){
 	            	$("#myPop").stop().fadeOut(function(){
 	            		$("#myPop").offset({top:0, left:0});

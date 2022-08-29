@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
+ 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +49,7 @@
 	border: 2px solid green;
 	width:210px;
 
-}  
+	}  
 </style>
 </head>
 
@@ -100,15 +104,16 @@
 						<p class="tagWrap">${cafeVO.tag}</p>
 						<span class="flagWrap">${cafeVO.flag}</span>
 						
-				<div class="likeNum mt-5" title="좋아요 갯수">
-					<c:if test="${!empty sessionScope.memberInfo}">
-						<i class="bi bi-heart">${cafeVO.likenum}</i>
+				<div id="likecount" class="likeNum mt-5" title="좋아요 갯수">
+					 <c:if test="${!empty sessionScope.memberInfo}">
+						<i id="likeIcon" class="bi bi-heart">${cafeVO.likenum}</i>
 					</c:if>
 				</div>
 
 <!--       카페 Q&A 게시판      -->
 						<form id="searchForm">Notice & Event
-							<input type="hidden" value="${cafe_no}" name="cafe_no">
+							<input type="hidden" value="${cafeVO.no}" name="cafe_no" id="cafe_no" />
+							<input type="hidden" value="${memberInfo.no}" name="member_no" id="member_no" />
 						</form>	
 						</span>
 					</div>
@@ -144,47 +149,118 @@
 						<strong class="titDep5" style="font-size: 2rem;">
 						<i class="bi bi-flag-fill" style="font-size: 2rem; color: darkgreen;"></i> 
 						위치 </strong>
-						<div id="map" class="row" style="height:500px">
+						<div id="map" class="row mt-3" style="height:500px">
 					</div> 
 					</div>
 				</div>		
 					</div>
 		<!-- 메뉴 -->	
-					<div class="tab-pane fade" id="menu" role="tabpanel"
-						aria-labelledby="menu-tab">
-						<div class="row mt-5">
-						<strong class="titDep5" style="font-size: 2rem;">
-						<i class="bi bi-cart-plus-fill" style="font-size: 2rem; color: crimson;"></i>
-							 메뉴</strong>
-							<div class="col-sm-4">
-							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300"
-								 class="img-thumbnail" />
-								<span class="menu">아메리카노</span>
-					<!-- pricediscount는 현재시각에 할인율 겹치는 가격으로 보여주기  -->
-								<span class="price"><del>5,000원</del></span>
-								<span class="pricediscount" style="color:red;">4,000원</span>
-							</div>
-							<div class="col-sm-4">
-							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300"
-								 class="img-thumbnail" />
-								<span class="menu">카페 라떼</span>
-								<span class="price"><del>5,500원</del></span>
-								<span class="pricediscount" style="color:red;">5,000원</span>
-							</div>
-							<div class="col-sm-4">
-							<img src="https://static-file.jejupass.com/download/85011?width=300&amp;height=300"
-								 class="img-thumbnail" />
-								<span class="menu">바닐라 라떼</span>
-								<span class="price"><del>6,000원</del></span>
-								<span class="pricediscount" style="color:red;">5,500원</span>
-							</div>
-						</div>
+					<div class="tab-pane fade" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+					<div class="row mt-5">
+						<strong class="titDep5" style="font-size: 2rem;"><i 
+						class="bi bi-cart-plus-fill" style="font-size: 2rem; color: crimson;"></i>
+						 메뉴
+						</strong>
+					</div>	
+						<div id="menulist"  class="row mt-3"></div>
 					</div>
 		 <!--리뷰  -->
-				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-				
-				
+				<div class="tab-pane fade" id="review" role="tabpanel"
+						aria-labelledby="review-tab">
+						<div class="row mt-5">
+							<strong class="titDep5" style="font-size: 2rem;"> <i
+								class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								리뷰
+							</strong>
+						</div>
+						<div class="row my-3">
+							<div class="col-6 text-center">
+								<div class="row">
+									<strong class="titDep5 display-4"  id="starAvg"></strong>
+								</div>
+								<div id="starContainer">
+								<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star-half" style="font-size: 2rem; color: gold;"></i>
+								<i class="bi bi-star" style="font-size: 2rem; color: gold;"></i>
+								</div>
+							</div>
+									
+									
+								<div  class="col-6">	
+									<div class="row align-items-center">
+										<div class="col-2 text-end">5점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="5b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="5">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">4점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="4b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="4">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">3점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="3b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="3">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">2점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="2b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="2">0</div>
+									</div>
+									
+									<div class="row align-items-center">
+										<div class="col-2 text-end">1점</div>
+										<div class=" col-8 progress px-0">
+											<div class="progress-bar bg-warning" id="1b" role="progressbar" style="width:0%" aria-valuenow="0"
+												aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="starCount col-2 text-start text-secondary" id="1">0</div>
+									</div>
+									</div>
+					</div>
+					
+						<div id="chartContainer" class="my-5 border-bottom" >
+						
+						</div>
+						<!-- 리뷰 작성 페이지 -->
+				<div class="row border-bottom">
+					<div class="col">
+						<h3>전체 리뷰 : <span id="reviewCount"></span>개</h3>
+						<span class="lead text-secondary">사장님 댓글 : <span id="ownerCount"></span>개</span>
+						<div class="text-end border-bottom">
+							<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+							  <label class="btn btn-outline-secondary" for="btnradio1">최신순</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+							  <label class="btn btn-outline-secondary" for="btnradio2">별점높은순</label>
+							
+							  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+							  <label class="btn btn-outline-secondary" for="btnradio3">별점낮은순</label>
+							</div>
+						</div>
+						<div id="reviewList"></div>
+					</div>
 				</div>
+				</div>
+				<div id="myfirstchart" style="height: 300px;"></div>
 			</div>				
 
 <!--			여기 위까지 본문 영역 -->
@@ -197,9 +273,11 @@
 
 <!-- end of container -->
 </section>
+
 <script type="text/javascript"
 		 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6534a2ce2eff7ef104f2b7a840e380f&libraries=services">
 </script>
+
 <script>
 	//map 지도 객체 생성
  	var container = document.getElementById('map');
@@ -208,10 +286,6 @@
 	var places = new kakao.maps.services.Places();
 	var callback = function(result, status) {
 	    if (status === kakao.maps.services.Status.OK) {
-/* 	        console.log(result);
-	        console.log(result[0].address_name);
-	        console.log(result[0].x);
-	        console.log(result[0].y); */
 	        var options = {
 	        		center: new kakao.maps.LatLng(result[0].y, result[0].x),
 	        		level: 0.5
@@ -229,36 +303,242 @@
     }
 	places.keywordSearch('${cafeVO.name}', callback);
 
+	// 좋아요 기능 구현
 	var i = 0;
-	var cno = 0;
+	var cno = ${cafeVO.no};
 	var mno = 0;
-
- $('.bi-heart').on('click',function(){
-      if(i==0){
-          $(this).removeClass('bi-heart');
-          $(this).addClass('bi-heart-fill');
-          i++;
-          
-      }else if(i==1){
-          $(this).removeClass('bi-heart-fill');
-          $(this).addClass('bi-heart');
-          i--;
-      }
+	
+	<c:if test="${!empty memberInfo}">
+	mno = ${memberInfo.no};
+	
+	 $.get("${path}/cafe/api/cafeLike",{cno:${cafeVO.no},mno:${memberInfo.no}},function(data){
+	      	console.log(data);
+	      	if(data.like_check == 1 && data.cno == ${cafeVO.no}){
+				console.log("이미 좋아요 눌렀거덩여?");
+				$('#likeIcon').addClass('bi-heart-fill');
+				$('#likeIcon').removeClass('bi-heart');
+				
+	      	}else{
+	      		console.log("좋아요!");
+				$('#likeIcon').addClass('bi-heart');
+				$('#likeIcon').removeClass('bi-heart-fill');
+				
+	      	}
+	}); 
+	
+ $('#likeIcon').on('click',function(){
+		 let currentLikeNum = $("#likeIcon").text();
+	 
+	 $.ajax({
+			url : "${path}/cafe/api/",
+			method : "PATCH",
+			data : {
+				cno : cno,
+				mno : mno
+			},
+			dataType : "text",
+			success : function(result){
+				console.log(result);
+				if($('#likeIcon').hasClass("bi-heart-fill")){
+					 $("#likeIcon").text(currentLikeNum - 1);
+				 }else {
+					 $("#likeIcon").text(Number(currentLikeNum) + 1);
+				 }
+				$('#likeIcon').toggleClass("bi-heart-fill bi-heart");
+			}
+			
+		}); 
+	 
   });
+	</c:if>
 
-   	 $.get("${path}/cafe/api/cafeLike",{cno:23,mno:15},function(data){
-        	console.log(data);
-        	if(data.like_check==1){
-        		
-        	}
-}); 
-    
-    
-    
+	// Q&A 게시판 이동
 	$("#searchForm").click(function(){
 		location.href="${path}/board/listPage?cafe_no=${no}";		
 	});
 
+	
+	// 메뉴 리스트
+	var menulist = $("#menulist");
+	var cafe_no = ${cafeVO.no};
+	
+	
+	 $.get("${path}/cafe/api/cafeMenuList",{cafe_no:${cafeVO.no}},function(data){
+		console.log(data); 
+		for(var i=0; i<data.length; i++){
+			var str = 
+					`<div class="col-4 sm-4 mt-3">
+							<img src="\${data[i].photo_url}"
+								 class="img-thumbnail" />
+								<span class="menu">\${data[i].name}</span>
+								<span class="price"><del>\${data[i].price}</del></span>
+								<span class="pricediscount" style="color:red;">\${data[i].discount}</span>
+					</div>`;
+				menulist.append(str);
+		} 
+});
+		
+	
+	 
+	 
+	 
+	 
+	 
+	
+	/* 여기서부터 리뷰 스크립트 */
+	
+	
+	
+	function getReviewList(result){
+		$("#reviewList").empty();
+		for(var i=0; i<result.length;i++){
+			if(result[i].depth == 0){
+				var str = `
+					<div class="mt-3 mb-4">
+					<div class="d-flex justify-content-start align-items-center">
+					<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+					<span class="ms-2 lead">\${result[i].name} &gt;</span>
+					</div>
+					<div class="mt-2 text-secondary d-flex justify-content-between">
+						<span>\${result[i].content}</span>
+						<div>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+							<i class="bi bi-star-fill" style="color: gold;"></i>
+						</div>
+					</div>
+					<c:if test="${memberInfo.no == cafeVO.owner_no}">
+					<div class="text-secondary text-sm d-flex justify-content-end">
+						<a href="" class="btn text-secondary ">[답글]</a>
+					</div>
+					</c:if>
+				</div>
+				`;
+			}else{
+				var str = `
+					<div class="ms-5 mt-3 mb-4 px-3 py-3 alert alert-secondary">
+					<div class="d-flex justify-content-end align-items-center">
+					<span class="me-2 lead">&lt; 사장님</span>
+					<img class="rounded-circle replyProfile me-2" src="${pageContext.request.contextPath}/upload\profile\loen850@naver.com\KakaoTalk_20220617_120021184.jpg" />
+					</div>
+					<div class="mt-2 text-secondary d-flex justify-content-between">
+						<span>\${result[i].content}</span>
+					</div>
+				</div>
+				`;
+			}
+		$("#reviewList").append(str);
+		}
+	}
+	
+
+	function starDrawer(starAvg){
+		
+		let str = "";
+		let cnt = 0;
+		
+		for(var i=1;i<=Math.floor(starAvg);i++){
+			str += `<i class="bi bi-star-fill" style="font-size: 2rem; color: gold;"></i>`;
+			cnt++;
+		}
+		
+		if((Math.round(starAvg*10)/10 - Math.floor(starAvg)) >= 0.5){
+			str += `<i class="bi bi-star-half" style="font-size: 2rem; color: gold;"></i>`;
+			cnt++;
+		}else {
+			str += `<i class="bi bi-star" style="font-size: 2rem; color: gold;"></i>`;
+			cnt++;
+		}
+		
+		for(i=1;i<=5-cnt;i++){
+			str += `<i class="bi bi-star" style="font-size: 2rem; color: gold;"></i>`;
+		}
+		return str;
+	}
+	
+	
+	$("#review-tab").on('click',function(){
+		var cafe_no =  $("#cafe_no").val();
+		console.log(cafe_no);
+		
+		
+		$.ajax({
+			type : "GET",
+			url : "${path}/review/api/" + cafe_no,
+			dataType : "json",
+			success : function(result){
+				console.log(result);
+				getReviewList(result.list);
+				$("#reviewCount").text(result.reviewCount);
+				$("#ownerCount").text(result.ownerCount);
+				$("#starAvg").text(Math.round(result.starAvg*10)/10);
+				let starCount = $(".starCount");
+				starCount.each(function(){
+					for(let j=0; j<result.starCount.length; j++){
+						if($(this).attr("id") == result.starCount[j].criteria){
+							$(this).text(result.starCount[j].score);
+						}
+					}
+				});
+				
+				$("#starContainer").empty();
+				$("#starContainer").append(starDrawer(result.starAvg));
+				
+				let progressBar = $(".progress-bar");
+				progressBar.each(function(index,item){
+					for(let j=0; j<result.starCount.length; j++){
+						if(5-index == result.starCount[j].criteria){
+							let percent = Math.ceil((result.starCount[j].score / result.reviewCount) * 100) ;
+							$(this).attr("style","width:"+percent+"%");
+							$(this).attr("aria-valuenow",percent);
+						}
+					}
+				});
+				if(result.monthCount.length == 0){
+					result.monthCount = [{criteria : 0, score : 1}];
+				}
+				$("#myfirstchart").empty();
+
+				let chart = new Morris.Line({
+					  // ID of the element in which to draw the chart.
+					  element: 'myfirstchart',
+					  // Chart data records -- each entry in this array corresponds to a point on
+					  // the chart.
+					  
+					  data: result.monthCount, 
+					  // The name of the data record attribute that contains x-values.
+					  xkey: 'criteria',
+					  // A list of names of data record attributes that contain y-values.
+					  ykeys: ['score'],
+					  // Labels for the ykeys -- will be displayed when you hover over the
+					  // chart.
+					  labels: ['평점'],
+					  
+					  ymax:'auto[5]',
+					  
+					  ymin:'auto[1]',
+					  hideHover: false,
+					  lineColors: [ '#D3D3D3' ],
+					  
+					  pointFillColors:['#020715'],
+					  
+					  gridTextColor:['#000000'],
+					  
+					  parseTime:false
+					  
+					});
+				
+				
+				$(function(){
+					$("#myfirstchart").appendTo($("#chartContainer"));
+				});
+				
+			}
+		});
+	});
+	
 </script>	
 
 

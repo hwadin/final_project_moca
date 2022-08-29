@@ -18,18 +18,12 @@ public class CafeMenuServiceImpl implements CafeMenuService{
 	public void regist(CafeMenuVO vo) throws Exception {
 		dao.regist(vo);		
 	}
-
-	@Override
-	public List<CafeMenuVO> menuList(CafeMenuVO vo) throws Exception {
-		
-		return dao.menuList(vo);
-	}
 	
 	@Override
-	public CafeMenuVO read(int cafe_no) throws Exception {
-		return dao.read(cafe_no);
+	public List<CafeMenuVO> menuList(int cafe_no) throws Exception {
+		return dao.menuList(cafe_no);
 	}
-
+	
 	@Override
 	public void update(CafeMenuVO vo) throws Exception {
 		dao.update(vo);
@@ -41,6 +35,8 @@ public class CafeMenuServiceImpl implements CafeMenuService{
 		dao.delete(no);
 		
 	}
+
+
 
 
 

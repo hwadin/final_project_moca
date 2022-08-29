@@ -1,13 +1,16 @@
 package net.koreate.moca.member.dao;
 
+
 import org.apache.ibatis.annotations.Delete;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import net.koreate.moca.member.vo.MemberVO;
-
 
 public interface MemberDAO {
 
@@ -28,6 +31,7 @@ public interface MemberDAO {
 	@Select("SELECT * FROM tbl_member WHERE id=#{id}")
 	MemberVO searchId(String id) throws Exception;
 
+
 	// 비밀번호 확인
 	@Select("SELECT * FROM tbl_member WHERE pw=#{pw}")
 	MemberVO pwCheck(String pw) throws Exception;
@@ -35,4 +39,11 @@ public interface MemberDAO {
 	// 회원탈퇴
 	@Delete("DELETE FROM tbl_member WHERE no=#{no}")
 	void delete(int no) throws Exception;
+
+
+	// 검색창 키워드로 회원 검색
+	@Select("SELECT * FROM tbl_member WHERE id LIKE CONCAT('%',#{keyword},'%') OR name LIKE CONCAT('%',#{keyword},'%')")
+	List<MemberVO> findByKeyword(String keyword);
+
+
 }
