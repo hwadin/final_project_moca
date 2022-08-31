@@ -19,7 +19,7 @@
             </button>
           </div>
           <div class="col position-relative">
-            <button type="button" id="reservationBtn" data-location="" class="h-100 w-100 d-block btn btn-lg mx-auto">
+            <button type="button" id="reservationBtn" data-location="/reservation/reservationMain" class="h-100 w-100 d-block btn btn-lg mx-auto">
               <i class="text-warning bi bi-list-check  display-3"></i>
               <p class="d-none-custom position-absolute translate-middle start-50 top-50 text-warning text-primary h5 border-bottom border-warning border-5">RESERVATION</p>
             </button>

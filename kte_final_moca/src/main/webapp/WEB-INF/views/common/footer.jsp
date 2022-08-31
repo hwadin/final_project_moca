@@ -19,6 +19,7 @@
 	});
 /* }); */
 
+
 // ì¤í¬ë¡¤ ì¬ì´ëë° íì´ë ì¤í¬ë¦½í¸
 $(function(){
 	if($(window).scrollTop()){
@@ -200,6 +201,14 @@ alertSock.onmessage = onAlertMessage;
 alertSock.onclose = onAlertClose;
 alertSock.onopen = onAlertOpen;
 
+var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+var toastList = toastElList.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl,{autohide:true, delay:5000});
+});
+let toast = $("#liveToast");
+console.log(toastList[0]);
+
+
 function sendAlert(id) {
 	let msg = {
 			no : ${sessionScope.memberInfo.no},
@@ -211,6 +220,7 @@ function sendAlert(id) {
 
 function onAlertMessage(msg) {
 	getAlert();
+	toastList[0].show();
 }
 
 function onAlertClose(evt) {

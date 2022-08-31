@@ -90,3 +90,28 @@ footer {
 .bi-chat-right-heart{
 	color : palevioletred;
 }
+
+#reserv-indicator [data-bs-target]{
+	text-indent : 0px;
+	width : 100px;
+}
+
+
+.card-title{
+	color : cadetblue;
+}
+
+.menu-btn-custom{
+	width : 150px;
+}
+.reserv-cafe-menu-img-custom{
+	width : 150px;
+	height: 150px;
+}
+
+.reserv-menu-amount-up-btn{
+	height : 15px;
+}
+.reserv-menu-amount-down-btn{
+	height : 15px;
+}
