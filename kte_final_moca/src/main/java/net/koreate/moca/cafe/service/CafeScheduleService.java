@@ -1,6 +1,10 @@
 package net.koreate.moca.cafe.service;
 
+import java.util.List;
+
 import net.koreate.moca.cafe.vo.CafeScheduleVO;
+import net.koreate.moca.cafe.vo.CafeSearchVO;
+
 
 
 public interface CafeScheduleService {
@@ -16,5 +20,8 @@ public interface CafeScheduleService {
 	
 	// 카페 스케줄 삭제(스케줄 번호로 조회)
 	void delete(int no) throws Exception; 
+
+	// 검색한 카페 스케줄 읽어오기
+	List<CafeScheduleVO> cafesearchlist(CafeSearchVO vo);
 
 }
