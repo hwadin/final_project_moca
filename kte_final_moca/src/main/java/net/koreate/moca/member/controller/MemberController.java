@@ -1,14 +1,14 @@
 package net.koreate.moca.member.controller;
 
-import java.beans.Encoder;
-import java.io.File;import java.nio.file.Path;
+import java.io.File;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -35,6 +35,7 @@ public class MemberController {
    
    private final MemberService ms;
    private final CafeService cs;
+   private final PasswordEncoder encoder;
    
    @Autowired
    ServletContext context;
@@ -45,16 +46,17 @@ public class MemberController {
    }
    
    @PostMapping("/logInPost")
-   public String logInPost(MemberVO vo,RedirectAttributes rttr, HttpSession session) throws Exception{
+   public String logInPost(MemberVO vo, RedirectAttributes rttr, HttpSession session) throws Exception{
+	   System.out.println("vo : "+vo);
       MemberVO user = ms.logIn(vo);
-      session.setAttribute("memberInfo", ms.logIn(vo));
-      
+      session.setAttribute("memberInfo", user);
+
       if(user == null) {
     	  rttr.addFlashAttribute("msg","아이디와 비밀번호를 다시 확인해주세요.");
-         return "redirect:/member/logIn";
+    	  return "redirect:/member/logIn";
       }else {
     	  rttr.addFlashAttribute("msg","로그인 성공!");
-         return "redirect:/";
+    	  return "redirect:/";
       }
    }
    
@@ -167,9 +169,7 @@ public class MemberController {
    
    @PostMapping("pwCheckPost")
    public String pwCheckPost(String pw, @SessionAttribute("memberInfo") MemberVO vo, Model model) throws Exception {
-	      MemberVO user = ms.searchId(vo);
-
-	      if(pw.equals(user.getPw())) {
+	      if(encoder.matches(pw,vo.getPw())) {
 	    	  return "member/update";
 	      }else {
 	         model.addAttribute("msg","비밀번호가 일치하지 않습니다");
@@ -189,7 +189,7 @@ public class MemberController {
 	   
 	  
 	   MemberVO user = (MemberVO)session.getAttribute("memberInfo");
-	   if(user.getPw().equals(pw)) {
+	   if(encoder.matches(pw, user.getPw())) {
 		   ms.delete(vo);
 		   session.invalidate();
 		   rttr.addAttribute("msg","정상적으로 탈퇴 되었습니다.");

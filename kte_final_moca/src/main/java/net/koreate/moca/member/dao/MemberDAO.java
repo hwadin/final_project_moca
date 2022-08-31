@@ -45,5 +45,7 @@ public interface MemberDAO {
 	@Select("SELECT * FROM tbl_member WHERE id LIKE CONCAT('%',#{keyword},'%') OR name LIKE CONCAT('%',#{keyword},'%')")
 	List<MemberVO> findByKeyword(String keyword);
 
+	
+
 
 }
