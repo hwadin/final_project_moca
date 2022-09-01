@@ -26,8 +26,10 @@
 <!-- 			여기서부터 본문 영역 -->
 				<div class="row py-3 my-3 border rounded-3">
 					<div class="col">
-						<p class="h2"><i class="bi bi-card-checklist"></i> 예약 목록</p>
-						
+						<div class="d-flex justify-content-between">
+							<p class="h2"><i class="bi bi-card-checklist"></i> 예약 목록</p>
+							<p class="align-middle my-auto"><small><a href="${path}/reservation/pastReservation">지난 예약 보러가기 &gt;</a></small></p>
+						</div>
 						<!-- 예약 목록 컨테이너 -->
 						<table class="table table-hover">
 						  <thead>
@@ -40,105 +42,20 @@
 						      <th scope="col">취소</th>
 						    </tr>
 						  </thead>
-						  <tbody>
+						  <tbody id="reservListContainer">
 						    <tr>
-						      <th scope="row">1</th>
-						      <td>새 모임</td>
-						      <td>프론트오브</td>
-						      <td>2022-09-05 14:00</td>
-						      <td><span class="text-success">확정</span></td>
-						      <td><button class="btn-close"></button></td>
-						    </tr>
-						    <tr>
-						      <th scope="row">2</th>
-						      <td>테스트 모임2</td>
-						      <td>오누</td>
-						      <td>2022-09-07 18:00</td>
-						      <td><span class="text-warning">대기 중</span></td>
-						      <td><button class="btn-close"></button></td>
+						      <td colspan="6">예약된 모임이 없습니다.</td>
 						    </tr>
 						  </tbody>
 						</table>
 						
 						<!-- 예약 상세보기 컨테이너 -->
 						<div class="accordion" id="reservationDetail">
-						  <div class="accordion-item">
-						    <h2 class="accordion-header" id="reservDetailHeader">
+							<h2 class="accordion-header" id="reservDetailHeader">
 						      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#reservDetailContent" aria-expanded="false" aria-controls="reservDetailContent">
-						        예약 상세 보기 - 새 모임
+						        예약 상세 보기 - 확인하고 싶은 예약을 선택하세요.
 						      </button>
 						    </h2>
-						    <div id="reservDetailContent" class="accordion-collapse collapse" aria-labelledby="reservDetailHeader" data-bs-parent="#reservationDetail">
-						      <div class="accordion-body">
-						      	<div class="d-flex justify-content-between">
-						      		<p class="h2 mb-3">[ <span>새 모임</span> ] 상세 정보</p>
-						      		<p class="text-muted fs-6"> <span>김신우</span> 님의 모임</p>
-						      	</div>
-								<div class="row">
-									<div class="col-6 border-end">
-										<div class="alert alert-warning py-1 border-2 h5 mb-1"> 예약 일자</div>
-										<div class="my-3 ps-3"><i class="bi bi-dot"></i> 2022-09-05 14:00</div>
-										
-										<div class="alert alert-warning py-1 border-2 h5 mb-1"> 참여자</div>
-										<ul id="reservDetailParticipantList" class="list-group mb-3 overflow-auto">
-											<li class="list-group-item border-0"><i class="bi bi-dot"></i> 하옥형</li>
-											<li class="list-group-item border-0"><i class="bi bi-dot"></i> 송화진</li>
-											<li class="list-group-item border-0"><i class="bi bi-dot"></i> 이주명</li>
-										</ul>
-										
-										<div class="alert alert-warning py-1 border-2 h5 mb-1"> 더치 여부</div>
-										<div class="my-3 ps-3"><i class="bi bi-dot"></i> 예</div>
-									</div>
-									<div class="col-6">
-										<div class="alert alert-warning py-1 border-2 h5 mb-1"> 카페</div>
-										<div class="my-3 ps-3">
-											<i class="bi bi-dot"></i> 프론트오브(부산 해운대구 송정동 798-2) <a href="${path}/cafe/cafeDetail/1"><i class="bi bi-arrow-up-right-square-fill"></i></a>
-										</div>
-																				
-										<div class="alert alert-warning py-1 border-2 h5 mb-1"> 주문 목록</div>
-										<table class="table table-sm">
-										  <thead>
-										    <tr>
-										      <th scope="col">#</th>
-										      <th scope="col">메뉴</th>
-										      <th scope="col">가격</th>
-										      <th scope="col">할인가</th>
-										      <th scope="col">수량</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-										    <tr>
-										      <th scope="row">1</th>
-										      <td>아메리카노</td>
-										      <td>5000</td>
-										      <td>4000</td>
-										      <td>3</td>
-										    </tr>
-										    <tr>
-										      <th scope="row">2</th>
-										      <td>카페라떼</td>
-										      <td>5500</td>
-										      <td>5000</td>
-										      <td>1</td>
-										    </tr>
-										    <tr>
-										      <th scope="row">3</th>
-										      <td>인절미 크로플</td>
-										      <td>9000</td>
-										      <td>8500</td>
-										      <td>1</td>
-										    </tr>
-										  </tbody>
-										  <tfoot>
-										  	<th>총 금액</th>
-										  	<td colspan="4" class="text-end"> 25,500 원</td>
-										  </tfoot>
-										</table>
-									</div>
-								</div>
-						      </div>
-						    </div>
-						  </div>
 						  
 						</div>
 					</div>
@@ -258,7 +175,7 @@
 				</div>
 				<div class="row">
 					<div class="col text-end">
-						<button type="button" class="alert alert-success py-2">예약하기</button>
+						<button id="reservConfirmBtn" type="button" class="alert alert-success py-2">예약하기</button>
 					</div>
 				</div>
 				
@@ -280,31 +197,36 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 });
 
 // 필요한 전역 변수들
-let cal;
-let selectedInvNo;
-let invitationListData;
-let participantListData;
-let selectedDate;
-let reservationTime;
-let reservationLocation;
-let cafeListIndex = 0;
-let cafeList;
-let selectedCafeNo;
-let selectedCafeOnSale;
-let selectedCafeMenuList;
-let selectedMenu = "";
-let menuClickCnt = 1;
+let cal;	// 달력 저장용 변수
+let selectedInvNo;	// 선택된 모임 번호
+let invitationListData;	// 모임 목록
+let participantListData;	// 선택된 모임의 참여자 목록
+let selectedDate;	// 선택된 예약 날짜
+let reservationTime;	// 선택된 예약 시각
+let reservationLocation;	// 예약 지역
+let cafeListIndex = 0;	// 카페 목록 4개씩 출력하기 위한 인덱스 값(페이지)
+let cafeList;	// 카페 목록
+let selectedCafeNo;	// 선택된 카페 번호
+let selectedCafeOnSale;	// 선택된 카페가 할인 중인지 확인한 변수
+let selectedCafeMenuList;	// 선택된 카페 메뉴 목록
+let selectedMenu = "";	// 선택된 메뉴
+let menuClickCnt = 1;	// 선택 메뉴 표 그리기 위해 사용할 클릭 횟수
+let isDutch = false; // 더치페이 선택 여부
+let reservationListData;	// 예약 목록
+let reservTotalPrice; // 총 가격
 
-let tooltip;
+let tooltip;	// 마우스 올렸을 때 나오는 툴팁들 모아두는 변수
 
 drawCalendar();
-
+getReservationList();
+// 날짜 선택하지 않았을 때 오늘 날짜로 기본값을 지정하기 위한 변수들 및 결과
 let todayStr = new Date();
 let year = todayStr.getFullYear();
 let month = todayStr.getMonth() > 9 ? todayStr.getMonth()+1 : "0" + (todayStr.getMonth()+1);
 let day = todayStr.getDate() > 9 ? todayStr.getDate() : "0" + todayStr.getDate();
 
 selectedDate = year + "-" + month + "-" + day;
+
 
 // 모임 목록 선택하면 작동하는 이벤트
 $("#invitationSelectList").on("change", function(){
@@ -354,7 +276,6 @@ $("#reservCafeMenuContainer").on("click", "button", function(){
 		$("#reservSelectedMenuContainer").empty();
 	}
 	selectedMenu = selectedCafeMenuList[index];
-	/* if($("#reservSelectedMenuContainer").find("")) */
 	let selectedMenuList = $("#reservSelectedMenuContainer").find("input[type='hidden']");
 	for(let i=0; i<selectedMenuList.length; i++){
 		if(selectedMenuList[i].value == selectedMenu.no){
@@ -390,22 +311,67 @@ $("#reservSelectedMenuContainer").on("change", "input[type='number']", function(
 		totalPrice += Number($(this).text().replaceAll(",",""));
 	});
 	$("#reservSelectedMenuContainer").next().find("td").text(numberWithCommas(totalPrice));
+	reservTotalPrice = $("#reservSelectedMenuContainer").next().find("td").text().replaceAll(",","");
 });
 
 // 더치페이 체크 변경 이벤트
 $("#dutchCheckBox").on("change", function(){
 	if($(this).is(':checked')){
-		$("#priceByPerson").text("인당 금액 : " + numberWithCommas(Math.round(Number($("#reservSelectedMenuContainer").next().find("td").text().replaceAll(",","")) / (Number($("#acceptedParticipantList").children().length)+1))));
+		$("#priceByPerson").text("인당 금액 : " + numberWithCommas(Math.round(Number($("#reservSelectedMenuContainer").next().find("td").text().replaceAll(",","")) / (Number($("#acceptedParticipantList").find("li").length)+1))));
+		isDutch = "true";
+		console.log(isDutch);
 	} else {
 		$("#priceByPerson").text("");
+		isDutch = "false";
 	}
 });
+
+// 예약 완료 버튼 눌렀을 때
+$("#reservConfirmBtn").on("click", function(){
+	if(typeof selectedInvNo != "undefined" && typeof selectedCafeNo != "undefined" && selectedMenu != ""){
+		setReservation();
+	} else {
+		alert("충분한 예약 내용을 입력하지 않았습니다.");
+	}
+});
+
+// 예약 목록 중 하나 클릭했을 때
+$("#reservListContainer").on("click", "tr", function(){
+	let no = $(this).find("input").eq(0).val();
+	let code = $(this).find("input").eq(1).val();
+	getDetailReservation(no, code);
+});
+
+// 예약 취소 버튼 클릭 이벤트
+$("#reservListContainer").on("click", "button", function(){
+	let confirmResult = confirm("정말로 취소하시겠습니까?");
+	if(confirmResult){
+		let no = $(this).parent().parent().find("input").eq(0).val();
+		let code = $(this).parent().parent().find("input").eq(1).val();
+		cancelReservation(no, code);
+	} else {
+		return;
+	}
+});
+
+
+	// 자바스크립트 Date 객체를 년-월-일 시:분 형식으로 바꿔주는 함수	
+	function dateFormatter(date){
+		let year = date.getFullYear();
+		let month = date.getMonth() > 9 ? date.getMonth()+1 : "0" + (date.getMonth()+1);
+		let day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+		let hour = date.getHours();
+		let minute = date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes();
+		
+		return year + "-" + month + "-" + day + " " + hour + ":" + minute;
+	}
 
 	// 숫자 3자리 마다 콤마찍기
 	function numberWithCommas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 
+	// 모임 목록 읽어오기 함수
 	function getInvitationList(){
 		/* 사용자의 모임 목록 읽어와서 select 태그에 option으로 추가
 		select id : invitationSelectList, 요청 url : {path}/invitation/api/listByMember/회원번호
@@ -413,7 +379,7 @@ $("#dutchCheckBox").on("change", function(){
 		$.get("${path}/invitation/api/listByMember/${memberInfo.no}", function(data){
 			invitationListData = data;
 			for(let i=0; i<data.length; i++){
-				if(data[i].member_no == ${memberInfo.no}){
+				if(data[i].member_no == ${memberInfo.no} && data[i].isReserve != true){
 					let str = `
 						<option value=\${data[i].no}>\${data[i].title}</option>
 					`;
@@ -423,6 +389,7 @@ $("#dutchCheckBox").on("change", function(){
 		});
 	}
 	
+	// 참여자 목록 읽어오기 함수
 	function getParticipantList(){
 		/* 선택된 모임의 모임 번호로 참여자 목록 읽어와서 ul에 li로 추가
 		ul id : acceptedParticipantList, 요청 url : {path}/invitation/api/listByCode/모임번호
@@ -436,7 +403,7 @@ $("#dutchCheckBox").on("change", function(){
 			$("#acceptedParticipantList").empty();
 			if(data.length == 0){
 				let str = `
-					<li class="list-group-item">초대한 인원이 없습니다.</li>
+					<div class="alert alert-warning">초대한 인원이 없습니다.</div>
 				`;
 				$("#acceptedParticipantList").append(str);
 				return;
@@ -453,13 +420,14 @@ $("#dutchCheckBox").on("change", function(){
 			
 			if(acceptFlag == 0){
 				let str = `
-					<li class="list-group-item">초대를 수락한 참여자가 없습니다.</li>
+					<div class="alert alert-warning">초대를 수락한 참여자가 없습니다.</div>
 				`;
 				$("#acceptedParticipantList").append(str);
 			}
 		});
 	}
 	
+	// 달력 그리기 함수
 	function drawCalendar(){
 		let calendarEl = document.getElementById('calendar');
 		cal = new FullCalendar.Calendar(calendarEl, {
@@ -507,6 +475,7 @@ $("#dutchCheckBox").on("change", function(){
 	    cal.render();
 	}
 	
+	// 참여자 일정 읽어오기 함수
 	function getParticipantSchedule(){
 		/* 다음 단계로 진행된 모임의 수락한 참여자 목록에 해당하는 스케쥴 읽어와서 fullCalendar 그리기
 		멤버 번호로 찾는 요청 처리가 있으나, 참여자 전체 인원(참여자+본인)에 해당하는 일정을 모두
@@ -525,10 +494,10 @@ $("#dutchCheckBox").on("change", function(){
    		
 	}
 	
+	// 카페 목록 조건에 맞게 가져오기 함수
 	function getTargetCafeList(){
 		/* 통합 일정에서 특정 날짜를 선택하고, 시간대와 지역을 입력하면 해당하는 카페 목록을 받아올 함수
 		백엔드 부분은 화진과 논의 */
-		
 		reservationTime = $("#reservationTime").val();
 		reservationLocation = $("#reservationLocation").val();
 		
@@ -544,9 +513,9 @@ $("#dutchCheckBox").on("change", function(){
 			$("#reservCafeTotalCnt").text("총 " + data.length + "개의 결과");
 			drawCafeList();
 		});
-		
 	}
 	
+	// 카페 목록 그리기 함수
 	function drawCafeList(){
 		if(cafeListIndex+4 < cafeList.length){
 			$("#reservCafeNextBtn").removeClass("d-none-custom");
@@ -597,6 +566,7 @@ $("#dutchCheckBox").on("change", function(){
 		}
 	}
 	
+	// 선택된 카페 메뉴 목록 가져오기 함수
 	function getSelectedCafeMenuList(){
 		/* 카페를 선택하면 해당 카페의 메뉴 목록을 가져와서 그리는 함수
 		백엔드 부분은 화진과 논의 */
@@ -639,7 +609,48 @@ $("#dutchCheckBox").on("change", function(){
 	function setReservation(){
 		/* 예약을 등록하는 함수, 컨트롤러부터 만들어야 함
 			선택된 모임의 모임코드, 선택된 카페의 카페 번호, 선택한 시각, 더치 여부 데이터 전달해야 함*/
+		let invitationCode;
 		
+		for(let i=0; i<invitationListData.length; i++){
+			if(invitationListData[i].no == selectedInvNo){
+				invitationCode = invitationListData[i].code;
+			}
+		}
+		
+		// 예약 데이터 생성
+		let reservation = {
+				invite_code : invitationCode,
+				cafe_no : selectedCafeNo,
+				time : selectedDate + " " + reservationTime,
+				dutch : isDutch,
+				totalPrice : reservTotalPrice
+		};
+		console.log(reservation);
+		
+		// 메뉴 데이터 생성
+		let selectedMenuTable = $("#reservSelectedMenuContainer").children();
+		
+		reservation.reservationMenu = new Array();
+		
+		for(let i=0; i < selectedMenuTable.length; i++){
+			let menu = {
+					menu_no : selectedMenuTable.eq(i).find("input[type='hidden']").val(),
+					amount : selectedMenuTable.eq(i).find("input[type='number']").val()
+			};
+			reservation.reservationMenu.push(menu);
+		}
+		
+		$.ajax({
+			url : "${path}/reservation/api/regist", 
+			type : "POST",
+			data : JSON.stringify(reservation) ,
+			headers : {"Content-Type":"application/json;charset=utf-8"},
+			success : function(data){
+				console.log(data);
+				alert("예약이 완료되었습니다.");
+				location.href='${path}/reservation/reservationMain';
+			}
+		});
 	}
 	
 	function getReservationList(){
@@ -647,15 +658,160 @@ $("#dutchCheckBox").on("change", function(){
 			회원 번호 전달해야 함
 			백에서는 회원번호로 모임코드 조회하고 그 코드에 해당하는 예약 테이블 조회
 			참여자인 경우에도 보여야 하므로 참여자인 경우에는
-			회원번호로 참여자 테이블 수락한 모임 코드 조회해서 해당하는 예약 테이블 조회
-			SQL은 신우와 논의*/
-		
+			회원번호로 참여자 테이블 수락한 모임 코드 조회해서 해당하는 예약 테이블 조회 */
+		$.get("${path}/reservation/api/reservList/${memberInfo.no}", function(data){
+			$("#reservListContainer").empty();
+			reservationListData = data;
+			console.log(data);
+			for(let i=0; i<data.length; i++){
+				let acceptStr;
+				
+				if(data[i].isAccepted == true){
+					acceptStr = `
+						<td><span class="text-success">확정</span></td>
+					`;
+				} else {
+					acceptStr = `
+						<td><span class="text-warning">대기 중</span></td>
+					`;
+				}
+				
+				let str = `
+					<tr style="cursor:pointer;">
+					  <input type="hidden" value="\${data[i].no}"/>
+					  <input type="hidden" value="\${data[i].code}"/>
+				      <th scope="row">\${i}</th>
+				      <td>\${data[i].title}</td>
+				      <td>\${data[i].cafe_name}</td>
+				      <td>\${dateFormatter(new Date(data[i].time))}</td>
+				      \${acceptStr}
+				      <td><button class="btn-close"></button></td>
+				    </tr>
+				`;
+				
+				$("#reservListContainer").append(str);
+			}
+		});
 	}
 	
-	function cancelReservation(){
+	function getDetailReservation(no, code){
+		$.get("${path}/reservation/api/detail", {no : no, code : code}, function(data){
+			
+			$("#reservationDetail").empty();
+			
+			let selectedReservation;
+			for(let i=0; i<reservationListData.length; i++){
+				if(reservationListData[i].no == no){
+					selectedReservation = reservationListData[i];
+					break;
+				}
+			}
+			let participantsStr = ``;
+			
+			for(let i=0; i<data.participants.length; i++){
+				participantsStr += `
+					<li class="list-group-item border-0"><i class="bi bi-dot"></i> \${data.participants[i]}</li>
+				`;
+			}
+			
+			let menusStr = ``;
+			
+			for(let i=0; i<data.menus.length; i++){
+				menusStr += `
+					<tr>
+				      <th scope="row">\${i+1}</th>
+				      <td>\${data.menus[i].name}</td>
+				      <td>\${numberWithCommas(data.menus[i].price)}</td>
+				      <td>\${numberWithCommas(data.menus[i].discount)}</td>
+				      <td>\${data.menus[i].amount}</td>
+				    </tr>
+				`;
+			}
+			
+			let dutchStr = `
+				<tr>
+					<td colspan="5">인당 가격 : \${numberWithCommas(Math.round(selectedReservation.totalPrice/(Number(data.participants.length+1))))} 원</td>
+				</tr>
+			`;
+			
+			let str = `
+				<div class="accordion-item">
+				    <h2 class="accordion-header" id="reservDetailHeader">
+				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#reservDetailContent" aria-expanded="false" aria-controls="reservDetailContent">
+				        예약 상세 보기 - \${selectedReservation.title}
+				      </button>
+				    </h2>
+				    <div id="reservDetailContent" class="accordion-collapse collapse" aria-labelledby="reservDetailHeader" data-bs-parent="#reservationDetail">
+				      <div class="accordion-body">
+				      	<div class="d-flex justify-content-between">
+				      		<p class="h2 mb-3">[ <span>\${selectedReservation.title}</span> ] 상세 정보</p>
+				      		<p class="text-muted fs-6"> <span>\${selectedReservation.member_name}</span> 님의 모임</p>
+				      	</div>
+						<div class="row">
+							<div class="col-6 border-end">
+								<div class="alert alert-warning py-1 border-2 h5 mb-1"> 예약 일자</div>
+								<div class="my-3 ps-3"><i class="bi bi-dot"></i> \${dateFormatter(new Date(selectedReservation.time))}</div>
+								
+								<div class="alert alert-warning py-1 border-2 h5 mb-1"> 참여자</div>
+								<ul id="reservDetailParticipantList" class="list-group mb-3 overflow-auto">
+									\${participantsStr}
+								</ul>
+								
+								<div class="alert alert-warning py-1 border-2 h5 mb-1"> 더치 여부</div>
+								<div class="my-3 ps-3"><i class="bi bi-dot"></i> \${selectedReservation.isDutch == true ? "예" : "아니오"}</div>
+							</div>
+							<div class="col-6">
+								<div class="alert alert-warning py-1 border-2 h5 mb-1"> 카페</div>
+								<div class="my-3 ps-3">
+									<i class="bi bi-dot"></i> \${selectedReservation.cafe_name}(\${selectedReservation.addr} \${selectedReservation.addr_detail}) <a href="${path}/cafe/cafeDetail/\${selectedReservation.cafe_no}"><i class="bi bi-arrow-up-right-square-fill"></i></a>
+								</div>
+																		
+								<div class="alert alert-warning py-1 border-2 h5 mb-1"> 주문 목록</div>
+								<table class="table table-sm">
+								  <thead>
+								    <tr>
+								      <th scope="col">#</th>
+								      <th scope="col">메뉴</th>
+								      <th scope="col">가격</th>
+								      <th scope="col">할인가</th>
+								      <th scope="col">수량</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    \${menusStr}
+								  </tbody>
+								  <tfoot>
+								  	<tr>
+									  	<th>총 금액</th>
+									  	<td colspan="4" class="text-end"> \${numberWithCommas(selectedReservation.totalPrice)} 원</td>
+								  	</tr>
+								  	\${selectedReservation.isDutch == true ? dutchStr : ""}
+								  </tfoot>
+								</table>
+							</div>
+						</div>
+				      </div>
+				    </div>
+				  </div>
+			`;
+			$("#reservationDetail").append(str);
+			
+		});
+	}
+	
+	function cancelReservation(no, code){
 		/* 예약을 취소하는 함수, 컨트롤러부터 만들어야 함
 			취소 대상 예약의 예약 번호 전달해야 함*/
-		
+		$.ajax({
+			url : "${path}/reservation/api/delete",
+			type : "DELETE",
+			data : {no : no, code : code},
+			success : function(data){
+				console.log(data);
+				alert("예약이 취소되었습니다.");
+				location.href='${path}/reservation/reservationMain';
+			}
+		});
 	}
 	
 	

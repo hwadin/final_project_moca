@@ -18,4 +18,14 @@ public class ReservationController {
 			return "redirect:/member/logIn";
 		}
 	}
+
+	@GetMapping("pastReservation")
+	public String pastReservation(HttpSession session) {
+		if (session.getAttribute("memberInfo") != null) {
+			return "/reservation/pastReservation";
+		} else {
+			return "redirect:/member/logIn";
+		}
+	}
+
 }
