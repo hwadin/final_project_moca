@@ -1,12 +1,17 @@
 package net.koreate.moca.reservation.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import net.koreate.moca.reservation.dao.ReservationDAO;
 import net.koreate.moca.reservation.vo.CafeDTO;
+import net.koreate.moca.reservation.vo.ReservationDTO;
+import net.koreate.moca.reservation.vo.ReservationMenuVO;
 import net.koreate.moca.reservation.vo.ReservationVO;
 
 @Service
@@ -18,6 +23,49 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<CafeDTO> cafeList(ReservationVO vo) throws Exception {
 		return dao.cafeList(vo);
+	}
+
+	@Transactional
+	@Override
+	public void regist(ReservationVO reservation) throws Exception {
+		dao.regist(reservation);
+
+		for (ReservationMenuVO menu : reservation.getReservationMenu()) {
+			menu.setReservation_no(reservation.getNo());
+			dao.menuRegist(menu);
+		}
+
+		dao.updateInvitation(reservation);
+	}
+
+	@Override
+	public List<ReservationDTO> reservList(int member_no) throws Exception {
+		return dao.reservList(member_no);
+	}
+
+	@Override
+	public Map<String, Object> detail(int no, String code) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+
+		List<String> participants = dao.getParticipants(code);
+		List<ReservationMenuVO> menus = dao.getMenus(no);
+
+		map.put("participants", participants);
+		map.put("menus", menus);
+
+		return map;
+	}
+
+	@Transactional
+	@Override
+	public void delete(int no, String code) throws Exception {
+		dao.delete(no);
+		dao.updateInvitationBack(code);
+	}
+
+	@Override
+	public List<ReservationDTO> pastReservList(int member_no) {
+		return dao.pastReservList(member_no);
 	}
 
 }
