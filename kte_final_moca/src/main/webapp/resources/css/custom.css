@@ -90,3 +90,53 @@ footer {
 .bi-chat-right-heart{
 	color : palevioletred;
 }
+
+#reserv-indicator [data-bs-target]{
+	text-indent : 0px;
+	width : 100px;
+}
+
+
+.card-title{
+	color : cadetblue;
+}
+
+.menu-btn-custom{
+	width : 150px;
+}
+.reserv-cafe-menu-img-custom{
+	width : 150px;
+	height: 150px;
+}
+
+.reserv-menu-amount-up-btn{
+	height : 15px;
+}
+.reserv-menu-amount-down-btn{
+	height : 15px;
+}
+
+
+#reviewWriteForm fieldset{
+    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    border: 0; /* 필드셋 테두리 제거 */
+    direction: rtl; /* 이모지 순서 반전 */
+}
+#reviewWriteForm input[type=radio]{
+    display: none; /* 라디오박스 감춤 */
+}
+#reviewWriteForm label{
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #dee2e6; /* 새 이모지 색상 부여 */
+}
+
+#reviewWriteForm label:hover{
+    text-shadow: 0 0 0 #ffd700; /* 마우스 호버 */
+}
+#reviewWriteForm label:hover ~ label{
+    text-shadow: 0 0 0 #ffd700; /* 마우스 호버 뒤에오는 이모지들 */
+}
+
+#reviewWriteForm input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 #ffd700; /* 마우스 클릭 체크 */
+}

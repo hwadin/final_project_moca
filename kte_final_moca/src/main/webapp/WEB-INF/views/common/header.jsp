@@ -4,6 +4,9 @@
     <meta charset="UTF-8"/>
     <title></title>
     <style>
+    #person{
+    	font-size : 90px;
+    }
     </style>
 <!-- BootStrap icon font css(<i>) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
@@ -42,6 +45,7 @@
                 <ul class="navbar-nav me-auto  mb-lg-0">
                 </ul>
 
+                
                 <!-- search bar -->
                 <form class="d-flex">
                     <div class="input-group position-relative dropdown">
@@ -108,8 +112,8 @@
 	                	<div class="dropdown-menu dropdown-menu-end text-center pb-0" aria-labelledby="dropdownMenuLink" id="dropdown"  style="width:300px;">
 	                		<c:choose>
                 				<c:when test="${memberInfo.profile_url == null}">
-                					<a class="btn btn-secondary rounded-circle me-2 " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
-                  					<i  class="bi bi-person-fill "></i>
+                					<a class="btn btn-secondary rounded-circle me-2 profile_url_big" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
+                  					<i  class="bi bi-person-fill display-5" id="person"></i>
                 					</a>
                 			</c:when>
                 		<c:otherwise>
@@ -123,6 +127,12 @@
                 			<hr/>
                 			<div class=" d-flex justify-content-between">
 							    <a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/member/pwCheck">회원정보수정</a>
+							    <c:if test="${memberInfo.role eq true}">
+							    	<a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/member/pwCheck">관리</a>
+							    </c:if>
+							    <c:if test="${memberInfo.isOwner eq true}">
+							    	<a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/member/pwCheck">카페 관리</a>
+							    </c:if>
 							    <a class="btn dropdown-item" href="${pageContext.request.contextPath}/member/logOut">로그아웃</a>
 						    </div>
                 		</div>
@@ -154,5 +164,16 @@
               </div>
           </nav>
           <!-- end of Navigation Bar -->
+          <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+		  <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+		    <div class="toast-header">
+		      <strong class="me-auto">새로운 알림</strong>
+		      <button type="button" class="btn-close" data-bs-dismiss="#liveToast" aria-label="Close"></button>
+		    </div>
+		    <div class="toast-body">
+				새로운 모임 초대가 왔습니다!
+		    </div>
+		  </div>
+		</div>
     </header>
     

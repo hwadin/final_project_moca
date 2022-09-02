@@ -11,13 +11,6 @@
     margin-right:auto;
 }
 
-/* 	.profile_url{ */
-/* 		width:100px; */
-/* 		height:100px; */
-/* 		border-radius:50px; */
-/* 		border:1px solid #ccc; */
-/* 		margin-right:150px; */
-/* 	} */
 	
 	.text-danger{
 	display:block;
@@ -73,14 +66,14 @@
 					<tr>
 						<td class="align-middle">비밀번호</td>
 						<td>
-							<input type="password" name="pw" id="pw" class="form-control" alt="비밀번호" value="${memberInfo.pw}" required/>
+							<input type="password" name="pw" id="pw" class="form-control" alt="비밀번호" value="${sessionScope.pw}" required/>
 							<div class="result"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="align-middle">비밀번호확인</td>
 						<td>
-							<input type="password" name="repw" id="repw" class="form-control" alt="비밀번호확인" value="${memberInfo.pw}" required/>
+							<input type="password" name="repw" id="repw" class="form-control"j alt="비밀번호확인" value="${sessionScope.pw}" required/>
 							<div class="result"></div>
 						</td>
 					</tr>
@@ -181,30 +174,23 @@
 	
 	$("#id").focus();
 	
-	$("#signUpForm").validate({
+	$("#updateForm").validate({
 		onkeyup : function(el){
 			$(el).valid();
 		},
+		
 		rules : {
-			id : {
-				required : true,
-				email : true,
-				remote : {
-					type : "GET",
-					url : "${path}/member/idCheck"
-				}
-			},
 			pw : {
-				required : true,
-				minlength : 8,
-				maxlength : 20
-			},
-			repw : {
-				required : true,
-				minlength : 6,
-				maxlength : 20,
-				equalTo : "#pw"
-			},
+	            required : true,
+	            minlength : 8,
+	            maxlength : 20
+	         },
+	         repw : {
+	            required : true,
+	            minlength : 8,
+	            maxlength : 20,
+	            equalTo : "#pw"
+	         },
 			name : {
 				required : true,
 				rangelength : [2,6]
@@ -212,22 +198,17 @@
 		},
 		
 		messages : {
-			id : {
-				requred : "아이디를 작성해 주세요.",
-				email : "이메일 형식으로 작성해 주세요.",
-				remote : "이미 존재하는 아이디 입니다."
-			},
 			pw : {
-				required : "비밀번호를 작성해 주세요.",
-				minlength : "비밀번호는 최소 8자리 입니다.",
-				maxlength : "최대 20자리만 가능합니다."
-			},
-			repw : {
-				reqired : "비밀번호를 작성해 주세요.",
-				minlength : "비밀번호는 최소 8자리 입니다.",
-				maxlength : "최대 20자리만 가능합니다.",
-				equalTo : "비밀번호가 일치하지 않습니다."
-			},
+	            required : "비밀번호를 작성해 주세요.",
+	            minlength : "비밀번호는 최소 8자리 입니다.",
+	            maxlength : "최대 20자리만 가능합니다."
+	         },
+	         repw : {
+	            required : "비밀번호를 작성해 주세요.",
+	            minlength : "비밀번호는 최소 8자리 입니다.",
+	            maxlength : "최대 20자리만 가능합니다.",
+	            equalTo : "비밀번호가 일치하지 않습니다."
+	         },
 			name : {
 				required : "이름을 입력해 주세요",
 				rangelength : "2~6자 이내로 작성해주세요."

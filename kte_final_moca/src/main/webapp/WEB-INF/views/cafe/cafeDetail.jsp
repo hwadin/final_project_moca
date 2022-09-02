@@ -105,8 +105,8 @@
 					 </span>
 					</div>
 							<span class="icoScore" title="평균 평점">
-								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8
-								<i title="리뷰 갯수">(367)</i>
+								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i><span id="cafeDetailAvgStar"></span>
+								<i title="리뷰 갯수"></i>
 							</span>
 							<span title="위치 정보"> ${cafeVO.addr_detail}</span>
 						</div>
@@ -406,7 +406,7 @@
 				var str = `
 					<div class="mt-3 mb-4">
 					<div class="d-flex justify-content-start align-items-center">
-					<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/upload\profile\id123@naver.com\KakaoTalk_20220617_120021184.jpg" />
+					<img class="rounded-circle replyProfile" src="${pageContext.request.contextPath}/\${result[i].profile_url}" />
 					<span class="ms-2 lead">\${result[i].name} &gt;</span>
 					</div>
 					<div class="mt-2 text-secondary d-flex justify-content-between">
@@ -469,7 +469,7 @@
 	}
 	
 	
-	$("#review-tab").on('click',function(){
+	/* $("#review-tab").on('click',function(){ */
 		var cafe_no =  $("#cafe_no").val();
 		console.log(cafe_no);
 		
@@ -484,6 +484,8 @@
 				$("#reviewCount").text(result.reviewCount);
 				$("#ownerCount").text(result.ownerCount);
 				$("#starAvg").text(Math.round(result.starAvg*10)/10);
+				$("#cafeDetailAvgStar").text(Math.round(result.starAvg*10)/10);
+				$("#cafeDetailAvgStar").next().text(`(\${result.reviewCount})`);
 				let starCount = $(".starCount");
 				starCount.each(function(){
 					for(let j=0; j<result.starCount.length; j++){
@@ -547,7 +549,7 @@
 				
 			}
 		});
-	});
+	/* }); */
 	
 </script>	
 

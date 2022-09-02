@@ -19,6 +19,7 @@
 	});
 /* }); */
 
+
 // ì¤í¬ë¡¤ ì¬ì´ëë° íì´ë ì¤í¬ë¦½í¸
 $(function(){
 	if($(window).scrollTop()){
@@ -63,19 +64,23 @@ $("#sideTopBtn").click(function(e){
 
 <c:if test="${!empty sessionScope.memberInfo }">
 let select = $("#inviteSelectList").clone();
+getSearchBarInvitationList();
+function getSearchBarInvitationList(){
+	
 
-$.get("${pageContext.request.contextPath}/invitation/api/listByMember/${memberInfo.no}", function(data){
-	select.find("select").empty();
-	select.find("select").append(`<option selected>모임 선택하기</option>`);
-	for(let i=0; i<data.length; i++){
-		if(data[i].member_no == ${memberInfo.no}){
-			let selectStr = `
-				<option value="\${data[i].no}">\${data[i].title}</option>
-			`;		
-			select.find("select").append(selectStr);
+	$.get("${pageContext.request.contextPath}/invitation/api/listByMember/${memberInfo.no}", function(data){
+		select.find("select").empty();
+		select.find("select").append(`<option selected>모임 선택하기</option>`);
+		for(let i=0; i<data.length; i++){
+			if(data[i].member_no == ${memberInfo.no}){
+				let selectStr = `
+					<option value="\${data[i].no}">\${data[i].title}</option>
+				`;		
+				select.find("select").append(selectStr);
+			}
 		}
-	}
-})
+	});
+}
 
 $("#headerSearchResult").on("click", ".headerSearchUserResult div:first-child", function(){
 	if(select.is(":visible")){
@@ -200,6 +205,14 @@ alertSock.onmessage = onAlertMessage;
 alertSock.onclose = onAlertClose;
 alertSock.onopen = onAlertOpen;
 
+var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+var toastList = toastElList.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl,{autohide:true, delay:5000});
+});
+let toast = $("#liveToast");
+console.log(toastList[0]);
+
+
 function sendAlert(id) {
 	let msg = {
 			no : ${sessionScope.memberInfo.no},
@@ -211,6 +224,7 @@ function sendAlert(id) {
 
 function onAlertMessage(msg) {
 	getAlert();
+	toastList[0].show();
 }
 
 function onAlertClose(evt) {
