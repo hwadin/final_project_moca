@@ -42,28 +42,38 @@ public class CafeRestController {
 		return new ResponseEntity<>(cafelist,HttpStatus.OK);
 	}
 	
-	@GetMapping("cafeSearchList")
-	public ResponseEntity<List<CafeVO>> cafeSearchList(CafeSearchVO vo){
-		List<CafeVO> cafeSearchList = null;
+	@GetMapping("searchListbyLo")
+	public ResponseEntity<List<CafeVO>> searchListbyLo(CafeSearchVO vo){
+		List<CafeVO> searchListbyLo = null;
 		try {
-			cafeSearchList = cs.cafesearchList(vo);
+			searchListbyLo = css.searchListbyLo(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(cafeSearchList,HttpStatus.OK);
+		return new ResponseEntity<>(searchListbyLo,HttpStatus.OK);
 	}
 	
-	@GetMapping("cafeSearchByDate")
-	public ResponseEntity<List<CafeScheduleVO>> cafesearchlist(CafeSearchVO vo){
-		List<CafeScheduleVO> cafesearchlist = null;
+	@GetMapping("searchListbyDt")
+	public ResponseEntity<List<CafeVO>> searchListbyDt(CafeSearchVO vo){
+		List<CafeVO> searchListbyDt = null;
 		try {
-			cafesearchlist = css.cafesearchlist(vo);
+			searchListbyDt = css.searchListbyDt(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(cafesearchlist,HttpStatus.OK);
+		return new ResponseEntity<>(searchListbyDt,HttpStatus.OK);
 	}
 	
+	@GetMapping("searchListbyLD")
+	public ResponseEntity<List<CafeVO>> searchListbyLD(CafeSearchVO vo){
+		List<CafeVO> searchListbyLD = null;
+		try {
+			searchListbyLD = css.searchListbyLD(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(searchListbyLD,HttpStatus.OK);
+	}
 	
 	@GetMapping("cafeMenuList")
 	public ResponseEntity<List<CafeMenuVO>> cafeMenuList(int cafe_no){

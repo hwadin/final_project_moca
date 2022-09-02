@@ -54,9 +54,7 @@ public class CafeServiceImpl implements CafeService {
 		return dao.findByKeyword(keyword);
 	}
 
-	@Override
-	public List<CafeVO> cafesearchList(CafeSearchVO vo) {
-		return dao.cafeSearchList(vo);
-	}
+
+
 
 }

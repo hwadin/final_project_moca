@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import net.koreate.moca.cafe.dao.CafeScheduleDAO;
 import net.koreate.moca.cafe.vo.CafeScheduleVO;
 import net.koreate.moca.cafe.vo.CafeSearchVO;
+import net.koreate.moca.cafe.vo.CafeVO;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,8 @@ public class CafeScheduleServiceImpl implements CafeScheduleService {
 	}
 
 	@Override
-	public CafeScheduleVO read(int cafe_no) throws Exception {
-		return dao.read(cafe_no);
+	public CafeScheduleVO read(int cno) throws Exception {
+		return dao.read(cno);
 	}
 
 	@Override
@@ -38,10 +39,18 @@ public class CafeScheduleServiceImpl implements CafeScheduleService {
 	}
 
 	@Override
-	public List<CafeScheduleVO> cafesearchlist(CafeSearchVO vo) {
-		
-		return dao.cafesearchlist(vo);
+	public List<CafeVO> searchListbyLo(CafeSearchVO vo) {
+		return dao.searchListbyLo(vo);
 	}
 
+	@Override
+	public List<CafeVO> searchListbyDt(CafeSearchVO vo) {
+		return dao.searchListbyDt(vo);
+	}
+
+	@Override
+	public List<CafeVO> searchListbyLD(CafeSearchVO vo) {
+		return dao.searchListbyLD(vo);
+	}
 
 }
