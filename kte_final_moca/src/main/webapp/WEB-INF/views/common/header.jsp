@@ -109,7 +109,7 @@
                   	
                 <c:choose>
                 	<c:when test="${!empty sessionScope.memberInfo}">
-	                	<div class="dropdown-menu dropdown-menu-end text-center pb-0" aria-labelledby="dropdownMenuLink" id="dropdown"  style="width:300px;">
+	                	<div class="dropdown-menu dropdown-menu-end text-center pb-0" aria-labelledby="dropdownMenuLink" id="dropdown" >
 	                		<c:choose>
                 				<c:when test="${memberInfo.profile_url == null}">
                 					<a class="btn btn-secondary rounded-circle me-2 profile_url_big" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
@@ -118,7 +118,7 @@
                 			</c:when>
                 		<c:otherwise>
                 			<a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" name="dropdown">
-	                		<img class="pb-2 rounded-circle profile_url_big" src="${pageContext.request.contextPath}/${memberInfo.profile_url}" /></a>
+	                		<img class="mb-2 rounded-circle profile_url_big" src="${pageContext.request.contextPath}/${memberInfo.profile_url}" /></a>
                 		</c:otherwise>
                 	</c:choose>
                 		<div class="alert alert-light mb-0">
@@ -128,10 +128,10 @@
                 			<div class=" d-flex justify-content-between">
 							    <a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/member/pwCheck">회원정보수정</a>
 							    <c:if test="${memberInfo.role eq true}">
-							    	<a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/member/pwCheck">관리</a>
+							    	<a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/manage/admin">관리</a>
 							    </c:if>
 							    <c:if test="${memberInfo.isOwner eq true}">
-							    	<a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/member/pwCheck">카페 관리</a>
+							    	<a class="btn dropdown-item border-end" href="${pageContext.request.contextPath}/manage/cafe">카페 관리</a>
 							    </c:if>
 							    <a class="btn dropdown-item" href="${pageContext.request.contextPath}/member/logOut">로그아웃</a>
 						    </div>
