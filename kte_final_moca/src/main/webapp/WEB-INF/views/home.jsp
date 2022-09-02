@@ -6,9 +6,9 @@
 <html lang='ko'>
 <!-- 헤더에 제이쿼리, 부트스트랩, 우리가 개별 적용할 css를 위한 custom.css 파일까지 다 적용되어 있음 -->
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<section class="bg-light">
-<div id="carousel-cont"class="border-top border-secondary border-5 container-fluid ">
-					<div class="row">
+<section class="bg-light ">
+<div id="carousel-cont" class="border-top border-secondary border-5">
+					<div class="row mx-0">
 						<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 						  <div class="carousel-indicators">
 						    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -30,16 +30,16 @@
 						   	 <div class="position-absolute w-100 h-100 bg-dark carousel-wrap"></div>	
 						      <img src="https://static-file.jejupass.com/download/119992" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block">
-						        <h5>Second slide label</h5>
-						        <p>Some representative placeholder content for the second slide.</p>
+						        <h5>카페를 선택하세요!</h5>
+						        <p>약속을 잡고 싶은 날 할인하는 카페들을 볼 수 있습니다.</p>
 						      </div>
 						    </div>
 						    <div class="carousel-item">
 						  	  <div class="position-absolute w-100 h-100 bg-dark carousel-wrap"></div>
 						      <img src="https://static-file.jejupass.com/download/84414" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block">
-						        <h5>Third slide label</h5>
-						        <p>Some representative placeholder content for the third slide.</p>
+						        <h5>후기를 남기세요!</h5>
+						        <p>방문한 카페에 대해 후기를 남기고 공유할 수 있습니다.</p>
 						      </div>
 						    </div>
 						  </div>
@@ -55,26 +55,16 @@
 						</div>
 					</div>
 				</div>
+				<div class="row mx-0">
 				<%@ include file="/WEB-INF/views/common/btnHeader.jsp" %>
-				
+				</div>
 
 <!-- 			여기서부터 본문 영역 -->
 <!-- 			row클래스로 하나의 행을 생성 -->
-				<div class="row">
-<!-- 				row 클래스 내부에 col-숫자 로 본문 영역의 크기를 나눌 수 있음 -->
-<!-- 				한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
-					<div class="col-6">
-						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
-						<span>설명</span>
-					</div>
-					<div class="col-6">
-						<img src="https://via.placeholder.com/150" class="img-thumbnail" />
-						<span>설명</span>
-					</div>
-				</div>
+			
 <!--			여기 위까지 본문 영역 -->
 			<div class="col-2">
-<%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/common/sidebar.jsp" %> --%>
 			</div>
 
 <c:if test="${!empty msg}">
@@ -84,6 +74,8 @@
 </c:if>
 <!-- end of container -->
 </section>
+<div class="d-none">
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+</div>
 </html>
 
