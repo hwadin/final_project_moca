@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import net.koreate.moca.cafe.vo.CafeReviewVO;
+import net.koreate.moca.manage.vo.ManageReservationDTO;
 import net.koreate.moca.reservation.service.ReservationService;
 import net.koreate.moca.reservation.vo.CafeDTO;
 import net.koreate.moca.reservation.vo.ReservationDTO;
@@ -139,6 +140,21 @@ public class ReservationRestController {
 
 		try {
 			entity = new ResponseEntity<>(rs.review(no), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	@GetMapping("manageReservList/{no}")
+	public ResponseEntity<List<ManageReservationDTO>> manageReservList(@PathVariable int no) {
+		ResponseEntity<List<ManageReservationDTO>> entity = null;
+
+		try {
+			List<ManageReservationDTO> list = rs.manageReservList(no);
+			entity = new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

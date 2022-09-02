@@ -14,6 +14,7 @@ public class ReservationDTO {
 	private Date time;
 	private Boolean isAccepted;
 	private Boolean isExpired;
+	private Boolean isRejected;
 	private Boolean isDutch;
 	private String addr;
 	private String addr_detail;

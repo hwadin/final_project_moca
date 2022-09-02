@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import net.koreate.moca.cafe.vo.CafeReviewVO;
+import net.koreate.moca.manage.vo.ManageReservationDTO;
 import net.koreate.moca.reservation.dao.ReservationDAO;
 import net.koreate.moca.reservation.vo.CafeDTO;
 import net.koreate.moca.reservation.vo.ReservationDTO;
@@ -37,6 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 		dao.updateInvitation(reservation);
+		dao.refreshParticipant(reservation);
 	}
 
 	@Override
@@ -78,6 +80,31 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public CafeReviewVO review(int no) throws Exception {
 		return dao.review(no);
+	}
+
+	@Override
+	public List<ManageReservationDTO> manageReservList(int no) throws Exception {
+		return dao.manageReservList(no);
+	}
+
+	@Override
+	public void acceptReserv(int no) throws Exception {
+		dao.acceptReserv(no);
+	}
+
+	@Transactional
+	@Override
+	public void expireReserv(int no) throws Exception {
+		dao.expireReserv(no);
+		ReservationVO vo = dao.getReservByNo(no);
+		dao.expireInvite(vo);
+	}
+
+	@Override
+	public void rejectReserv(int no) throws Exception {
+		dao.rejectReserv(no);
+		ReservationVO vo = dao.getReservByNo(no);
+		dao.rejectInvite(vo);
 	}
 
 }

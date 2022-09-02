@@ -15,8 +15,8 @@ public class ManageController {
 	@GetMapping("cafe")
 	public String manageCafe(HttpSession session) {
 		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
-		if (member.isIsOwner() == true) {
-			return "/manage/cafe";
+		if (member != null && member.isIsOwner() == true) {
+			return "/manage/cafeReserveManage";
 		} else {
 			return "redirect:/";
 		}
@@ -25,7 +25,7 @@ public class ManageController {
 	@GetMapping("admin")
 	public String manageAdmin(HttpSession session) {
 		MemberVO member = (MemberVO) session.getAttribute("memberInfo");
-		if (member.isRole() == true) {
+		if (member != null && member.isRole() == true) {
 			return "/manage/admin";
 		} else {
 			return "redirect:/";

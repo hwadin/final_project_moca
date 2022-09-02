@@ -666,7 +666,11 @@ $("#reservListContainer").on("click", "button", function(){
 			for(let i=0; i<data.length; i++){
 				let acceptStr;
 				
-				if(data[i].isAccepted == true){
+				if(data[i].isRejected == true){
+					acceptStr = `
+						<td><span class="text-danger">거절됨</span></td>
+					`;
+				} else if(data[i].isAccepted == true){
 					acceptStr = `
 						<td><span class="text-success">확정</span></td>
 					`;
@@ -680,7 +684,7 @@ $("#reservListContainer").on("click", "button", function(){
 					<tr style="cursor:pointer;">
 					  <input type="hidden" value="\${data[i].no}"/>
 					  <input type="hidden" value="\${data[i].code}"/>
-				      <th scope="row">\${i}</th>
+				      <th scope="row">\${i+1}</th>
 				      <td>\${data[i].title}</td>
 				      <td>\${data[i].cafe_name}</td>
 				      <td>\${dateFormatter(new Date(data[i].time))}</td>
