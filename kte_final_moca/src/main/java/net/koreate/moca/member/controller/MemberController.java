@@ -3,6 +3,8 @@ package net.koreate.moca.member.controller;
 import java.io.File;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -46,11 +48,17 @@ public class MemberController {
    }
    
    @PostMapping("/logInPost")
-   public String logInPost(MemberVO vo, RedirectAttributes rttr, HttpSession session) throws Exception{
+   public String logInPost(MemberVO vo, RedirectAttributes rttr, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception{
 	   System.out.println("vo : "+vo);
       MemberVO user = ms.logIn(vo);
       session.setAttribute("memberInfo", user);
-
+      String useCookie = request.getParameter("useCookie");
+	  if(useCookie != null) {
+		  Cookie cookie = new Cookie("logInCookie", vo.getId());
+		  cookie.setMaxAge(60 * 60 * 24);
+		  cookie.setPath("/");
+		  response.addCookie(cookie);
+	  }
       if(user == null) {
     	  rttr.addFlashAttribute("msg","아이디와 비밀번호를 다시 확인해주세요.");
     	  return "redirect:/member/logIn";
@@ -58,6 +66,7 @@ public class MemberController {
     	  rttr.addFlashAttribute("msg","로그인 성공!");
     	  return "redirect:/";
       }
+
    }
    
    @RequestMapping("/signUp")
@@ -76,8 +85,9 @@ public class MemberController {
    }
    
    @PostMapping("updatePost")
-   public String updatePost(MemberVO vo, RedirectAttributes rttr, MultipartFile profileImage, HttpSession session) throws Exception{
-
+   public String updatePost(MemberVO vo, RedirectAttributes rttr, MultipartFile profileImage, HttpSession session, HttpServletRequest request) throws Exception{
+	   request.setAttribute("sessionInfo", vo.getPw());
+	   
 	   if(!profileImage.isEmpty()) {
 		   String path = "upload"+File.separator + "profile"+File.separator+vo.getId();
 	         String realPath = context.getRealPath(path);
@@ -98,7 +108,7 @@ public class MemberController {
       
       return "redirect:/";
    }
-   
+
    @PostMapping("signUpPost")
    public String signUpPost(MemberVO vo, MultipartFile profileImage, RedirectAttributes rttr) throws Exception {
 
@@ -140,10 +150,16 @@ public class MemberController {
    }
    
    @GetMapping("logOut")
-   public String logOut(HttpSession session, HttpServletResponse response) {
+   public String logOut(HttpSession session, HttpServletResponse response,
+		   @CookieValue(name="logInCookie", required=false)Cookie logInCookie) {
       if(session.getAttribute("memberInfo") != null) {
          session.removeAttribute("memberInfo");
          session.removeAttribute("invalidate");
+         if(logInCookie != null) {
+        	 logInCookie.setMaxAge(0);
+        	 logInCookie.setPath("/");
+        	 response.addCookie(logInCookie);
+         }
       }
       return "redirect:/";
    }
@@ -164,12 +180,15 @@ public class MemberController {
    @RequestMapping("pwCheck")
    public String pwCheck(String pw) {
 	   
+	   
 	   return "member/pwCheck";
    }
    
    @PostMapping("pwCheckPost")
-   public String pwCheckPost(String pw, @SessionAttribute("memberInfo") MemberVO vo, Model model) throws Exception {
+   public String pwCheckPost(HttpServletRequest request, String pw, @SessionAttribute("memberInfo") MemberVO vo, Model model) throws Exception {
 	      if(encoder.matches(pw,vo.getPw())) {
+	    	  HttpSession session = request.getSession();
+	    	  session.setAttribute("pw",pw);
 	    	  return "member/update";
 	      }else {
 	         model.addAttribute("msg","비밀번호가 일치하지 않습니다");

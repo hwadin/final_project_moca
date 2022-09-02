@@ -36,7 +36,7 @@
 <!--    한 행은 12칸으로 나뉘며 col-숫자에서 숫자로 몇 칸을 차지할 지 결정(반드시 합이 12가 되어야 함) -->
  <div class="col=12">
       <article>
-         <form id="signUpForm" action="pwCheckPost" method="POST">
+         <form id="pwCheckForm" action="pwCheckPost" method="POST">
             <table class="table-primary">
                <tr>
                   <td>비밀번호</td>
