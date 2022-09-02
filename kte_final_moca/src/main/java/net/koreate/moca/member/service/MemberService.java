@@ -27,5 +27,4 @@ public interface MemberService {
 
 	List<MemberVO> findByKeyword(String keyword);
 
-
 }

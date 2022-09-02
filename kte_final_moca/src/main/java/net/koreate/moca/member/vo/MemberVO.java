@@ -1,12 +1,12 @@
 package net.koreate.moca.member.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode()
 public class MemberVO {
 
 	private int no;
@@ -23,6 +23,11 @@ public class MemberVO {
 	private Date updatedate;
 	private boolean IsOwner;
 	private boolean IsDelete;
+	// 권한 0 == 일반회원 1 == 관리자
+	private boolean Role;
+	
+	// 권한
+	private List<String>  authList;
 }
 
 
