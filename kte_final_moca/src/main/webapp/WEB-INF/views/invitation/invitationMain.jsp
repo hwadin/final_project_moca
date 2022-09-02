@@ -227,6 +227,7 @@
 						success : function(result){
 							$("#modalCloseBtn").trigger("click");
 							getInvitationList();
+							getSearchBarInvitationList()
 						}
 					});
 				} else {

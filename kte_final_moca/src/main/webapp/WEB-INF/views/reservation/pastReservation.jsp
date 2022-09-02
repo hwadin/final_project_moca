@@ -73,7 +73,21 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	        <input type="hidden" value="" />
+	      	<form id="reviewWriteForm">
+		        <input type="hidden" value="" />
+		        <input type="hidden" value="" />
+		        <textarea class="form-control" cols=30 rows=5 style="resize:none"></textarea>
+		        <div class="mt-3 d-flex justify-content-between">
+			        <span>별점 선택</span>
+			        <fieldset>
+				        <input type="radio" name="rating" value="5" id="rate1" checked><label for="rate1"><i class="bi bi-star-fill"></i></label>
+				        <input type="radio" name="rating" value="4" id="rate2"><label for="rate2"><i class="bi bi-star-fill"></i></label>
+				        <input type="radio" name="rating" value="3" id="rate3"><label for="rate3"><i class="bi bi-star-fill"></i></label>
+				        <input type="radio" name="rating" value="2" id="rate4"><label for="rate4"><i class="bi bi-star-fill"></i></label>
+				        <input type="radio" name="rating" value="1" id="rate5"><label for="rate5"><i class="bi bi-star-fill"></i></label>
+				    </fieldset>
+			    </div>
+	        </form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -98,13 +112,72 @@ $("#reservListContainer").on("click", "tr", function(){
 	getDetailReservation(no, code);
 });
 
+// 리뷰 작성 완료 버튼 눌렀을 때
+$("#reviewSubmitBtn").on("click",function(){
+	let cafe_no = $("#reviewWriteForm").find("input[type='hidden']").eq(0).val();
+	let member_no = ${memberInfo.no};
+	let content = $("#reviewWriteForm").find("textarea").val();
+	let star = $("#reviewWriteForm").find("input[type='radio']:checked").val();
+	let code = $("#reviewWriteForm").find("input[type='hidden']").eq(1).val();
+	$.post("${path}/reservation/api/registReview", {cafe_no : cafe_no, member_no : member_no, content : content, star : star, invite_code : code}, function(data){
+		location.reload();
+	});
+});
+
+// 리뷰 보기 버튼 눌렀을 때
+$("#reservListContainer").on("click", "button.btn-outline-primary", function(){
+	console.log(this);
+	$("#myReview").remove();
+	let target = $(this).parent().parent();
+	let no = $(this).attr("data-review-no");
+	$.get("${path}/reservation/api/review/" + no, function(data){
+		let str = `
+			<tr id="myReview" class="mt-3 mb-4">
+				<td colspan="6">
+					<div class="d-flex justify-content-start align-items-center">
+					<img class="rounded-circle replyProfile" src="${path}/\${data.profile_url}" />
+					<span class="ms-2 lead">\${data.name} &gt;</span>
+					</div>
+					<div class="mt-2 text-secondary d-flex justify-content-between">
+						<span>\${data.content}</span>
+						<div>
+							\${starDrawer(data.star)}
+						</div>
+					</div>
+				</td>
+			</tr>
+		`;
+		target.after(str);
+	});
+});
+
+function starDrawer(starAvg){
+	
+	let str = "";
+	let cnt = 0;
+	
+	for(var i=1;i<=Math.floor(starAvg);i++){
+		str += `<i class="bi bi-star-fill" style="color: gold;"></i>`;
+		cnt++;
+	}
+	
+	for(i=1;i<=5-cnt;i++){
+		str += `<i class="bi bi-star" style="color: gold;"></i>`;
+	}
+	return str;
+}
+
+
 // 모달 창 hidden에 해당하는 카페 번호 등록해 줌
-var reviewModal = document.getElementById('reviewModal')
+var reviewModal = document.getElementById('reviewModal');
 reviewModal.addEventListener('show.bs.modal', function (event) {
   var button = event.relatedTarget;
   var recipient = button.getAttribute('data-bs-whatever');
-  var cafeNoInput = reviewModal.querySelector('.modal-body input[type="hidden"]');
-  cafeNoInput.value = recipient;
+  var inviteCode = button.getAttribute("data-code");
+  var cafeNoInput = $("#reviewModal").find("input[type='hidden']").eq(0);
+  var inviteCodeInput = $("#reviewModal").find("input[type='hidden']").eq(1);
+  cafeNoInput.val(recipient);
+  inviteCodeInput.val(inviteCode);
 });
 
 
@@ -150,13 +223,13 @@ function getReservationList(){
 				acceptStr = `
 					<td><span class="text-success">완료됨</span></td>
 				`;
-				if(data[i].review_no == 0){
+				if(data[i].review_no == null){
 					buttonStr = `
-						<button class="btn btn-sm btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#reviewModal" data-bs-whatever="\${data[i].cafe_no}">리뷰작성</button>
+						<button class="btn btn-sm btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#reviewModal" data-bs-whatever="\${data[i].cafe_no}" data-code="\${data[i].code}">리뷰작성</button>
 					`;
 				} else {
 					buttonStr = `
-						<button class="btn btn-sm btn-outline-primary" type="button">보기</button>
+						<button class="btn btn-sm btn-outline-primary" type="button" data-review-no="\${data[i].review_no}">보기</button>
 					`;
 				}
 			}

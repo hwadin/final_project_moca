@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import net.koreate.moca.cafe.vo.CafeReviewVO;
 import net.koreate.moca.reservation.dao.ReservationDAO;
 import net.koreate.moca.reservation.vo.CafeDTO;
 import net.koreate.moca.reservation.vo.ReservationDTO;
@@ -66,6 +67,17 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<ReservationDTO> pastReservList(int member_no) {
 		return dao.pastReservList(member_no);
+	}
+
+	@Override
+	public void registReview(CafeReviewVO vo) throws Exception {
+		dao.registReview(vo);
+		dao.updateReviewOrigin(vo);
+	}
+
+	@Override
+	public CafeReviewVO review(int no) throws Exception {
+		return dao.review(no);
 	}
 
 }
