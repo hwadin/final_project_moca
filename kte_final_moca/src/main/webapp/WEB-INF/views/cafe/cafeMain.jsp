@@ -119,6 +119,22 @@ function getCafeList(){
 		{index:index},
 		function(data){
 		for(var i=0; i<data.length; i++){
+			var saleStr ="";
+			if(new Date(data[i].start_date) <= new Date(today) && new Date(data[i].end_date) >= new Date(today)){
+				saleStr = `
+					<div>
+					<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral; ">
+						&#9200; \${data[i].start_date} 부터 \${data[i].end_date} 까지
+					</span>
+					</div>
+					<div>
+					<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral;  ">
+					\${data[i].start_time} ~ \${data[i].end_time} 사이 할인 진행중이예요 ! &#128149;
+					 </span>
+					</div>
+				`;	
+			}
+			
 			var str =
 				`<div class="col-6 mt-3">
 			<a href="${path}/cafe/cafeDetail/\${data[i].no}"
@@ -127,16 +143,7 @@ function getCafeList(){
 			<strong class="title" style="font-size: 2rem; color: cadetblue;">
 			\${data[i].name}
 			</strong>
-			<div>
-			<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral; ">
-				&#9200; \${data[i].start_date} 부터 \${data[i].end_date} 까지
-			</span>
-			</div>
-			<div>
-			<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral;  ">
-			\${data[i].start_time} ~ \${data[i].end_time} 사이 할인 진행중이예요 ! &#128149;
-			 </span>
-			</div>
+			\${saleStr}
 			</a>
 			<div class="conUtil mt-2">
 				<span class="likeNum" title="좋아요 갯수">
@@ -221,13 +228,16 @@ let end_date = "${cafeScheduleVO.end_date}";
 let start_time = "${cafeScheduleVO.start_time}"
 let end_time = "${cafeScheduleVO.end_time}"
 
+let todayStr = new Date();
+let year = todayStr.getFullYear();
+let month = todayStr.getMonth() > 9 ? todayStr.getMonth()+1 : "0" + (todayStr.getMonth()+1);
+let day = todayStr.getDate() > 9 ? todayStr.getDate() : "0" + todayStr.getDate();
+
+let today = year + "/" + month + "/" + day;
+
+
 function getCafeSearchList(){	
 
- 	/* console.log("insertlocation :" +insertlocation);
-	console.log("input_start :" +input_start);
-	console.log("input_end :" +input_end);
-	console.log("start_time :" +input_time); 
-	  */
 	// location 검색
 	if(insertlocation !="" && input_start == ""){
 	  	 $.get("${path}/cafe/api/searchListbyLo",
@@ -237,6 +247,22 @@ function getCafeSearchList(){
 				for(var i=0; i<data.length; i++){
 				// location 검색	
 					if(insertlocation == data[i].addr_detail){
+						var saleStr ="";
+						if(new Date(data[i].start_date) <= new Date(today) && new Date(data[i].end_date) >= new Date(today)){
+							saleStr = `
+								<div>
+								<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral; ">
+									&#9200; \${data[i].start_date} 부터 \${data[i].end_date} 까지
+								</span>
+								</div>
+								<div>
+								<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral;  ">
+								\${data[i].start_time} ~ \${data[i].end_time} 사이 할인 진행중이예요 ! &#128149;
+								 </span>
+								</div>
+							`;	
+						}
+						
 						var status = 
 								`<div class="col-6 mt-3">
 							<a href="${path}/cafe/cafeDetail/\${data[i].no}" style="text-decoration:none">
@@ -244,16 +270,7 @@ function getCafeSearchList(){
 							<strong class="title" style="font-size: 2rem; color: cadetblue;">
 							\${data[i].name}
 							</strong>
-							<div>
-							<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral; ">
-								&#9200; \${data[i].start_date} 부터 \${data[i].end_date} 까지
-							</span>
-							</div>
-							<div>
-							<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral;  ">
-							\${data[i].start_time} ~ \${data[i].end_time} 사이 할인 진행중이예요 ! &#128149;
-							 </span>
-							</div>
+							\${saleStr}
 							</a>
 							<div class="conUtil mt-2">
 								<span class="likeNum" title="좋아요 갯수">
@@ -288,6 +305,21 @@ function getCafeSearchList(){
 				function(data){
 				for(var i=0; i<data.length; i++){
 					console.log(data);
+					var saleStr ="";
+					if(new Date(data[i].start_date) <= new Date(today) && new Date(data[i].end_date) >= new Date(today)){
+						saleStr = `
+							<div>
+							<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral; ">
+								&#9200; \${data[i].start_date} 부터 \${data[i].end_date} 까지
+							</span>
+							</div>
+							<div>
+							<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral;  ">
+							\${data[i].start_time} ~ \${data[i].end_time} 사이 할인 진행중이예요 ! &#128149;
+							 </span>
+							</div>
+						`;	
+					}
 				var sttr =
 						`<div class="col-6 mt-3">
 					<a href="${path}/cafe/cafeDetail/\${data[i].no}" style="text-decoration:none">
@@ -295,16 +327,7 @@ function getCafeSearchList(){
 					<strong class="title" style="font-size: 2rem; color: cadetblue;">
 					\${data[i].name}
 					</strong>
-					<div>
-					<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral; ">
-						&#9200; \${data[i].start_date} 부터 \${data[i].end_date} 까지
-					</span>
-					</div>
-					<div>
-					<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral;  ">
-					\${data[i].start_time} ~ \${data[i].end_time} 사이 할인 진행중이예요 ! &#128149;
-					 </span>
-					</div>
+						\${saleStr}
 					</a>
 					<div class="conUtil mt-2">
 						<span class="likeNum" title="좋아요 갯수">
@@ -382,29 +405,7 @@ function getCafeSearchList(){
 			 }
 		 );
 	}
-}//getCafeSearchList() 끝
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
  </script>

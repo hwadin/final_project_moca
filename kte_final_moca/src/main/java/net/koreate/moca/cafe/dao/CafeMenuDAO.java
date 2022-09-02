@@ -17,11 +17,6 @@ public interface CafeMenuDAO {
 	@Select("SELECT * FROM tbl_cafe_menu WHERE cafe_no = #{cafe_no}")
 	List<CafeMenuVO> menuList(int cafe_no) throws Exception;
 	
-	/*
-	 * @Select("SELECT * FROM tbl_cafe_menu WHERE no = #{no}") CafeMenuVO read(int
-	 * cafe_no) throws Exception;
-	 */
-	
 	@Update("UPDATE tbl_cafe_menu SET name=#{name}, price=#{price}, discount=#{discount}, photo_url=#{photo_url}")
 	int update(CafeMenuVO vo) throws Exception; 
 
