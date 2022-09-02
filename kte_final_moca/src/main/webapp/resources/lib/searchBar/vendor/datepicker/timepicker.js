@@ -626,7 +626,7 @@
         };
 
         $.TimePicker.defaults =  {
-            timeFormat: 'hh:mm p',
+            timeFormat: 'HH:mm p',
             minHour: null,
             minMinutes: null,
             minTime: null,

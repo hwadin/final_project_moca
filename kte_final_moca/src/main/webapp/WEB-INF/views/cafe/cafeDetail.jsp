@@ -94,11 +94,21 @@
 						<span>
 						<strong class="titDep5" style="font-size: 2rem; color: cadetblue;">${cafeVO.name}</strong>
 						<div class="conUtil mt-3">
+					<div>
+					<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral; ">
+						&#9200; ${cafeVO.start_date} 부터 ${cafeVO.end_date} 까지
+					</span>
+					</div>
+					<div>
+					<span class="dcschedule " style="font-size: 1.1rem; color: lightcoral;  ">
+					${cafeVO.start_time} ~ ${cafeVO.end_time} 사이 할인 진행중이예요 ! &#128149;
+					 </span>
+					</div>
 							<span class="icoScore" title="평균 평점">
 								<i class="bi bi-star-fill" style="font-size: 1rem; color: gold;"></i>4.8
 								<i title="리뷰 갯수">(367)</i>
 							</span>
-							<span title="위치 정보">${cafeVO.addr_detail}</span>
+							<span title="위치 정보"> ${cafeVO.addr_detail}</span>
 						</div>
 						<p class="txt">${cafeVO.content}</p>
 						<p class="tagWrap">${cafeVO.tag}</p>

@@ -18,5 +18,8 @@ public class CafeVO {
 	private String photo_url;	// 카페 사진 링크
 	private String tag;			// 카페 태그
 	private String flag;		// 카페 강조문구
-	
+	private String start_date;
+	private String end_date;
+	private String start_time;
+	private String end_time;
 }

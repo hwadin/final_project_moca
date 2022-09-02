@@ -15,9 +15,6 @@ public interface CafeService {
 
 	// 카페 리스트 읽어오기(인덱스 번호로 조회)
 	List<CafeVO> cafeList(int index) throws Exception;
-
-	// 검색한 카페 리스트 읽어오기
-	List<CafeVO> cafesearchList(CafeSearchVO vo); 
 	
 	// 카페 정보 수정
 	void update(CafeVO vo) throws Exception;
@@ -30,6 +27,7 @@ public interface CafeService {
 
 	List<CafeVO> findByKeyword(String keyword);
 
+	
 
 	
 
