@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import net.koreate.moca.cafe.vo.CafeReviewVO;
+import net.koreate.moca.manage.vo.ManageReservationDTO;
 import net.koreate.moca.reservation.vo.CafeDTO;
 import net.koreate.moca.reservation.vo.ReservationDTO;
 import net.koreate.moca.reservation.vo.ReservationMenuVO;
@@ -30,16 +31,16 @@ public interface ReservationDAO {
 	@Update("UPDATE tbl_invite SET isReserve = 1 WHERE code = #{invite_code}")
 	void updateInvitation(ReservationVO reservation);
 
-	@Select("SELECT DISTINCT r.no, i.code, i.title, c.name cafe_name, r.time, r.isAccepted, r.isDutch, c.addr, c.addr_detail, m.name member_name, r.totalPrice, c.no cafe_no "
+	@Select("SELECT DISTINCT r.no, i.code, i.title, c.name cafe_name, r.time, r.isAccepted, r.isRejected, r.isDutch, c.addr, c.addr_detail, m.name member_name, r.totalPrice, c.no cafe_no "
 			+ "FROM tbl_invite i LEFT JOIN tbl_invite_participant p ON i.code = p.code INNER JOIN tbl_reservation r "
 			+ "	ON i.code = r.invite_code INNER JOIN tbl_cafe c ON r.cafe_no = c.no INNER JOIN tbl_member m ON i.member_no = m.no "
-			+ "WHERE (i.member_no = #{member_no} OR p.participant_no = #{member_no}) AND i.isReserve = true AND i.isExpired = false AND r.time > now()")
+			+ "WHERE (i.member_no = #{member_no} OR p.participant_no = #{member_no}) AND (i.isReserve = true OR r.isRejected = true)AND i.isExpired = false AND r.time > now()")
 	List<ReservationDTO> reservList(int member_no);
 
-	@Select("SELECT DISTINCT r.no, i.code, i.title, c.name cafe_name, r.time, r.isAccepted, r.isExpired, r.isDutch, c.addr, c.addr_detail, m.name member_name, r.totalPrice, cr.no AS review_no, c.no cafe_no  "
+	@Select("SELECT DISTINCT r.no, i.code, i.title, c.name cafe_name, r.time, r.isAccepted, r.isExpired, r.isRejected, r.isDutch, c.addr, c.addr_detail, m.name member_name, r.totalPrice, cr.no AS review_no, c.no cafe_no  "
 			+ "FROM tbl_invite i LEFT JOIN tbl_invite_participant p ON i.code = p.code INNER JOIN tbl_reservation r "
 			+ "	ON i.code = r.invite_code INNER JOIN tbl_cafe c ON r.cafe_no = c.no INNER JOIN tbl_member m ON i.member_no = m.no LEFT JOIN tbl_cafe_review cr ON c.no = cr.cafe_no AND cr.member_no=#{member_no} AND r.invite_code = cr.invite_code"
-			+ " WHERE (i.member_no = #{member_no} OR p.participant_no = #{member_no}) AND i.isReserve = true  AND r.time < now()")
+			+ " WHERE (i.member_no = #{member_no} OR p.participant_no = #{member_no}) AND (i.isReserve = true OR r.isRejected = true) AND r.time < now()")
 	List<ReservationDTO> pastReservList(int member_no);
 
 	@Select("SELECT name FROM tbl_invite_participant p INNER JOIN tbl_member m ON p.participant_no = m.no WHERE code=#{code} AND p.isAccepted = 1")
@@ -63,5 +64,30 @@ public interface ReservationDAO {
 
 	@Select("SELECT m.name, m.profile_url, r.* FROM tbl_member m INNER JOIN tbl_cafe_review r ON r.member_no = m.no WHERE r.no=#{no}")
 	CafeReviewVO review(int no) throws Exception;
+
+	@Select("SELECT m.name member_name, c.name cafe_name, c.addr, c.addr_detail, i.title, r.*, count(p.participant_no) participant_count FROM tbl_reservation r JOIN tbl_invite i ON r.invite_code = i.code JOIN tbl_member m ON i.member_no = m.no LEFT JOIN tbl_invite_participant p ON i.code = p.code and p.isAccepted =1 JOIN tbl_cafe c ON r.cafe_no = c.no WHERE cafe_no = (SELECT no FROM tbl_cafe WHERE owner_no=#{no}) GROUP BY r.no")
+	List<ManageReservationDTO> manageReservList(int no);
+
+	@Update("UPDATE tbl_reservation SET isAccepted = 1 WHERE no = #{no}")
+	void acceptReserv(int no);
+
+	@Update("UPDATE tbl_reservation SET isExpired = 1 WHERE no = #{no}")
+	void expireReserv(int no);
+
+	@Select("SELECT * FROM tbl_reservation WHERE no = #{no}")
+	ReservationVO getReservByNo(int no);
+
+	@Update("UPDATE tbl_invite SET isExpired = 1 WHERE code=#{invite_code}")
+	void expireInvite(ReservationVO vo);
+
+	@Update("UPDATE tbl_reservation SET isRejected = 1 WHERE no = #{no}")
+	void rejectReserv(int no);
+
+	@Update("UPDATE tbl_invite SET isReserve = 0 WHERE code=#{invite_code}")
+	void rejectInvite(ReservationVO vo);
+
+	// 예약 신청 시 해당 코드의 미수락 상태 초대 멤버들 제거
+	@Delete("DELETE FROM tbl_invite_participant WHERE code = #{invite_code} AND isAccepted is null")
+	void refreshParticipant(ReservationVO reservation);
 
 }

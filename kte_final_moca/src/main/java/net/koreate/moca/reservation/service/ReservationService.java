@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.koreate.moca.cafe.vo.CafeReviewVO;
+import net.koreate.moca.manage.vo.ManageReservationDTO;
 import net.koreate.moca.reservation.vo.CafeDTO;
 import net.koreate.moca.reservation.vo.ReservationDTO;
 import net.koreate.moca.reservation.vo.ReservationVO;
@@ -26,5 +27,13 @@ public interface ReservationService {
 	void registReview(CafeReviewVO vo) throws Exception;
 
 	CafeReviewVO review(int no) throws Exception;
+
+	List<ManageReservationDTO> manageReservList(int no) throws Exception;
+
+	void acceptReserv(int no) throws Exception;
+
+	void expireReserv(int no) throws Exception;
+
+	void rejectReserv(int no) throws Exception;
 
 }
