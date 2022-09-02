@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import net.koreate.moca.cafe.vo.CafeReviewVO;
 import net.koreate.moca.reservation.vo.CafeDTO;
 import net.koreate.moca.reservation.vo.ReservationDTO;
 import net.koreate.moca.reservation.vo.ReservationMenuVO;
@@ -35,9 +36,9 @@ public interface ReservationDAO {
 			+ "WHERE (i.member_no = #{member_no} OR p.participant_no = #{member_no}) AND i.isReserve = true AND i.isExpired = false AND r.time > now()")
 	List<ReservationDTO> reservList(int member_no);
 
-	@Select("SELECT DISTINCT r.no, i.code, i.title, c.name cafe_name, r.time, r.isAccepted, r.isExpired, r.isDutch, c.addr, c.addr_detail, m.name member_name, r.totalPrice, c.no cafe_no, cr.no review_no "
+	@Select("SELECT DISTINCT r.no, i.code, i.title, c.name cafe_name, r.time, r.isAccepted, r.isExpired, r.isDutch, c.addr, c.addr_detail, m.name member_name, r.totalPrice, cr.no AS review_no, c.no cafe_no  "
 			+ "FROM tbl_invite i LEFT JOIN tbl_invite_participant p ON i.code = p.code INNER JOIN tbl_reservation r "
-			+ "	ON i.code = r.invite_code INNER JOIN tbl_cafe c ON r.cafe_no = c.no INNER JOIN tbl_member m ON i.member_no = m.no LEFT JOIN tbl_cafe_review cr ON c.no = cr.cafe_no AND m.no = cr.member_no"
+			+ "	ON i.code = r.invite_code INNER JOIN tbl_cafe c ON r.cafe_no = c.no INNER JOIN tbl_member m ON i.member_no = m.no LEFT JOIN tbl_cafe_review cr ON c.no = cr.cafe_no AND cr.member_no=#{member_no} AND r.invite_code = cr.invite_code"
 			+ " WHERE (i.member_no = #{member_no} OR p.participant_no = #{member_no}) AND i.isReserve = true  AND r.time < now()")
 	List<ReservationDTO> pastReservList(int member_no);
 
@@ -52,5 +53,15 @@ public interface ReservationDAO {
 
 	@Update("UPDATE tbl_invite SET isReserve = 0 WHERE code = #{code}")
 	void updateInvitationBack(String code) throws Exception;
+
+	@Insert("INSERT INTO tbl_cafe_review(cafe_no, member_no, content, star, invite_code) VALUES(#{cafe_no}, #{member_no}, #{content}, #{star}, #{invite_code})")
+	@Options(useGeneratedKeys = true, keyProperty = "no")
+	void registReview(CafeReviewVO vo) throws Exception;
+
+	@Update("UPDATE tbl_cafe_review SET origin = #{no} WHERE no=#{no}")
+	void updateReviewOrigin(CafeReviewVO vo);
+
+	@Select("SELECT m.name, m.profile_url, r.* FROM tbl_member m INNER JOIN tbl_cafe_review r ON r.member_no = m.no WHERE r.no=#{no}")
+	CafeReviewVO review(int no) throws Exception;
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import net.koreate.moca.cafe.vo.CafeReviewVO;
 import net.koreate.moca.reservation.service.ReservationService;
 import net.koreate.moca.reservation.vo.CafeDTO;
 import net.koreate.moca.reservation.vo.ReservationDTO;
@@ -112,6 +113,35 @@ public class ReservationRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>("FAILED", HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	@PostMapping("registReview")
+	public ResponseEntity<String> registReview(CafeReviewVO vo) {
+		ResponseEntity<String> entity = null;
+
+		try {
+			rs.registReview(vo);
+			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>("FAILED", HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
+	}
+
+	@GetMapping("review/{no}")
+	public ResponseEntity<CafeReviewVO> review(@PathVariable int no) {
+		ResponseEntity<CafeReviewVO> entity = null;
+
+		try {
+			entity = new ResponseEntity<>(rs.review(no), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return entity;

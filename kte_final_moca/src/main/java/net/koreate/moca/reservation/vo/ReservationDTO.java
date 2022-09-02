@@ -20,6 +20,6 @@ public class ReservationDTO {
 	private String member_name;
 	private int totalPrice;
 	private int cafe_no;
-	private int review_no;
+	private Integer review_no;
 
 }

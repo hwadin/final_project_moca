@@ -64,19 +64,23 @@ $("#sideTopBtn").click(function(e){
 
 <c:if test="${!empty sessionScope.memberInfo }">
 let select = $("#inviteSelectList").clone();
+getSearchBarInvitationList();
+function getSearchBarInvitationList(){
+	
 
-$.get("${pageContext.request.contextPath}/invitation/api/listByMember/${memberInfo.no}", function(data){
-	select.find("select").empty();
-	select.find("select").append(`<option selected>모임 선택하기</option>`);
-	for(let i=0; i<data.length; i++){
-		if(data[i].member_no == ${memberInfo.no}){
-			let selectStr = `
-				<option value="\${data[i].no}">\${data[i].title}</option>
-			`;		
-			select.find("select").append(selectStr);
+	$.get("${pageContext.request.contextPath}/invitation/api/listByMember/${memberInfo.no}", function(data){
+		select.find("select").empty();
+		select.find("select").append(`<option selected>모임 선택하기</option>`);
+		for(let i=0; i<data.length; i++){
+			if(data[i].member_no == ${memberInfo.no}){
+				let selectStr = `
+					<option value="\${data[i].no}">\${data[i].title}</option>
+				`;		
+				select.find("select").append(selectStr);
+			}
 		}
-	}
-})
+	});
+}
 
 $("#headerSearchResult").on("click", ".headerSearchUserResult div:first-child", function(){
 	if(select.is(":visible")){
