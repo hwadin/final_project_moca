@@ -37,11 +37,16 @@
 // 	       	    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
 // 	       	    alert('Current view: ' + info.view.type);
 	       	    // change the day's background color just for fun
+// 	       	    alert('Clicked on: ' + info.dateStr);
+// 	       	    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+// 	       	    alert('Current view: ' + info.view.type);
+	       	    // change the day's background color just for fun
 	       	    $("#myPop #sDeleteBtn").addClass("d-none-custom");
 	       	    $("#myPop").attr("data-method", "POST");
 	       	 	$("#myPop #popTitle").text("새 일정");
 	       	 	$("#myPop #title").val("");
-	       	 	$("#myPop #detail").val("");
+	       	 	$("#myPop #detail").val("");// 	       	    info.dayEl.style.backgroundColor = 'red';
+
 	       	    $("#myPop #start_date").val(info.dateStr).attr("readonly", "readonly");
 	       	 	$("#myPop #end_date").val(info.dateStr);
 	       	 	$("#myPop #allDay").removeAttr("checked");
