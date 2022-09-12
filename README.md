@@ -1,4 +1,4 @@
-#  final_project_moca
+✨ #  final_project_moca
 
 <br/>
 
@@ -14,7 +14,7 @@ Spring MVC 패턴 및 AJAX(비동기) 통신을 주로 하여<br/> 웹 환경에
 <br/>
 
 
-# 주요 기능
+✨ # 주요 기능
 
 <br/>
 
@@ -38,7 +38,7 @@ Spring MVC 패턴 및 AJAX(비동기) 통신을 주로 하여<br/> 웹 환경에
 - 카페 게시판 관리
 
 
-## 개발 환경 및 라이브러리 
+✨ ## 개발 환경 및 라이브러리 
 
 - **통합 개발 환경(IDE)**
 	> STS 3 버전 (Spring Legacy Project)
