@@ -197,7 +197,7 @@ public class CafeProvider {
                 LIKE CONCAT('%',#{addr_detail},'%')");
         }
 
-		// 검색시 날짜로 입력했을 경우
+	// 검색시 날짜로 입력했을 경우
         // 위의 주소가 있더라도 return 하지 않고
         // 날짜 검색 조건까지 적용할 수 있도록 구성
         // 시작 날짜만을 검증하고 조건문을 추가해줌.
@@ -302,31 +302,32 @@ var page =1;
 // 마우스 스크롤 시 실행되는 jQuery 함수
 $(window).scroll(function(){
 
-// window 객체 사용해서 값 구함
-let scrollTop = $(window).scrollTop();
-let windowHeight = $(window).height();
-let documentHeight = $(document).height();
+    // window 객체 사용해서 값 구함
+    let $window = $(this);
+    let scrollTop = $(window).scrollTop();
+    let windowHeight = $(window).height();
+    let documentHeight = $(document).height();
 
-// 화면의 높이 + 스크롤 윗부분의 높이가
-// 문서 전체의 높이보다 크거나 같으면 데이터를 불러옴
-if(scrollTop + windowHeight+1 >= documentHeight){
+    // 화면의 높이 + 스크롤 top이 위치하고 있는 높이가
+    // 문서 전체의 높이보다 크거나 같으면 데이터를 업로드함
+    if(scrollTop + windowHeight+1 >= documentHeight){
 
-    // 인덱스 값 4개씩 증가시킴
-    index +=4;
+        // 인덱스 값 4개씩 증가시킴
+        index +=4;
     
-    // 검색 조건 버튼을 눌렀을 경우 카페리스트를 다르게 출력하기 위해
-    // 버튼 속성을 가져옴
-    let btnid = $("#submit").attr("data-id");
+        // 검색 조건 버튼을 눌렀을 경우 카페리스트를 다르게 출력하기 위해
+        // 버튼 속성을 가져옴
+        let btnid = $("#submit").attr("data-id");
 
-    // 검색 버튼 눌렀을 경우
-    if(btnid=="true"){
+        // 검색 버튼 눌렀을 경우
+         if(btnid=="true"){
         // 검색조건에 따른 카페 리스트만 출력
-        getCafeSearchList();
+            getCafeSearchList();
 
-    // 검색 버튼 누르지 않은 경우      
-    } else {
+        // 검색 버튼 누르지 않은 경우      
+         } else {
         // 카페 전체 리스트 출력
-        getCafeList();
+            getCafeList();
             }
         }
     }) 
