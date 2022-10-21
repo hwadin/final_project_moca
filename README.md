@@ -303,13 +303,12 @@ $(function(){
     $(window).scroll(function(){
 
     // window 객체 사용해서 값 구함
-    let $window = $(this);
     let scrollTop = $(window).scrollTop();
     let windowHeight = $(window).height();
     let documentHeight = $(document).height();
 
-    // 화면의 높이 + 스크롤 top이 위치하고 있는 높이가
-    // 문서 전체의 높이보다 크거나 같으면 데이터를 업로드함
+    // 화면의 높이 + 스크롤 윗부분이 위치하고 있는 높이가
+    // 문서 전체의 높이보다 크거나 같으면 데이터를 불러옴
     if(scrollTop + windowHeight+1 >= documentHeight){
 
         // 인덱스 값 4개씩 증가시킴
