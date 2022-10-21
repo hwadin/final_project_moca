@@ -308,7 +308,7 @@ let windowHeight = $(window).height();
 let documentHeight = $(document).height();
 
 // 화면의 높이 + 스크롤 윗부분의 높이가
-// 문서 전체의 높이보다 크거나 같으면 데이터를 업로드함
+// 문서 전체의 높이보다 크거나 같으면 데이터를 불러옴
 if(scrollTop + windowHeight+1 >= documentHeight){
 
     // 인덱스 값 4개씩 증가시킴
