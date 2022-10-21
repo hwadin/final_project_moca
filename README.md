@@ -296,11 +296,11 @@ $.ajax({
 
 $(function(){
 
-// 불러올 페이지
-var page =1;
+    // 불러올 페이지
+    var page =1;
 
-// 마우스 스크롤 시 실행되는 jQuery 함수
-$(window).scroll(function(){
+    // 마우스 스크롤 시 실행되는 jQuery 함수
+    $(window).scroll(function(){
 
     // window 객체 사용해서 값 구함
     let $window = $(this);
@@ -333,5 +333,3 @@ $(window).scroll(function(){
     }) 
 });		
 ```
-
-
